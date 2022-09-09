@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>设计器嵌入</title>
+	<link rel="stylesheet" href="../../../styles/solutions/index.css">
+</head>
+
+<body>
+	<div class="solution-header">
+		<div class="solution-header-left">
+			<div class="solution-title"><img class="header-icon"
+				src="../../../images/sidebar/iframe.svg" />iframe集成-设计器</div>
+			<div class="solution-description">用户可以在其 Web 应用程序的 iFrame 中指定仪表板设计器对应的URL来实现嵌入仪表板设计器，用户可以在门户中直接设计并预览仪表板，嵌入结果如下。
+			</div>
+		</div>
+		<div class="solution-header-right"><a href="https://help.grapecity.com.cn/pages/viewpage.action?pageId=71039449" target="_blank">帮助文档</a></div>
+	</div>
+	<div class="solution-content">
+		<iframe id="solution-designer-iframe" class="solution-iframe" src="http://wynwx.grapecity.com.cn/wyn/dashboards/edit/0bead052-d56a-4fac-897b-a2984c0208e3?theme=playground&lng=zh&token=97A4D8D68499E6B1AEBFCFEF503D10B62DB23FEE10183E20B8EFF009ED0404BA"></iframe>
+	</div>
+
+	<div class="solution-code-panel">
+		<div class="solution-code-panel-header">
+			<input id="expand-code" type="button" class="solution-code-button" value="展开代码" onclick="expandCode()" />
+		</div>
+	</div>
+
+	<div id="code-dialog-div" class="solution-code-mask hide-code-dialog">
+		<div class="solution-code-dialog">
+			<div class="solution-code-dialog-header">
+				设计器嵌入
+				<div class="solution-code-dialog-close-button" onclick="closeDialog()"><img src="../../../images/关闭.svg" /></div>
+			</div>
+			<textarea id="dialog-code">
+<iframe src="{basic_src}/dashboards/edit/{dashboardId}?token={token}"></iframe>
+			</textarea>
+			<div class="code-dialog-footer">
+				<input id="copy-code" type="button" class="code-button" value="复制代码" onclick="copyCode()" />
+			</div>
+		</div>
+	</div>
+	<script src="../../../js/codeMirror.js"></script>
+	<script src="../../../js/utils.js"></script>
+
+	<link href="../../../styles/codemirror/codemirror.css" rel="stylesheet" type="text/css">
+	<link href="../../../styles/codemirror/monokai.css" rel="stylesheet" type="text/css">
+	<link href="../../../styles/codemirror/fullscreen.css" rel="stylesheet" type="text/css">
+
+	<!-- 引入CodeMirror核心文件 -->
+	<script type="text/javascript" src="../../../js/codemirror/codemirror.js"></script>
+
+	<!-- CodeMirror支持不同语言，根据需要引入JS文件 -->
+	<!-- 因为HTML混合语言依赖Javascript、XML、CSS语言支持，所以都要引入 -->
+	<script type="text/javascript" src="../../../js/codemirror/javascript.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/xml.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/css.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/htmlmixed.js"></script>
+
+	<!-- 下面分别为显示行数、括号匹配和全屏插件 -->
+	<script type="text/javascript" src="../../../js/codemirror/active-line.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/fullscreen.js"></script>
+	<script>
+
+		editor = undefined;
+	</script>
+</body>
+
+</html>

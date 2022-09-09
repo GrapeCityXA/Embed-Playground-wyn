@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图表嵌入</title>
+	<link rel="stylesheet" href="../../styles/scenes/index.css">
+	<link rel="stylesheet" href="../../styles/scenes/chart.css">
+</head>
+
+<body>
+	<div class="scene-header">
+		<div class="scene-header-left">
+			<img class="scene-header-icon" src="../../images/home-white.svg" />
+			<span>我的门户</span>
+		</div>
+		<div class="scene-header-right">
+			<img class="scene-header-icon" src="../../images/通知.svg" />
+			<img class="scene-header-icon" src="../../images/日历.svg" />
+			<img class="scene-header-icon" src="../../images/帮助.svg" />
+			<div class="scene-header-split"></div>
+			<img class="scene-header-icon" src="../../images/用户24.svg" />
+			我的账户
+		</div>
+	</div>
+	<div class="scene-content">
+		<div class="scene-chart-row">
+			<div class="scene-chart virtual-chart1">
+				<div class="scene-chart-header">
+					<img src="../../images/chart/流程中心16.svg" />
+					流程中心
+				</div>
+				<div class="scene-chart-content">
+					<div class="chart-tab">
+						<div class="chart-tab-item selected">待办</div>
+						<div class="chart-tab-item">已办</div>
+					</div>
+					<div class="chart">
+						<div class="chart-row">滨江地块改造物资设备采购合同</div>
+						<div class="chart-row">集团内部签报-XXX-2022-06-21</div>
+						<div class="chart-row">滨江地块投资改造项目资产入库申请</div>
+						<div class="chart-row">信息中心改造工程设备入库申请</div>
+						<div class="chart-row">世博大厦小修项目设备入库申请</div>
+						<div class="chart-row">新办公大楼资产入库申请</div>
+						<div class="chart-row">会议通知：资本运作融资专题会议 时间:2020-07-01 10:00(GMT+08:00) 地点:108 (前台后面大会议室)</div>
+						<div class="chart-row">会议通知：资产板块信息化规划专题会议 时间:2020-07-15 09:00(GMT+08:00) 地点:317 (中庭后侧)</div>
+					</div>
+				</div>
+			</div>
+			<div class="scene-chart reality-chart-div reality-chart-div1">
+				<div id="reality-chart2-header" class="reality-chart-header">
+				</div>
+				<iframe id="reality-chart2" class="reality-chart"></iframe>
+			</div>
+		</div>
+		<div class="scene-chart-row">
+			<div class="scene-chart virtual-chart2">
+				<div class="scene-chart-header">
+					<img src="../../images/chart/新闻公告16.svg" />
+					新闻公告
+				</div>
+				<div class="scene-chart-content">
+					<div class="chart-row">XXXX召开2022年度股东周年大会</div>
+					<div class="chart-row">XXXX生活召开2022年度股东周年大会</div>
+					<div class="chart-row">福布斯发布2022全球企业2000强，XXXX位列第216位</div>
+					<div class="chart-row">XXXX召开2021年度总结表彰会</div>
+					<div class="chart-row">XXXX表彰2021年度优秀员工</div>
+					<div class="chart-row">XXXX发布2021年全年业绩 实现净利润324亿元</div>
+				</div>
+			</div>
+			<div class="scene-chart reality-chart-div reality-chart-div2">
+				<div id="reality-chart1-header" class="reality-chart-header">
+				</div>
+				<iframe id="reality-chart1" class="reality-chart"></iframe>
+			</div>
+			<div class="scene-chart virtual-chart3">
+				<div class="scene-chart-header">
+					<img src="../../images/chart/常用工具16.svg" />
+					常用工具
+				</div>
+				<div class="scene-chart-content">
+					<div class="icon-button">
+						<img src="../../images/chart/组织学习60.svg" />
+						<div class="text">组织学习</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../images/chart/日程管理60.svg" />
+						<div class="text">日程管理</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../images/chart/人力资源60.svg" />
+						<div class="text">人力资源</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../images/chart/财务系统60.svg" />
+						<div class="text">财务系统</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../images/chart/销售系统60.svg" />
+						<div class="text">销售系统</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../images/chart/内部流程60.svg" />
+						<div class="text">内部流程</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../js/utils.js"></script>
+	<script>
+		const chartList1 = document.getElementById("reality-chart1-header");
+		const iframe1 = document.getElementById("reality-chart1");
+		let chart1Selected = sceneCharts.left.length > 0 ? 0 : -1;
+		sceneCharts.left.forEach((chart, index) => {
+			const button = document.createElement("input");
+			button.type = "button";
+			button.className = `reality-chart1-header-button${chart1Selected === index ? " selected" : ""}`;
+			button.value = chart.name;
+			button.title = chart.name;
+			button.onclick = (e) => {
+				if (chart1Selected === index) return;
+				chart1Selected = index;
+				const elements = document.getElementsByClassName("reality-chart1-header-button");
+				for (let i = 0; i < elements.length; i++) {
+					if (index === i) {
+						elements[i].classList.add("selected");
+					} else {
+						elements[i].classList.remove("selected")
+					}
+				}
+				iframe1.src = chart.url;
+			}
+			chartList1.appendChild(button);
+		});
+		const chart1 = document.getElementById("reality-chart1");
+		if (chart1Selected > -1) {
+			chart1.src = sceneCharts.left[chart1Selected].url;
+		}
+
+		const chartList2 = document.getElementById("reality-chart2-header");
+		const iframe2 = document.getElementById("reality-chart2");
+		let chart2Selected = sceneCharts.right.length > 0 ? 0 : -1;
+		sceneCharts.right.forEach((chart, index) => {
+			const button = document.createElement("input");
+			button.type = "button";
+			button.className = `reality-chart2-header-button${chart2Selected === index ? " selected" : ""}`;
+			button.value = chart.name;
+			button.title = chart.name;
+			button.onclick = (e) => {
+				if (chart2Selected === index) return;
+				chart2Selected = index;
+				const elements = document.getElementsByClassName("reality-chart2-header-button");
+				for (let i = 0; i < elements.length; i++) {
+					if (index === i) {
+						elements[i].classList.add("selected");
+					} else {
+						elements[i].classList.remove("selected")
+					}
+				}
+				iframe2.src = chart.url;
+			}
+			chartList2.appendChild(button);
+		});
+		const chart2 = document.getElementById("reality-chart2");
+		if (chart2Selected > -1) {
+			chart2.src = sceneCharts.right[chart2Selected].url;
+		}
+
+	</script>
+</body>
+
+</html>

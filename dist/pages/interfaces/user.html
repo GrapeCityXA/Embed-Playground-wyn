@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>创建用户</title>
+	<link rel="stylesheet" href="../../styles/interfaces/index.css">
+	<link rel="stylesheet" href="../../styles/interfaces/document.css">
+</head>
+
+<body>
+	<div class="interface-header">
+		<div class="interface-header-left">
+			<div class="interface-title"><img class="header-icon" src="../../images/sidebar/api.svg" />创建用户</div>
+			<div class="interface-description">通过调用API，组织管理员可在当前组织下创建用户
+			</div>
+		</div>
+		<div class="interface-header-right"><a
+				href="https://help.grapecity.com.cn/pages/viewpage.action?pageId=71040310" target="_blank">帮助文档</a>
+		</div>
+	</div>
+
+	<div id="interface-content" class="interface-content">
+		<div class="interface-content-option">
+			<div class="form-group">
+				<label>用户名</label>
+				<input id="name" type="text" class="form-control">
+			</div>
+			<div class="form-group">
+				<label>密码</label>
+				<input id="password" type="text" class="form-control">
+			</div>
+			<div class="form-group">
+				<label>邮箱</label>
+				<input id="email" type="text" class="form-control">
+			</div>
+			<button type="button" id="rename-button" class="btn interface-content-button" onclick="addUser()">
+				创建用户
+			</button>
+		</div>
+		<div class="interface-content-split"></div>
+		<div id="users" class="interface-content-result"></div>
+	</div>
+	<div class="interface-code-panel">
+		<div class="interface-code-panel-header">
+			<input id="expand-code" type="button" class="interface-code-button" value="展开代码" onclick="expandCode()" />
+		</div>
+	</div>
+	<div id="code-dialog-div" class="interface-code-mask hide-code-dialog">
+		<div class="interface-code-dialog">
+			<div class="interface-code-dialog-header">
+				创建用户
+				<div class="interface-code-dialog-close-button" onclick="closeDialog()">x</div>
+			</div>
+			<textarea id="dialog-code">
+url: {baseUrl}/admin/api/accountmanagement/api/v1/users?token={token}
+method: POST
+headers: {
+	'Content-Type': 'application/json',
+	'Accept': 'application/json'
+}
+mode: 'cors'
+body: {
+	username: ${username},
+	email: ${email},
+	mobile: "",
+	firstName: "",
+	lastName: "",
+	fullName: "",
+	password: ${password},
+	confirmPassword: ${password},
+	roles: ${roles},
+	customizePropertyInfo: {},
+	tenantId: ${tenantId},
+	enabled: true,
+}
+			</textarea>
+			<div class="code-dialog-footer">
+				<input id="copy-code" type="button" class="code-button" value="复制代码" onclick="copyCode()" />
+			</div>
+		</div>
+	</div>
+	<script src="../../js/codeMirror.js"></script>
+	<script src="../../js/api-service.js"></script>
+	<script src="../../js/api.js"></script>
+
+	<link href="../../styles/codemirror/codemirror.css" rel="stylesheet" type="text/css">
+	<link href="../../styles/codemirror/monokai.css" rel="stylesheet" type="text/css">
+	<link href="../../styles/codemirror/fullscreen.css" rel="stylesheet" type="text/css">
+
+	<!-- 引入CodeMirror核心文件 -->
+	<script type="text/javascript" src="../../js/codemirror/codemirror.js"></script>
+
+	<!-- CodeMirror支持不同语言，根据需要引入JS文件 -->
+	<!-- 因为HTML混合语言依赖Javascript、XML、CSS语言支持，所以都要引入 -->
+	<script type="text/javascript" src="../../js/codemirror/javascript.js"></script>
+	<script type="text/javascript" src="../../js/codemirror/xml.js"></script>
+	<script type="text/javascript" src="../../js/codemirror/css.js"></script>
+	<script type="text/javascript" src="../../js/codemirror/htmlmixed.js"></script>
+
+	<!-- 下面分别为显示行数、括号匹配和全屏插件 -->
+	<script type="text/javascript" src="../../js/codemirror/active-line.js"></script>
+	<script type="text/javascript" src="../../js/codemirror/fullscreen.js"></script>
+
+	<script>
+
+
+		editor = undefined;
+		
+		const getAllUsers = async () => {
+			const res = await sendRequest(api.getAllUsers);
+			return res.models;
+		}
+
+		const setGrid = (users) => {
+			if (users && users.length > 0) {
+				users.sort((b, a) => Date.parse(a.creationTime) - Date.parse(b.creationTime));
+				const content = document.getElementById("users");
+				content.innerHTML = "";
+				const table = document.createElement("div");
+				table.className = "document-list";
+				const tableHeaderRow = document.createElement("div");
+				tableHeaderRow.className = "table-header-row table-row";
+				tableHeaderRow.innerHTML = `<div class="table-cell">用户名</div>
+						<div class="table-cell">邮箱</div>
+						<div class="table-cell">创建时间</div>`;
+				table.appendChild(tableHeaderRow);
+				users.forEach((user) => {
+					const tableBodyRow = document.createElement("div");
+					tableBodyRow.className = "table-body-row table-row";
+					tableBodyRow.innerHTML = `<div class="table-cell">${user.username}</div>
+						<div class="table-cell">${user.email}</div>
+						<div class="table-cell">${formatTime(user.creationTime)}</div>`;
+					table.appendChild(tableBodyRow);
+				});
+				content.appendChild(table);
+			}
+		}
+
+		const addUser = async () => {
+			const username = document.getElementById("name").value.trim();
+			const email = document.getElementById("email").value.trim();
+			const password = document.getElementById("password").value.trim();
+			const roles = ["嵌入式体验普通角色"];
+			const tenantId = "510bb310-55c1-4900-92b2-e5de4093e54f";
+
+			api.addUser.body = api.addUser.getBody(username, email, password, roles, tenantId);
+			const res = await sendRequest(api.addUser);
+
+			if (res.errors && res.errors[0]) {
+				document.getElementById("users").innerHTML = res.errors[0].message;
+			} else {
+				const users = await getAllUsers();
+				setGrid(users);
+			}
+		}
+
+	</script>
+</body>
+
+</html>

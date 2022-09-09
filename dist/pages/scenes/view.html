@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>切换展示视图</title>
+	<link rel="stylesheet" href="../../styles/scenes/index.css">
+	<link rel="stylesheet" href="../../styles/scenes/view.css">
+</head>
+
+<body>
+	<div class="scene-header">
+		<div class="scene-header-left">
+			<img class="scene-header-icon" src="../../images/home-white.svg" />
+			<span>我的门户</span>
+			<div id="dashboard" class="scene-header-dropdown">
+				<div class="scene-header-dropdown-title">
+					<span id="scene-header-dropdown-text" class="scene-header-dropdown-text">桌面端</span>
+					<img class="scene-header-dropdown-icon" src="../../images/下拉箭头.svg" />
+				</div>
+				<div id="scene-header-dropdown-option-panel" class="scene-header-dropdown-option-panel">
+					<div id="pc" class="scene-header-dropdown-option dashboard-option">桌面端</div>
+					<div id="mobile" class="scene-header-dropdown-option dashboard-option">移动端</div>
+				</div>
+			</div>
+		</div>
+		<div class="scene-header-right">
+			<img class="scene-header-icon" src="../../images/通知.svg" />
+			<img class="scene-header-icon" src="../../images/日历.svg" />
+			<img class="scene-header-icon" src="../../images/帮助.svg" />
+			<div class="scene-header-split"></div>
+			<img class="scene-header-icon" src="../../images/用户24.svg" />
+			我的账户
+		</div>
+	</div>
+	<div class="scene-content">
+		<div id="pc-view" class="view">
+		</div>
+		<div id="mobile-view" class="view hide">
+			<div id="view-content" class="view-content"></div>
+		</div>
+		<!-- <iframe id="scene-view-iframe" class="scene-view-iframe"></iframe> -->
+	</div>
+	<link rel="stylesheet" href="../../styles/dashboard/lite/dashboard.viewerLite.default.css">
+	<link rel="stylesheet" href="../../styles/dashboard/lite/dashboard.viewerLite.vendor.css">
+	<script src="../../js/dashboard/polyfills.js"></script>
+	<script src="../../js/dashboard/dashboard.libs.common.js"></script>
+	<script src="../../js/dashboard/dashboard.libs.sheet.js"></script>
+	<script src="../../js/dashboard/dashboard.libs.chart.js"></script>
+	<script src="../../js/dashboard/lite/dashboard.viewerLite.js"></script>
+	<script src="../../js/utils.js"></script>
+	<script>
+		let expand = false;
+		const changeDropdownStatus = () => {
+			if (expand) {
+				document.getElementById("scene-header-dropdown-option-panel").classList.remove("expand");
+			} else {
+				document.getElementById("scene-header-dropdown-option-panel").classList.add("expand");
+			}
+			expand = !expand;
+		}
+		document.getElementById("dashboard").addEventListener("click", changeDropdownStatus);
+
+		const pcViewContainer = document.querySelector('#pc-view');
+		const pcView = WynBi.createViewerLite(scenesDesigner);
+		pcView.initialize({
+			container: pcViewContainer,
+		}).then((uiDashboard) => {
+			const page = uiDashboard.pages[0]; // UIPage
+			const dom = document.createElement('div');
+			dom.className = 'page-dom';
+			pcViewContainer.appendChild(dom);
+			page.connect(dom);
+			page.refresh();
+		});
+
+		const mobileViewContainer = document.querySelector('#view-content');
+		const mobileView = WynBi.createViewerLite(scenesDesigner);
+		mobileView.initialize({
+			container: mobileViewContainer,
+			__injectData: {
+				isMobile: true
+			},
+		}).then((uiDashboard) => {
+			const page = uiDashboard.pages[0]; // UIPage
+			const dom = document.createElement('div');
+			dom.className = 'page-dom';
+			mobileViewContainer.appendChild(dom);
+			page.connect(dom);
+			page.refresh();
+		});
+
+		let selected = "pc";
+		const map = {
+			"mobile": "移动端",
+			"pc": "桌面端",
+		}
+		const changeView = (e) => {
+			const view = e.target.id;
+			if (selected === view) return;
+			document.getElementById("scene-header-dropdown-text").innerHTML = map[view];
+			if (selected == "pc") {
+				document.getElementById("pc-view").classList.add("hide");
+				document.getElementById("mobile-view").classList.remove("hide");
+			} else {
+				document.getElementById("mobile-view").classList.add("hide");
+				document.getElementById("pc-view").classList.remove("hide");
+			}
+			selected = view;
+		}
+
+		document.getElementById("pc").addEventListener("click", changeView);
+		document.getElementById("mobile").addEventListener("click", changeView);
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态报表</title>
+    <link rel="stylesheet" href="../../../styles/solutions/index.css">
+</head>
+
+<body>
+    <div class="solution-header">
+        <div class="solution-header-left">
+            <div class="solution-title"><img class="header-icon" src="../../../images/sidebar/div.svg" />DIV集成-动态报表
+            </div>
+            <div class="solution-description">用户可以动态选择想要分析和展现的图表，快速生成最终的分析报告。
+            </div>
+        </div>
+        <div class="solution-header-right"><a href="https://help.grapecity.com.cn/pages/viewpage.action?pageId=71039656"
+                target="_blank">帮助文档</a></div>
+    </div>
+    <div id="solution-control" class="solution-control">
+        请选择图表
+        <div class="solution-control-list">
+            <div class="solution-control-item">
+                <input type="checkbox" id="chart1" name="chart1" value="d28db0c9-06a6-4843-a3ca-6f77d0886a4e"
+                    class="solution-control-checkbox" onchange="reloadPage(this.id)">
+                <label for="chkChart1">大区营业额和利润</label><br>
+            </div>
+            <div class="solution-control-item">
+                <input type="checkbox" id="chart2" name="chart2" value="9c6308af-1d4e-4481-a9b5-10fd2785c92f"
+                    class="solution-control-checkbox" onchange="reloadPage(this.id)">
+                <label for="chkChart2">大区销售占比</label><br>
+            </div>
+            <div class="solution-control-item">
+                <input type="checkbox" id="chart3" name="chart3" value="6c2d1f77-c991-43a7-9077-5e61b28edf1d"
+                    class="solution-control-checkbox" onchange="reloadPage(this.id)">
+                <label for="chkChart3">大区销量数据统计表</label><br>
+            </div>
+        </div>
+    </div>
+    <div id="solution-content" class="solution-content">
+        <iframe id="solution-dynamic-iframe" class="solution-iframe" onload="onIframeLoaded()"
+            style="width:100%;height:100%"
+            src="http://wynwx.grapecity.com.cn/wyn/reports/view/b979d86b-f149-4edd-afb5-f4255614c6cb?token=97A4D8D68499E6B1AEBFCFEF503D10B62DB23FEE10183E20B8EFF009ED0404BA&toolbar=hide"></iframe>
+    </div>
+    <div class="solution-code-panel">
+        <div class="solution-code-panel-header">
+            <input id="expand-code" type="button" class="solution-code-button" value="展开代码" onclick="expandCode()" />
+        </div>
+    </div>
+
+    <div id="code-dialog-div" class="solution-code-mask hide-code-dialog">
+        <div class="solution-code-dialog">
+            <div class="solution-code-dialog-header">
+                动态报表
+                <div class="solution-code-dialog-close-button" onclick="closeDialog()"><img
+                        src="../../../images/关闭.svg" /></div>
+            </div>
+            <textarea id="dialog-code">
+<iframe id="solution-dynamic-iframe" class="solution-iframe" onload="onIframeLoaded()"
+style="width:100%;height:100%"
+src="{baseUrl}/reports/view/{reportId}?theme=default&lng=zh&token={token}&toolbar=hide"></iframe>
+<script>
+    const reportTemplateDom = {
+        "Name": "Report",
+        "Width": "20.901cm",
+        "DocumentMap": {
+            "Source": "All"
+        },
+        "Layers": [
+            {
+                "Name": "default"
+            }
+        ],
+        "ThemeUri": "server:///6cbfce1f-40ee-4b80-b01d-691e417ab0f5",
+        "CustomProperties": [
+            {
+                "Name": "DisplayType",
+                "Value": "Galley"
+            },
+            {
+                "Name": "SizeType",
+                "Value": "Default"
+            },
+            {
+                "Name": "PaperOrientation",
+                "Value": "Portrait"
+            },
+            {
+                "Name": "LayoutOrder",
+                "Value": "ZOrder"
+            }
+        ],
+        "Page": {
+            "PageWidth": "21cm",
+            "PageHeight": "29.7cm",
+            "RightMargin": "0in",
+            "LeftMargin": "0in",
+            "TopMargin": "0in",
+            "BottomMargin": "0in",
+            "Columns": 1,
+            "ColumnSpacing": "0cm"
+        },
+        "Body": {
+            "Height": "5.326cm",
+            "ReportItems": [
+
+            ]
+        }
+    };
+
+    const subReportElement = {
+        "Type": "subreport",
+        "Name": "子报表1",
+        "ReportName": "server:///0ddb33e9-3211-4d96-9d25-ca34458dd8b9",
+        "Style": {
+            "Border": {
+                "Color": "DimGray",
+                "Style": "Solid"
+            },
+            "FontFamily": "微软雅黑"
+        },
+        "Left": "0cm",
+        "Top": "0cm",
+        "Width": "20.901cm",
+        "Height": "2cm"
+    };
+
+    let pageLoading = false;
+    let testTimer;
+
+    const reloadPage = (id) => {
+        console.log(id);
+        updateReport();
+    }
+    const onIframeLoaded = () => {
+        pageLoading = false;
+    }
+    const updateReport = () => {
+        const checkedDoms = document.getElementsByClassName("solution-control-checkbox");
+        const result = JSON.parse(JSON.stringify(reportTemplateDom));
+        let top = 0;
+        for (let index = 0; index < checkedDoms.length; index++) {
+            const element = checkedDoms[index];
+            if (!element.checked) continue;
+
+            if (element.getAttribute("embedType") != "dashboard") {
+
+                //复制模板，然后拼接
+                const subReport = JSON.parse(JSON.stringify(subReportElement));
+                subReport.Name = element.value;
+                subReport.ReportName = "server:///" + element.value;
+                subReport.Top = top + "cm";
+                top += 2;
+                result.Body.ReportItems.push(subReport);
+            }
+        }
+
+        fetch("{baseUrl}/api/reporting/design/reports/{reportId}?comment=&token={token}", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(result)
+        });
+
+        if (!pageLoading) {
+            pageLoading = true;
+            testTimer = setTimeout(loadIframe, 1500);
+        }
+        else {
+            clearInterval(testTimer);
+            testTimer = setTimeout(loadIframe, 1500);
+        }
+    }
+    const loadIframe = () => {
+        const iframe = document.getElementById('solution-dynamic-iframe');
+        console.log("loading" + Date.now() + " pageloading" + pageLoading);
+        //refreshPage
+        iframe.src = iframe.src;
+    }
+<script />
+            </textarea>
+            <div class="code-dialog-footer">
+                <input id="copy-code" type="button" class="code-button" value="复制代码" onclick="copyCode()" />
+            </div>
+        </div>
+    </div>
+    <script src="../../../js/codeMirror.js"></script>
+    <script src="../../../js/utils.js"></script>
+
+    <link href="../../../styles/codemirror/codemirror.css" rel="stylesheet" type="text/css">
+    <link href="../../../styles/codemirror/monokai.css" rel="stylesheet" type="text/css">
+    <link href="../../../styles/codemirror/fullscreen.css" rel="stylesheet" type="text/css">
+
+    <!-- 引入CodeMirror核心文件 -->
+    <script type="text/javascript" src="../../../js/codemirror/codemirror.js"></script>
+
+    <!-- CodeMirror支持不同语言，根据需要引入JS文件 -->
+    <!-- 因为HTML混合语言依赖Javascript、XML、CSS语言支持，所以都要引入 -->
+    <script type="text/javascript" src="../../../js/codemirror/javascript.js"></script>
+    <script type="text/javascript" src="../../../js/codemirror/xml.js"></script>
+    <script type="text/javascript" src="../../../js/codemirror/css.js"></script>
+    <script type="text/javascript" src="../../../js/codemirror/htmlmixed.js"></script>
+
+    <!-- 下面分别为显示行数、括号匹配和全屏插件 -->
+    <script type="text/javascript" src="../../../js/codemirror/active-line.js"></script>
+    <script type="text/javascript" src="../../../js/codemirror/fullscreen.js"></script>
+    <script>
+
+        editor = undefined;
+
+        const reportTemplateDom = {
+            "Name": "Report",
+            "Width": "20.901cm",
+            "DocumentMap": {
+                "Source": "All"
+            },
+            "Layers": [
+                {
+                    "Name": "default"
+                }
+            ],
+            "ThemeUri": "server:///6cbfce1f-40ee-4b80-b01d-691e417ab0f5",
+            "CustomProperties": [
+                {
+                    "Name": "DisplayType",
+                    "Value": "Galley"
+                },
+                {
+                    "Name": "SizeType",
+                    "Value": "Default"
+                },
+                {
+                    "Name": "PaperOrientation",
+                    "Value": "Portrait"
+                },
+                {
+                    "Name": "LayoutOrder",
+                    "Value": "ZOrder"
+                }
+            ],
+            "Page": {
+                "PageWidth": "21cm",
+                "PageHeight": "29.7cm",
+                "RightMargin": "0in",
+                "LeftMargin": "0in",
+                "TopMargin": "0in",
+                "BottomMargin": "0in",
+                "Columns": 1,
+                "ColumnSpacing": "0cm"
+            },
+            "Body": {
+                "Height": "5.326cm",
+                "ReportItems": [
+
+                ]
+            }
+        };
+
+        const subReportElement = {
+            "Type": "subreport",
+            "Name": "子报表1",
+            "ReportName": "server:///d28db0c9-06a6-4843-a3ca-6f77d0886a4e",
+            "Style": {
+                "Border": {
+                    "Color": "DimGray",
+                    "Style": "Solid"
+                },
+                "FontFamily": "微软雅黑"
+            },
+            "Left": "0cm",
+            "Top": "0cm",
+            "Width": "20.901cm",
+            "Height": "2cm"
+        };
+
+
+        let pageLoading = false;
+        let testTimer;
+
+        const reloadPage = (id) => {
+            console.log(id);
+            updateReport();
+        }
+        const onIframeLoaded = () => {
+            pageLoading = false;
+        }
+        const updateReport = () => {
+
+            const checkedDoms = document.getElementsByClassName("solution-control-checkbox");
+            const result = JSON.parse(JSON.stringify(reportTemplateDom));
+            let top = 0;
+            for (let index = 0; index < checkedDoms.length; index++) {
+                const element = checkedDoms[index];
+                if (!element.checked) continue;
+
+                if (element.getAttribute("embedType") != "dashboard") {
+
+                    //复制模板，然后拼接
+                    const subReport = JSON.parse(JSON.stringify(subReportElement));
+                    subReport.Name = element.value;
+                    subReport.ReportName = "server:///" + element.value;
+                    subReport.Top = top + "cm";
+                    top += 2;
+                    result.Body.ReportItems.push(subReport);
+                }
+            }
+
+            fetch(`${baseUrl}/api/reporting/design/reports/b979d86b-f149-4edd-afb5-f4255614c6cb?comment=&token=${token}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(result)
+            });
+
+            if (!pageLoading) {
+                pageLoading = true;
+                testTimer = setTimeout(loadIframe, 1500);
+            }
+            else {
+                clearInterval(testTimer);
+                testTimer = setTimeout(loadIframe, 1500);
+            }
+        }
+        const loadIframe = () => {
+            const iframe = document.getElementById('solution-dynamic-iframe');
+            console.log("loading" + Date.now() + " pageloading" + pageLoading);
+            //refreshPage
+            iframe.src = iframe.src;
+        }
+    </script>
+</body>
+
+</html>

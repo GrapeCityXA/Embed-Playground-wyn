@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>创建数据集</title>
+	<link rel="stylesheet" href="../../styles/interfaces/index.css">
+	<link rel="stylesheet" href="../../styles/interfaces/document.css">
+</head>
+
+<body>
+	<div class="interface-header">
+		<div class="interface-header-left">
+			<div class="interface-title"><img class="header-icon" src="../../images/sidebar/api.svg" />创建数据集</div>
+			<div class="interface-description">通过调用API，用户可连接到指定数据源，加工和形成可用于数据分析的数据集。
+			</div>
+		</div>
+		<div class="interface-header-right"><a
+				href="https://help.grapecity.com.cn/pages/viewpage.action?pageId=71040310" target="_blank">帮助文档</a>
+		</div>
+	</div>
+
+	<div id="interface-content" class="interface-content">
+		<div class="interface-content-option">
+			<div class="form-group">
+				<label>名称</label>
+				<input id="name" type="text" class="form-control">
+			</div>
+			<div class="form-group">
+				<label>数据源</label>
+				<select id="datasource" class="form-control" onchange="setTable()">
+					<option value="0">嵌入式分析体验数据源</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>表</label>
+				<select id="tables" class="form-control"></select>
+			</div>
+			<button type="button" id="rename-button" class="btn interface-content-button" onclick="addDataset()">
+				创建数据集
+			</button>
+		</div>
+		<div class="interface-content-split"></div>
+		<div id="documents" class="interface-content-result"></div>
+	</div>
+	<div class="interface-code-panel">
+		<div class="interface-code-panel-header">
+			<input id="expand-code" type="button" class="interface-code-button" value="展开代码" onclick="expandCode()" />
+		</div>
+	</div>
+
+	<div id="code-dialog-div" class="interface-code-mask hide-code-dialog">
+		<div class="interface-code-dialog">
+			<div class="interface-code-dialog-header">
+				创建数据集
+				<div class="interface-code-dialog-close-button" onclick="closeDialog()">x</div>
+			</div>
+			<textarea id="dialog-code">
+url: {baseUrl}/api/datasetmanagement/adddataset?token={token}
+method: POST
+headers: {
+	'Content-Type': 'application/json',
+	'Accept': 'application/json'
+}
+mode: 'cors'
+body: {
+	query: {
+		dataSources: [{
+			id: {dataSourceId},
+			name: {dataSourceName},
+		}],
+		parameters: [],
+		commandModel: {
+			firstTable:{
+				id: Math.round(1000000 * Math.random()),
+				tableType: "NativeTable",
+				tableName: "{schemaName}({dataSourceId})",
+				dataSourceId: {dataSourceId},
+				unionType: "none",
+				tables: [],
+				filters: []
+			},
+		},
+		commandType: "Sql",
+	},
+	fields:{
+		column: {fieldName},
+		table:  "{schemaName}({dataSourceId})",
+		alias: "",
+		dataType: {fieldDataType},
+		fieldType: "Normal",
+		description: "",
+		display: true,
+		format: getDefaultFormat({fieldDataType}),
+		msDescription: ""
+	},
+	groupFields: [],
+	customSqlTables: [],
+	filterConditions: {
+		conditionType: 0
+	},
+	indexed: false,
+	incrementalUpdateSetting: null,
+	name: {datasetName},
+	comment: "",
+	tagIds: []
+}
+
+const getDefaultFormat = (dataType) => {
+	switch (dataType) {
+		case "Guid":
+		case "String":
+		case "Boolean":
+		case "Binary":
+		case "Unknown":
+			return '';
+		case "Number":
+			return 'f2';
+		case "DateTime":
+		case "Date":
+			return 'd';
+		default:
+			return '';
+	}
+}
+			</textarea>
+			<div class="code-dialog-footer">
+				<input id="copy-code" type="button" class="code-button" value="复制代码" onclick="copyCode()" />
+			</div>
+		</div>
+	</div>
+	<script src="../../js/codeMirror.js"></script>
+	<script src="../../js/api-service.js"></script>
+	<script src="../../js/api.js"></script>
+
+	<link href="../../styles/codemirror/codemirror.css" rel="stylesheet" type="text/css">
+	<link href="../../styles/codemirror/monokai.css" rel="stylesheet" type="text/css">
+	<link href="../../styles/codemirror/fullscreen.css" rel="stylesheet" type="text/css">
+
+	<!-- 引入CodeMirror核心文件 -->
+	<script type="text/javascript" src="../../js/codemirror/codemirror.js"></script>
+
+	<!-- CodeMirror支持不同语言，根据需要引入JS文件 -->
+	<!-- 因为HTML混合语言依赖Javascript、XML、CSS语言支持，所以都要引入 -->
+	<script type="text/javascript" src="../../js/codemirror/javascript.js"></script>
+	<script type="text/javascript" src="../../js/codemirror/xml.js"></script>
+	<script type="text/javascript" src="../../js/codemirror/css.js"></script>
+	<script type="text/javascript" src="../../js/codemirror/htmlmixed.js"></script>
+
+	<!-- 下面分别为显示行数、括号匹配和全屏插件 -->
+	<script type="text/javascript" src="../../js/codemirror/active-line.js"></script>
+	<script type="text/javascript" src="../../js/codemirror/fullscreen.js"></script>
+
+	<script>
+
+
+		editor = undefined;
+
+		const map = {
+			"0": {
+				id: "79c0ffe3-7cf6-4d97-9ab9-dab4eb6afa45",
+				name: "嵌入式分析体验数据源",
+			},
+		};
+
+		let schemas = null;
+
+		const getSchema = async () => {
+			api.getDatasourceSchemas.graphqlStr = api.getDatasourceSchemas.getGraphqlStr("79c0ffe3-7cf6-4d97-9ab9-dab4eb6afa45")
+			const schema = await sendRequest(api.getDatasourceSchemas);
+			const tables = schema.data.datasourceSchemas.models[0].tables;
+			schemas = tables;
+			if (tables && tables.length > 0) {
+				const select = document.getElementById("tables");
+				tables.forEach((table) => {
+					const option = document.createElement("option");
+					option.value = table.name;
+					option.innerHTML = table.name;
+					select.appendChild(option);
+				});
+			}
+		}
+
+		const changeDataSource = async () => {
+			// 
+		}
+
+		const getDocuments = async () => {
+			api.getAllDocuments.graphqlStr = api.getAllDocuments.getGraphqlStr("dataset", "created");
+			const res = await sendRequest(api.getAllDocuments);
+			return res.data.documents;
+		}
+
+		const setGrid = (documents) => {
+			if (documents && documents.length > 0) {
+				const content = document.getElementById("documents");
+				content.innerHTML = "";
+				const table = document.createElement("div");
+				table.className = "document-list";
+				const tableHeaderRow = document.createElement("div");
+				tableHeaderRow.className = "table-header-row table-row";
+				tableHeaderRow.innerHTML = `<div class="table-cell">文档名称</div>
+						<div class="table-cell">类型</div>
+						<div class="table-cell">创建人</div>
+						<div class="table-cell">创建时间</div>`;
+				table.appendChild(tableHeaderRow);
+				documents.forEach((doc) => {
+					const tableBodyRow = document.createElement("div");
+					tableBodyRow.className = "table-body-row table-row";
+					tableBodyRow.innerHTML = `<div class="table-cell">${doc.title}</div>
+						<div class="table-cell">数据集</div>
+						<div class="table-cell">${doc.created_by.name}</div>
+						<div class="table-cell">${formatTime(doc.created)}</div>`;
+					table.appendChild(tableBodyRow);
+				});
+				content.appendChild(table);
+			}
+		}
+
+		const addDataset = async () => {
+			const name = document.getElementById("name").value.trim();
+			const datasource = map[0];
+			const schema = schemas[document.getElementById("tables").selectedIndex];
+			if (!schema) {
+				window.alert("请选择Schema！");
+				return;
+			}
+			const firstTable = {
+				id: Math.round(1000000 * Math.random()),
+				tableType: "NativeTable",
+				tableName: `${schema.name}(${datasource.id})`,
+				dataSourceId: datasource.id,
+				unionType: "none",
+				tables: [],
+				filters: []
+			};
+			api.getFields.params = api.getFields.getParams(datasource.id, schema.tableSchema, schema.originName, "table");
+			let res = await sendRequest(api.getFields);
+			const fields = res.map((field) => ({
+				column: field.name,
+				table: `${schema.name}(${datasource.id})`,
+				alias: "",
+				dataType: field.dataType,
+				fieldType: "Normal",
+				description: "",
+				display: true,
+				format: getDefaultFormat(field.dataType),
+				msDescription: ""
+			}));
+			api.createDataset.body = api.createDataset.getBody(name, datasource, firstTable, fields);
+			res = await sendRequest(api.createDataset);
+
+			if (res.error) {
+				console.log(res);
+				document.getElementById("documents").innerHTML = res.error.message;
+			}
+			if (res.error_message) {
+				document.getElementById("documents").innerHTML = res.error_message
+			}
+			else {
+				const datasets = await getDocuments();
+				setGrid(datasets);
+			}
+		}
+
+		const getDefaultFormat = (dataType) => {
+			switch (dataType) {
+				case "Guid":
+				case "String":
+				case "Boolean":
+				case "Binary":
+				case "Unknown":
+					return '';
+				case "Number":
+					return 'f2';
+				case "DateTime":
+				case "Date":
+					return 'd';
+				default:
+					return '';
+			}
+		}
+
+		getSchema();
+
+	</script>
+</body>
+
+</html>
