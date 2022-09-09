@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wyn 嵌入式分析体验</title>
+	<link rel="shortcut icon" href="./favicon.ico">
+	<link rel="stylesheet" href="./styles/index.css">
+	
+</head>
+
+<body>
+	<script type="module">
+		const pageMap = {
+			"home-nav": "./pages/home.html",
+			"scene-dashboard-nav": "./pages/scenes/dashboard.html",
+			"scene-chart-nav": "./pages/scenes/chart.html",
+			"scene-designer-nav": "./pages/scenes/designer.html",
+			"scene-layout-nav": "./pages/scenes/layout.html",
+			"scene-theme-nav": "./pages/scenes/theme.html",
+			"scene-view-nav": "./pages/scenes/view.html",
+
+			"solution-iframe-dashboard-nav": "./pages/solutions/iframe/dashboard.html",
+			"solution-iframe-chart-nav": "./pages/solutions/iframe/chart.html",
+			"solution-iframe-designer-nav": "./pages/solutions/iframe/designer.html",
+
+			"solution-div-init-nav": "./pages/solutions/div/init.html",
+			"solution-div-drill-nav": "./pages/solutions/div/drill.html",
+			"solution-div-report-nav": "./pages/solutions/div/report.html",
+			"solution-div-dynamic-nav": "./pages/solutions/div/dynamic.html",
+			"solution-div-filter-nav": "./pages/solutions/div/filter.html",
+			"solution-div-animation-nav": "./pages/solutions/div/animation.html",
+
+			"interface-document-nav": "./pages/interfaces/document.html",
+			"interface-rename-nav": "./pages/interfaces/rename.html",
+			"interface-organization-nav": "./pages/interfaces/organization.html",
+			"interface-user-nav": "./pages/interfaces/user.html",
+			"interface-data-source-nav": "./pages/interfaces/data-source.html",
+			"interface-dataset-nav": "./pages/interfaces/dataset.html",
+			"solution-user-nav": "./pages/solutions/user.html",
+
+			"solution-mobile-wechat-nav": "./pages/solutions/mobile/wechat.html",
+			"solution-mobile-dingding-nav": "./pages/solutions/mobile/dingding.html",
+
+			"solution-oem-custom-nav": "./pages/solutions/oem/custom.html",
+			"solution-oem-install-nav": "./pages/solutions/oem/install.html",
+
+			"solution-expansion-language-nav": "./pages/expansion/language.html",
+			"solution-expansion-plugin-nav": "./pages/expansion/plugin.html",
+		}
+		let selected = "home-nav";
+		const selectHome = () => {
+			if (selected === "home-nav") return;
+			selected = "home-nav";
+			const navItems = document.getElementsByClassName("sidebar-item");
+			Array.prototype.forEach.call(navItems, (item) => {
+				if (item.id === selected) {
+					item.classList.add("selected");
+				} else {
+					item.classList.remove("selected")
+				}
+			})
+			const iframe = document.getElementById("main-content-iframe");
+			iframe.src = "./pages/home.html";
+		}
+		const selectPage = (e) => {
+			const current = e.target;
+			if (selected === current.id) return;
+			selected = current.id;
+			const navItems = document.getElementsByClassName("sidebar-item");
+			Array.prototype.forEach.call(navItems, (item) => {
+				if (item.id === current.id) {
+					item.classList.add("selected");
+				} else {
+					item.classList.remove("selected")
+				}
+			})
+			const iframe = document.getElementById("main-content-iframe");
+			iframe.src = pageMap[current.id];
+		}
+
+		let expand = [false, false, false, false, false];
+		const changeState = (index) => {
+			return () => {
+				const icon = document.getElementById(`solution-expandable-icon-${index}`);
+				const elements = document.getElementsByClassName(`solution-embed-${index}`);
+				if (expand[index]) {
+					expand[index] = false;
+					icon.src = "./images/菜单收起11.svg";
+					for (let i in elements) {
+						elements[i].classList && elements[i].classList.remove("show");
+					}
+				} else {
+					expand[index] = true;
+					icon.src = "./images/菜单展开11.svg";
+					for (let i in elements) {
+						elements[i].classList && elements[i].classList.add("show");
+					}
+				}
+			}
+		}
+
+		document.getElementById("main-title").addEventListener("click", selectHome, false);
+
+		document.getElementById("home-nav").addEventListener("click", selectPage, false);
+		document.getElementById("scene-dashboard-nav").addEventListener("click", selectPage, false);
+		document.getElementById("scene-chart-nav").addEventListener("click", selectPage, false);
+		document.getElementById("scene-designer-nav").addEventListener("click", selectPage, false);
+		document.getElementById("scene-layout-nav").addEventListener("click", selectPage, false);
+		document.getElementById("scene-theme-nav").addEventListener("click", selectPage, false);
+		document.getElementById("scene-view-nav").addEventListener("click", selectPage, false);
+
+		document.getElementById("solution-iframe-dashboard-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-iframe-chart-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-iframe-designer-nav").addEventListener("click", selectPage, false);
+
+		document.getElementById("solution-div-init-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-div-drill-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-div-report-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-div-dynamic-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-div-filter-nav").addEventListener("click", selectPage, false);
+		// document.getElementById("solution-div-animation-nav").addEventListener("click", selectPage, false);
+
+		document.getElementById("interface-document-nav").addEventListener("click", selectPage, false);
+		document.getElementById("interface-rename-nav").addEventListener("click", selectPage, false);
+		document.getElementById("interface-organization-nav").addEventListener("click", selectPage, false);
+		document.getElementById("interface-user-nav").addEventListener("click", selectPage, false);
+		document.getElementById("interface-data-source-nav").addEventListener("click", selectPage, false);
+		document.getElementById("interface-dataset-nav").addEventListener("click", selectPage, false);
+
+		document.getElementById("solution-user-nav").addEventListener("click", selectPage, false);
+
+		document.getElementById("solution-mobile-wechat-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-mobile-dingding-nav").addEventListener("click", selectPage, false);
+
+		document.getElementById("solution-oem-custom-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-oem-install-nav").addEventListener("click", selectPage, false);
+
+		document.getElementById("solution-expansion-language-nav").addEventListener("click", selectPage, false);
+		document.getElementById("solution-expansion-plugin-nav").addEventListener("click", selectPage, false);
+
+		document.getElementById("solution-iframe-embed").addEventListener("click", changeState(0), false);
+		document.getElementById("solution-div-embed").addEventListener("click", changeState(1), false);
+		document.getElementById("solution-api-embed").addEventListener("click", changeState(2), false);
+		document.getElementById("solution-oem-embed").addEventListener("click", changeState(3), false);
+		document.getElementById("solution-mobile-embed").addEventListener("click", changeState(4), false);
+
+	</script>
+	<div class="main-header">
+		<div id="main-title" class="title">
+			<img class="title-icon" src="./images/wyn-logo.svg" />
+			<div class="title-text">Wyn 嵌入式分析体验</div>
+		</div>
+		<div>
+			<a href="https://www.grapecity.com.cn/solutions/wyn/try-wyn-for-free" target="_blank"><button
+					class="main-header-button button-download">免费试用</button></a>
+			<a href=" https://www.grapecity.com.cn/solutions/wyn/applyonline" target="_blank"><button
+					class="main-header-button button-contact">联系我们</button></a>
+		</div>
+	</div>
+	<div class="main-container">
+		<div class="main-sidebar">
+			<div id="home-nav" class="sidebar-item primary selected"><img class="sidebar-item-icon"
+					src="./images/sidebar/home.svg" />主页</div>
+			<div class="sidebar-category-item">
+				嵌入式场景体验
+				<div class="sidebar-category-item-line"></div>
+			</div>
+			<div id="scene-dashboard-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/dashboard.svg" />仪表板嵌入</div>
+			<div id="scene-chart-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/chart.svg" />图表嵌入</div>
+			<div id="scene-designer-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/designer.svg" />设计器嵌入</div>
+			<div id="scene-layout-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/layout.svg" />仪表板重新布局</div>
+			<div id="scene-theme-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/theme.svg" />切换主题</div>
+			<!-- TODO  icon -->
+			<div id="scene-view-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/view.svg" />切换展示视图</div>
+			<div class="sidebar-category-item">
+				嵌入式技术方案
+				<div class="sidebar-category-item-line"></div>
+			</div>
+			<div id="solution-iframe-embed" class="sidebar-item primary expandable">
+				<div><img class="sidebar-item-icon" src="./images/sidebar/iframe.svg" />iFrame集成</div>
+				<img id="solution-expandable-icon-0" src="./images/菜单收起11.svg" />
+			</div>
+			<div id="solution-iframe-dashboard-nav" class="sidebar-item secondary solution-embed-0">仪表板集成
+			</div>
+			<div id="solution-iframe-chart-nav" class="sidebar-item secondary solution-embed-0">图表集成</div>
+			<div id="solution-iframe-designer-nav" class="sidebar-item secondary solution-embed-0">设计器集成
+			</div>
+			<div id="solution-div-embed" class="sidebar-item primary expandable">
+				<div><img class="sidebar-item-icon" src="./images/sidebar/div.svg" />DIV集成</div>
+				<img id="solution-expandable-icon-1" src="./images/菜单收起11.svg" />
+			</div>
+			<div id="solution-div-init-nav" class="sidebar-item secondary solution-embed-1">设计器初始化控制</div>
+			<div id="solution-div-drill-nav" class="sidebar-item secondary solution-embed-1">仪表板钻取</div>
+			<div id="solution-div-report-nav" class="sidebar-item secondary solution-embed-1">报表集成</div>
+			<div id="solution-div-dynamic-nav" class="sidebar-item secondary solution-embed-1">动态报表</div>
+			<div id="solution-div-filter-nav" class="sidebar-item secondary solution-embed-1">仪表板过滤</div>
+			<!-- <div id="solution-div-animation-nav" class="sidebar-item secondary solution-embed-1">集成时切换自定义动画</div> -->
+
+			<div id="solution-api-embed" class="sidebar-item primary expandable">
+				<div><img class="sidebar-item-icon" src="./images/sidebar/api.svg" />REST API集成</div>
+				<img id="solution-expandable-icon-2" src="./images/菜单收起11.svg" />
+			</div>
+			<div id="interface-document-nav" class="sidebar-item secondary solution-embed-2">查看我的文档</div>
+			<div id="interface-rename-nav" class="sidebar-item secondary solution-embed-2">文档重命名</div>
+			<div id="interface-organization-nav" class="sidebar-item secondary solution-embed-2">创建子组织</div>
+			<div id="interface-user-nav" class="sidebar-item secondary solution-embed-2">创建用户</div>
+			<div id="interface-data-source-nav" class="sidebar-item secondary solution-embed-2">创建数据源</div>
+			<div id="interface-dataset-nav" class="sidebar-item secondary solution-embed-2">创建数据集</div>
+			<div id="solution-user-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/user.svg" />用户身份集成
+			</div>
+			<div id="solution-mobile-embed" class="sidebar-item primary expandable">
+				<div><img class="sidebar-item-icon" src="./images/sidebar/mobile.svg" />移动端集成</div>
+				<img id="solution-expandable-icon-4" src="./images/菜单收起11.svg" />
+			</div>
+			<div id="solution-mobile-wechat-nav" class="sidebar-item secondary solution-embed-4">企业微信集成</div>
+			<div id="solution-mobile-dingding-nav" class="sidebar-item secondary solution-embed-4">钉钉集成</div>
+			<div id="solution-oem-embed" class="sidebar-item primary expandable">
+				<div><img class="sidebar-item-icon" src="./images/sidebar/oem.svg" />OEM白标集成</div>
+				<img id="solution-expandable-icon-3" src="./images/菜单收起11.svg" />
+			</div>
+			<div id="solution-oem-custom-nav" class="sidebar-item secondary solution-embed-3">门户自定义</div>
+			<div id="solution-oem-install-nav" class="sidebar-item secondary solution-embed-3">OEM安装包</div>
+			<div class="sidebar-category-item">
+				自定义系统扩展
+				<div class="sidebar-category-item-line"></div>
+			</div>
+			<div id="solution-expansion-language-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/language.svg" />国际化</div>
+			<div id="solution-expansion-plugin-nav" class="sidebar-item primary"><img class="sidebar-item-icon"
+					src="./images/sidebar/plugin.svg" />插件开发</div>
+		</div>
+		<div class="main-content">
+			<iframe id="main-content-iframe" class="main-content-iframe" src="./pages/home.html"></iframe>
+		</div>
+	</div>
+	<script src="./js/index.js"></script>
+	<script>
+		window.addEventListener("message", function (page) {
+			const navItems = document.getElementsByClassName("sidebar-item");
+			const select = (id) => {
+				Array.prototype.forEach.call(navItems, (item) => {
+					if (item.id === id) {
+						item.classList.add("selected");
+					} else {
+						item.classList.remove("selected")
+					}
+				});
+			};
+			switch (page.data) {
+				case "scene":
+					select("scene-dashboard-nav");
+					document.getElementById("main-content-iframe").src = "./pages/scenes/dashboard.html";
+					break;
+				case "solution":
+					select("solution-iframe-dashboard-nav");
+					document.getElementById("main-content-iframe").src = "./pages/solutions/iframe/dashboard.html";
+					break;
+				case "expansion":
+					select("solution-expansion-language-nav");
+					document.getElementById("main-content-iframe").src = "./pages/expansion/language.html";
+					break;
+			}
+		}, false);
+	</script>
+</body>
+
+</html>
