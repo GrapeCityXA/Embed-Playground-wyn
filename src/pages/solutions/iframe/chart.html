@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图表嵌入</title>
+	<link rel="stylesheet" href="../../../styles/solutions/index.css">
+	<link rel="stylesheet" href="../../../styles/solutions/iframe/chart.css">
+	<!-- <link rel="stylesheet" href="../../../styles/solutions/chart.css"> -->
+</head>
+
+<body>
+	<div class="solution-header">
+		<div class="solution-header-left">
+			<div class="solution-title"><img class="header-icon" src="../../../images/sidebar/iframe.svg" />iframe集成-图表
+			</div>
+			<div class="solution-description">用户可以在其 Web 应用程序的 iFrame 中指定图表对应的URL来实现嵌入图表，同时嵌入的图表可与其他图表联动分析，嵌入结果如下。
+			</div>
+		</div>
+		<div class="solution-header-right"><a href="https://help.grapecity.com.cn/pages/viewpage.action?pageId=71039527"
+				target="_blank">帮助文档</a></div>
+	</div>
+	<div class="solution-control solution-chart-control-panel">
+		<span>点击切换图表：</span>
+		<div class="solution-control-list solution-chart-control-list">
+			<div id="solution-control-list-left" class="solution-control-list-left solution-control-item">
+				<div class="control-item-title">（左侧图表）</div>
+			</div>
+			<div id="solution-control-list-right" class="solution-control-list-right solution-control-item">
+				<div class="control-item-title">（右侧图表）</div>
+			</div>
+		</div>
+	</div>
+	<div class="solution-content">
+		<div class="solution-chart-row">
+			<div class="solution-chart virtual-chart1">
+				<div class="solution-chart-header">
+					<img src="../../../images/chart/流程中心16.svg" />
+					流程中心
+				</div>
+				<div class="solution-chart-content">
+					<div class="chart-tab">
+						<div class="chart-tab-item selected">待办</div>
+						<div class="chart-tab-item">已办</div>
+					</div>
+					<div class="chart">
+						<div class="chart-row">滨江地块改造物资设备采购合同</div>
+						<div class="chart-row">集团内部签报-XXX-2022-06-21</div>
+						<div class="chart-row">滨江地块投资改造项目资产入库申请</div>
+						<div class="chart-row">信息中心改造工程设备入库申请</div>
+						<div class="chart-row">世博大厦小修项目设备入库申请</div>
+						<div class="chart-row">新办公大楼资产入库申请</div>
+						<div class="chart-row">会议通知：资本运作融资专题会议 时间:2020-07-01 10:00(GMT+08:00) 地点:108 (前台后面大会议室)</div>
+						<div class="chart-row">会议通知：资产板块信息化规划专题会议 时间:2020-07-15 09:00(GMT+08:00) 地点:317 (中庭后侧)</div>
+					</div>
+				</div>
+			</div>
+			<div class="solution-chart reality-chart-div reality-chart-div1">
+				<iframe id="solution-chart2" class=" solution-iframe reality-chart"></iframe>
+			</div>
+		</div>
+		<div class="solution-chart-row">
+			<div class="solution-chart virtual-chart2">
+				<div class="solution-chart-header">
+					<img src="../../../images/chart/新闻公告16.svg" />
+					新闻公告
+				</div>
+				<div class="solution-chart-content">
+					<div class="chart-row">XXXX召开2022年度股东周年大会</div>
+					<div class="chart-row">XXXX生活召开2022年度股东周年大会</div>
+					<div class="chart-row">福布斯发布2022全球企业2000强，XXXX位列第216位</div>
+					<div class="chart-row">XXXX召开2021年度总结表彰会</div>
+					<div class="chart-row">XXXX表彰2021年度优秀员工</div>
+					<div class="chart-row">XXXX发布2021年全年业绩 实现净利润324亿元</div>
+				</div>
+			</div>
+			<div class="solution-chart reality-chart-div reality-chart-div2">
+				<iframe id="solution-chart1" class=" solution-iframe reality-chart"></iframe>
+			</div>
+			<div class="solution-chart virtual-chart3">
+				<div class="solution-chart-header">
+					<img src="../../../images/chart/常用工具16.svg" />
+					常用工具
+				</div>
+				<div class="solution-chart-content">
+					<div class="icon-button">
+						<img src="../../../images/chart/组织学习60.svg" />
+						<div class="text">组织学习</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../../images/chart/日程管理60.svg" />
+						<div class="text">日程管理</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../../images/chart/人力资源60.svg" />
+						<div class="text">人力资源</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../../images/chart/财务系统60.svg" />
+						<div class="text">财务系统</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../../images/chart/销售系统60.svg" />
+						<div class="text">销售系统</div>
+					</div>
+					<div class="icon-button">
+						<img src="../../../images/chart/内部流程60.svg" />
+						<div class="text">内部流程</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="portal-title">销售管理驾驶舱</div>
+		<div class="portal-content">
+			<div class="portal-content-column">
+				<div class="portal-content-chart"></div>
+				<div class="portal-content-chart">
+					<iframe id="solution-chart1" class=" solution-iframe"></iframe>
+				</div>
+			</div>
+			<div class="portal-content-column portal-content-center-column">
+				<div class="portal-content-chart"></div>
+			</div>
+			<div class="portal-content-column">
+				<div class="portal-content-chart"></div>
+				<div class="portal-content-chart">
+					<iframe id="solution-chart2" class=" solution-iframe"></iframe>
+				</div>
+			</div>
+		</div> -->
+	</div>
+	<div class="solution-code-panel">
+		<div class="solution-code-panel-header">
+			<input id="expand-code" type="button" class="solution-code-button" value="展开代码" onclick="expandCode()" />
+		</div>
+	</div>
+
+	<div id="code-dialog-div" class="solution-code-mask hide-code-dialog">
+		<div class="solution-code-dialog">
+			<div class="solution-code-dialog-header">
+				图表嵌入
+				<div class="solution-code-dialog-close-button" onclick="closeDialog()"><img src="../../../images/关闭.svg" /></div>
+			</div>
+			<textarea id="dialog-code">
+<iframe src="{baseUrl}/dashboards/view/{dashboardId}?token=${token}&scenario=line&size=fittoscreen&actions=clearselection%2Cfocus%2Cannotation%2Cexport%2Cfilter%2Cclearruntimefilter%2Csort%2Crank%2Cmodelparameters%2Cconvertvisual%2Coptions.property.conditionalformat%2Coptions.property.referenceline%2Coptions.property.trendlines%2Coptions.property.expand%2Cshowdata%2Canalysispath&openfulldashboardmode=newwindow"></iframe>
+			</textarea>
+			<div class="code-dialog-footer">
+				<input id="copy-code" type="button" class="code-button" value="复制代码" onclick="copyCode()" />
+			</div>
+		</div>
+	</div>
+	<script src="../../../js/codeMirror.js"></script>
+	<script src="../../../js/utils.js"></script>
+
+	<link href="../../../styles/codemirror/codemirror.css" rel="stylesheet" type="text/css">
+	<link href="../../../styles/codemirror/monokai.css" rel="stylesheet" type="text/css">
+	<link href="../../../styles/codemirror/fullscreen.css" rel="stylesheet" type="text/css">
+
+	<!-- 引入CodeMirror核心文件 -->
+	<script type="text/javascript" src="../../../js/codemirror/codemirror.js"></script>
+
+	<!-- CodeMirror支持不同语言，根据需要引入JS文件 -->
+	<!-- 因为HTML混合语言依赖Javascript、XML、CSS语言支持，所以都要引入 -->
+	<script type="text/javascript" src="../../../js/codemirror/javascript.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/xml.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/css.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/htmlmixed.js"></script>
+
+	<!-- 下面分别为显示行数、括号匹配和全屏插件 -->
+	<script type="text/javascript" src="../../../js/codemirror/active-line.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/fullscreen.js"></script>
+	<script>
+
+
+		editor = undefined;
+
+		const leftContainer = document.getElementById("solution-control-list-left");
+		const rightContainer = document.getElementById("solution-control-list-right");
+		const chart1 = document.getElementById("solution-chart1");
+		const chart2 = document.getElementById("solution-chart2");
+
+		let selectedLeft = 0;
+		let selectedRight = 0;
+		let srcLeft = sceneCharts.left[selectedLeft].url;
+		let srcRight = sceneCharts.right[selectedRight].url;
+
+		chart1.src = srcLeft;
+		chart2.src = srcRight;
+
+		const select = document.createElement("select");
+		select.className = "solution-control-dropdown";
+		sceneCharts.left.forEach((chart, index) => {
+			const option = document.createElement("option");
+			option.value = chart.url;
+			option.text = chart.name;
+			select.appendChild(option);
+		});
+
+		leftContainer.appendChild(select);
+
+		select.addEventListener("change", (e) => {
+			const current = e.target.selectedIndex;
+			if (current === selectedLeft) return;
+			selectedLeft = current;
+			srcLeft = sceneCharts.left[selectedLeft].url;
+			chart1.src = srcLeft;
+		});
+
+		const select2 = document.createElement("select");
+		select2.className = "solution-control-dropdown";
+		sceneCharts.right.forEach((chart, index) => {
+			const option = document.createElement("option");
+			option.value = chart.url;
+			option.text = chart.name;
+			select2.appendChild(option);
+		});
+
+		rightContainer.appendChild(select2);
+
+		select2.addEventListener("change", (e) => {
+			const current = e.target.selectedIndex;
+			if (current === selectedRight) return;
+			selectedRight = current;
+			srcRight = sceneCharts.right[selectedRight].url;
+			chart2.src = srcRight;
+		});
+
+
+	</script>
+</body>
+
+</html>

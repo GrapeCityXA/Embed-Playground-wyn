@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wyn 嵌入式分析体验</title>
+	<link rel="stylesheet" href="../styles/index.css">
+	<link rel="stylesheet" href="../styles/home.css">
+</head>
+
+<body>
+	<div class="home-guide">
+		<img class="home-guide-background" src="../images/home/homeHeaderBg.svg">
+		<div class="home-guide-content">
+			<div class="home-guide-text">
+				<div class="home-guide-title">Wyn 嵌入式分析体验</div>
+				<p class="home-guide-description">
+					嵌入式分析将为您的应用软件提供数据见解、可视化和所有分析能力！在这里您将体验到Wyn嵌入式分析的强大功能，探索适合您的嵌入式分析方案！</p>
+				<input id="start" type="button" class="home-guide-button" value="点击开始探索" title="点击开始探索" />
+			</div>
+		</div>
+		<div class="home-guide-video">
+			<div class="home-guide-video-player">
+				<video width="100%" controls>
+					<source src="https://videos.grapecity.com.cn/WynEnterprise/online/嵌入式分析介绍.mp4" type="video/mp4">
+				</video>
+			</div>
+		</div>
+	</div>
+	<div class="home-separate">
+		<div class="home-separate-line"></div>
+		发现和探索Wyn嵌入式分析的强大功能
+		<div class="home-separate-line"></div>
+	</div>
+	<div class="home-start">
+		<div class="home-start-item">
+			<div class="home-start-item-content">
+				<div class="item-icon">
+					<img src="../images/home/case.svg">
+				</div>
+				<div class="item-title">嵌入式场景体验</div>
+				<div class="item-description">身临其境的嵌入场景，体验数据分析融入企业软件的真实应用</div>
+			</div>
+			<input id="scene" type="button" class="home-start-item-button" value="开始体验" title="开始体验" />
+		</div>
+		<div class="home-start-item">
+			<div class="home-start-item-content">
+				<div class="item-icon">
+					<img src="../images/home/plan.svg">
+				</div>
+				<div class="item-title">嵌入式技术方案</div>
+				<div class="item-description">使用DIV、iFrame等方式快速将五个层级的分析能力嵌入你的业务系统</div>
+			</div>
+			<input id="solution" type="button" class="home-start-item-button" value="开始体验" title="开始体验" />
+		</div>
+		<div class="home-start-item">
+			<div class="home-start-item-content">
+				<div class="item-icon">
+					<img src="../images/home/expand.svg">
+				</div>
+				<div class="item-title">自定义系统扩展</div>
+				<div class="item-description">可视化插件、语言自定义等，满足你无限扩展的自定义需要</div>
+			</div>
+			<input id="expansion" type="button" class="home-start-item-button" value="开始体验" title="开始体验" />
+		</div>
+	</div>
+	<script src="../js/index.js"></script>
+	<script>
+		const start = () => {
+			document.getElementsByTagName('html')[0].scrollTop = 10000;
+		}
+		const scene = () => {
+			window.parent.postMessage("scene", "*");
+		}
+		const solution = () => {
+			window.parent.postMessage("solution", "*");
+		}
+		const expansion = () => {
+			window.parent.postMessage("expansion", "*");
+		}
+		document.getElementById("start").addEventListener("click", start, false);
+		document.getElementById("scene").addEventListener("click", scene, false);
+		document.getElementById("solution").addEventListener("click", solution, false);
+		document.getElementById("expansion").addEventListener("click", expansion, false);
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>仪表盘过滤</title>
+	<link rel="stylesheet" href="../../../styles/solutions/index.css">
+	<link rel="stylesheet" href="../../../styles/solutions/div/filter.css">
+</head>
+
+<body>
+	<div class="solution-header">
+		<div class="solution-header-left">
+			<div class="solution-title"><img class="header-icon" src="../../../images/sidebar/div.svg" />DIV集成-仪表板过滤
+			</div>
+			<div class="solution-description">用户可以使用DIV的原生方式，将仪表板的DIV元素写入业务系统的网页代码中，实现在业务系统中嵌入仪表板，同时通过外部筛选实现动态过滤仪表板内容。
+			</div>
+		</div>
+		<div class="solution-header-right"><a href="https://help.grapecity.com.cn/pages/viewpage.action?pageId=74286525" target="_blank">帮助文档</a></div>
+	</div>
+	<div id="solution-control" class="solution-control">
+		请选择缴费方式：
+		<div class="solution-control-list">
+			<div class="solution-control-item">
+				<input id="alipay" type="checkbox" value="支付宝" name="pay" /> <label for="alipay">支付宝</label>
+			</div>
+			<div class="solution-control-item">
+				<input id="wechat" type="checkbox" value="微信" name="pay" /> <label for="wechat">微信</label>
+			</div>
+			<div class="solution-control-item">
+				<input id="card" type="checkbox" value="银行卡" name="pay" /> <label for="card">银行卡</label>
+			</div>
+			<div class="solution-control-item">
+				<input id="cash" type="checkbox" value="现金" name="pay" /> <label for="cash">现金</label>
+			</div>
+			<div class="solution-control-item">
+				<input id="other" type="checkbox" value="其他" name="pay" /> <label for="other">其他</label>
+			</div>
+		</div>
+
+	</div>
+	<div id="solution-content" class="solution-content">
+		<div id="page-1" class="layout1"></div>
+	</div>
+	<div class="solution-code-panel">
+		<div class="solution-code-panel-header">
+			<input id="expand-code" type="button" class="solution-code-button" value="展开代码" onclick="expandCode()" />
+		</div>
+	</div>
+
+	<div id="code-dialog-div" class="solution-code-mask hide-code-dialog">
+		<div class="solution-code-dialog">
+			<div class="solution-code-dialog-header">
+				报表集成
+				<div class="solution-code-dialog-close-button" onclick="closeDialog()"><img src="../../../images/关闭.svg" /></div>
+			</div>
+			<textarea id="dialog-code">
+<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.default.css">
+<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.vendor.css">
+<script src="../../../js/dashboard/polyfills.js"></script>
+<script src="../../../js/dashboard/dashboard.libs.common.js"></script>
+<script src="../../../js/dashboard/dashboard.libs.sheet.js"></script>
+<script src="../../../js/dashboard/dashboard.libs.chart.js"></script>
+<script src="../../../js/dashboard/lite/dashboard.viewerLite.js"></script>
+<input id="alipay" type="checkbox" value="支付宝" name="pay" /> <label for="alipay">支付宝</label>
+<input id="wechat" type="checkbox" value="微信" name="pay" /> <label for="wechat">微信</label>
+<div id="page-1" class="layout1"></div>
+<script>
+	const paySet = new Set();
+
+	const defaultWynBi = {
+		lng: 'zh',
+		baseUrl: {baseUrl},
+		token: {token},
+		dashboardId: {dashboardId},
+	}
+
+	const refreshDashboard = () => {
+		const container = document.getElementById("page-1");
+		container.innerHTML = "";
+		let bi = { ...defaultWynBi };
+		if (paySet.size) {
+			bi.dp = `{"paymenttype":[${Array.from(paySet).map(name => `"${name}"`).join(",")}]}`
+		}
+		const ins = WynBi.createViewerLite(bi);
+		ins.initialize({
+			container: container,
+		}).then((uiDashboard) => {
+			const page = uiDashboard.pages[0]; // UIPage
+			const dom = document.createElement('div');
+			dom.className = 'page-dom';
+			container.appendChild(dom);
+			page.connect(dom);
+			page.refresh();
+		});
+	}
+
+	const selectPay = (e) => {
+		if (e.target.checked) {
+			paySet.add(e.target.value);
+			refreshDashboard();
+		} else {
+			paySet.remove(e.target.value);
+			refreshDashboard();
+		}
+	}
+
+	const elements = document.getElementsByName("pay");
+	console.log(elements)
+	for (let i = 0; i < elements.length; i++) {
+		elements[i].addEventListener("click", selectPay);
+	}
+
+	refreshDashboard();
+<script />
+			</textarea>
+			<div class="code-dialog-footer">
+				<input id="copy-code" type="button" class="code-button" value="复制代码" onclick="copyCode()" />
+			</div>
+		</div>
+	</div>
+	<script src="../../../js/codeMirror.js"></script>
+	<script src="../../../js/utils.js"></script>
+
+	<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.default.css">
+	<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.vendor.css">
+	<script src="../../../js/dashboard/polyfills.js"></script>
+	<script src="../../../js/dashboard/dashboard.libs.common.js"></script>
+	<script src="../../../js/dashboard/dashboard.libs.sheet.js"></script>
+	<script src="../../../js/dashboard/dashboard.libs.chart.js"></script>
+	<script src="../../../js/dashboard/lite/dashboard.viewerLite.js"></script>
+
+	<link href="../../../styles/codemirror/codemirror.css" rel="stylesheet" type="text/css">
+	<link href="../../../styles/codemirror/monokai.css" rel="stylesheet" type="text/css">
+	<link href="../../../styles/codemirror/fullscreen.css" rel="stylesheet" type="text/css">
+
+	<!-- 引入CodeMirror核心文件 -->
+	<script type="text/javascript" src="../../../js/codemirror/codemirror.js"></script>
+
+	<!-- CodeMirror支持不同语言，根据需要引入JS文件 -->
+	<!-- 因为HTML混合语言依赖Javascript、XML、CSS语言支持，所以都要引入 -->
+	<script type="text/javascript" src="../../../js/codemirror/javascript.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/xml.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/css.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/htmlmixed.js"></script>
+
+	<!-- 下面分别为显示行数、括号匹配和全屏插件 -->
+	<script type="text/javascript" src="../../../js/codemirror/active-line.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/fullscreen.js"></script>
+	<script>
+
+
+		editor = undefined;
+
+		const paySet = new Set();
+
+		const defaultWynBi = {
+			lng: 'zh',
+			baseUrl: baseUrl,
+			token: token,
+			dashboardId: 'f2a3f074-dbaa-47f4-8bb6-d1d0591f67ec',
+		}
+
+		const refreshDashboard = () => {
+			const container = document.getElementById("page-1");
+			container.innerHTML = "";
+			let bi = { ...defaultWynBi };
+			if (paySet.size) {
+				bi.dp = `{"paymenttype":[${Array.from(paySet).map(name => `"${name}"`).join(",")}]}`
+			}
+			const ins = WynBi.createViewerLite(bi);
+			ins.initialize({
+				container: container,
+			}).then((uiDashboard) => {
+				const page = uiDashboard.pages[0]; // UIPage
+				const dom = document.createElement('div');
+				dom.className = 'page-dom';
+				container.appendChild(dom);
+				page.connect(dom);
+				page.refresh();
+			});
+		}
+
+		const selectPay = (e) => {
+			if (e.target.checked) {
+				paySet.add(e.target.value);
+				refreshDashboard();
+			} else {
+				paySet.remove(e.target.value);
+				refreshDashboard();
+			}
+		}
+
+		const elements = document.getElementsByName("pay");
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].addEventListener("click", selectPay);
+		}
+
+		refreshDashboard();
+	</script>
+</body>
+
+</html>

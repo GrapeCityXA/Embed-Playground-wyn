@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>国际化演示</title>
+	<link rel="stylesheet" href="../../styles/expansion/index.css">
+</head>
+
+<body>
+	<div class="expansion-header">
+		<div class="expansion-header-left">
+			<div class="expansion-title"><img class="header-icon" src="../../images/sidebar/language.svg" />切换语言</div>
+			<div class="expansion-description">对于跨国企业和多语言用户，可通过切换语言，同时实现切换系统门户的语言和仪表板、报表、图表内容的语言。
+			</div>
+		</div>
+		<div class="expansion-header-right"><a
+				href=" https://help.grapecity.com.cn/pages/viewpage.action?pageId=74286131" target="_blank">帮助文档</a>
+		</div>
+	</div>
+	<div class="expansion-control">
+		<span>切换语言</span>
+		<div class="expansion-control-list" id="expansion-control-list">
+			<input id="zh" type="button" class="expansion-control-button selected" value="中文" />
+			<input id="zh-tw" type="button" class="expansion-control-button" value="繁体中文" />
+			<input id="en" type="button" class="expansion-control-button" value="英语" />
+			<input id="pl" type="button" class="expansion-control-button" value="波兰语" />
+		</div>
+	</div>
+	<div class="expansion-content">
+		<iframe id="expansion-iframe" class="expansion-iframe"></iframe>
+	</div>
+	<script src="../../js/utils.js"></script>
+	<script>
+		let selected = 'zh';
+		document.getElementById("expansion-iframe").src = `${languageDashboard}&lng=zh`;
+		const selectLanguage = (e) => {
+			current = e.target.id;
+			if (selected === current) return;
+			selected = current;
+			document.getElementById("expansion-iframe").src = `${languageDashboard}&lng=${selected}`;
+		}
+		document.getElementById("zh").addEventListener("click", selectLanguage);
+		document.getElementById("en").addEventListener("click", selectLanguage);
+		document.getElementById("zh-tw").addEventListener("click", selectLanguage);
+		document.getElementById("pl").addEventListener("click", selectLanguage);
+	</script>
+</body>
+
+</html>

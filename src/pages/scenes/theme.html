@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>切换主题</title>
+	<link rel="stylesheet" href="../../styles/scenes/index.css">
+	<link rel="stylesheet" href="../../styles/scenes/theme.css">
+</head>
+
+<body>
+	<div class="scene-header">
+		<div class="scene-header-left">
+			<img class="scene-header-icon" src="../../images/home-white.svg" />
+			<span>我的门户</span>
+			<div id="dashboard" class="scene-header-dropdown">
+				<div class="scene-header-dropdown-title">
+					<span id="scene-header-dropdown-text" class="scene-header-dropdown-text">默认主题</span>
+					<img class="scene-header-dropdown-icon" src="../../images/下拉箭头.svg" />
+				</div>
+				<div id="scene-header-dropdown-option-panel" class="scene-header-dropdown-option-panel">
+					<div id="playground" class="scene-header-dropdown-option dashboard-option">默认主题</div>
+					<div id="blue" class="scene-header-dropdown-option dashboard-option">蓝色主题</div>
+					<div id="red" class="scene-header-dropdown-option dashboard-option">红色主题</div>
+				</div>
+			</div>
+		</div>
+		<div class="scene-header-right">
+			<img class="scene-header-icon" src="../../images/通知.svg" />
+			<img class="scene-header-icon" src="../../images/日历.svg" />
+			<img class="scene-header-icon" src="../../images/帮助.svg" />
+			<div class="scene-header-split"></div>
+			<img class="scene-header-icon" src="../../images/用户24.svg" />
+			我的账户
+		</div>
+	</div>
+	<div class="scene-content">
+		<iframe id="scene-iframe" class="scene-iframe" src="http://wynwx.grapecity.com.cn/wyn/dashboards/view/f3dd8756-908c-4158-8153-2bbb3eb51ab7?toolbar=show&lite=false&theme=playground&token=WYN_SERVER_TOKEN"></iframe>
+	</div>
+	<script src="../../js/utils.js"></script>
+	<script>
+
+		let expand = false;
+		const changeDropdownStatus = () => {
+			if (expand) {
+				document.getElementById("scene-header-dropdown-option-panel").classList.remove("expand");
+			} else {
+				document.getElementById("scene-header-dropdown-option-panel").classList.add("expand");
+			}
+			expand = !expand;
+		}
+		document.getElementById("dashboard").addEventListener("click", changeDropdownStatus);
+
+		let selected = "playground";
+		const map = {
+			"playground": "默认主题",
+			"blue": "蓝色主题",
+			"red": "红色主题",
+		}
+		const changeTheme = (e) => {
+			const theme = e.target.id;
+			if (selected === theme) return;
+			document.getElementById("scene-header-dropdown-text").innerHTML = map[theme];
+			document.getElementById("scene-iframe").src = `${baseUrl}/dashboards/view/f3dd8756-908c-4158-8153-2bbb3eb51ab7?toolbar=show&lite=false&theme=${theme}&token=${token}`;
+			selected = theme;
+		}
+
+		document.getElementById("playground").addEventListener("click", changeTheme);
+		document.getElementById("blue").addEventListener("click", changeTheme);
+		document.getElementById("red").addEventListener("click", changeTheme);
+	</script>
+</body>
+
+</html>

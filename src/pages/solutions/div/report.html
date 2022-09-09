@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>报表集成</title>
+	<link rel="stylesheet" href="../../../styles/solutions/index.css">
+</head>
+
+<body>
+	<div class="solution-header">
+		<div class="solution-header-left">
+			<div class="solution-title"><img class="header-icon" src="../../../images/sidebar/div.svg" />DIV集成-报表集成
+			</div>
+			<div class="solution-description">用户可以使用DIV的原生方式，将报表的DIV元素写入业务系统的网页代码中，实现在业务系统中嵌入报表。
+			</div>
+		</div>
+		<div class="solution-header-right"><a href="https://help.grapecity.com.cn/pages/viewpage.action?pageId=74286525"
+				target="_blank">帮助文档</a></div>
+	</div>
+	<div id="solution-content" class="solution-content">
+		<div id="report-viewer-app"></div>
+	</div>
+	<div class="solution-code-panel">
+		<div class="solution-code-panel-header">
+			<input id="expand-code" type="button" class="solution-code-button" value="展开代码" onclick="expandCode()" />
+		</div>
+	</div>
+
+	<div id="code-dialog-div" class="solution-code-mask hide-code-dialog">
+		<div class="solution-code-dialog">
+			<div class="solution-code-dialog-header">
+				报表集成
+				<div class="solution-code-dialog-close-button" onclick="closeDialog()"><img src="../../../images/关闭.svg" /></div>
+			</div>
+			<textarea id="dialog-code">
+<link href="../../../plugin/report/viewer-app.blue.css" rel="stylesheet">
+<link href="../../../plugin/report/viewer-app.chart.css" rel="stylesheet">
+<script type="text/javascript" src="../../../plugin/report/viewer-app.js"></script>
+<script type="text/javascript" src="../../../plugin/report/viewer-app.chart.js"></script>
+<div id="report-viewer-app"></div>
+<script>
+	const prevDocumentTitle = document.title;
+	const reportViewerAppId = 'report-viewer-app';
+	const viewer = window.GrapeCity.WynReports.Viewer.create({
+		element:'report-viewer-app',
+		portalUrl: {baseUrl},
+		referenceToken: {token},
+		locale: "en",
+	});
+	viewer.openReport({reportId});
+<script />
+			</textarea>
+			<div class="code-dialog-footer">
+				<input id="copy-code" type="button" class="code-button" value="复制代码" onclick="copyCode()" />
+			</div>
+		</div>
+	</div>
+	<script src="../../../js/codeMirror.js"></script>
+	<script src="../../../js/utils.js"></script>
+	<!-- <link href="../../../styles/report/viewer-app.css"> -->
+
+	<link href="../../../plugin/report/viewer-app.blue.css" rel="stylesheet">
+	<link href="../../../plugin/report/viewer-app.chart.css" rel="stylesheet">
+	<script type="text/javascript" src="../../../plugin/report/viewer-app.js"></script>
+	<script type="text/javascript" src="../../../plugin/report/viewer-app.chart.js"></script>
+
+	<link href="../../../styles/codemirror/codemirror.css" rel="stylesheet" type="text/css">
+	<link href="../../../styles/codemirror/monokai.css" rel="stylesheet" type="text/css">
+	<link href="../../../styles/codemirror/fullscreen.css" rel="stylesheet" type="text/css">
+	
+	<!-- 引入CodeMirror核心文件 -->
+	<script type="text/javascript" src="../../../js/codemirror/codemirror.js"></script>
+
+	<!-- CodeMirror支持不同语言，根据需要引入JS文件 -->
+	<!-- 因为HTML混合语言依赖Javascript、XML、CSS语言支持，所以都要引入 -->
+	<script type="text/javascript" src="../../../js/codemirror/javascript.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/xml.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/css.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/htmlmixed.js"></script>
+
+	<!-- 下面分别为显示行数、括号匹配和全屏插件 -->
+	<script type="text/javascript" src="../../../js/codemirror/active-line.js"></script>
+	<script type="text/javascript" src="../../../js/codemirror/fullscreen.js"></script>
+	<script>
+		editor = undefined;
+
+		const prevDocumentTitle = document.title;
+		const reportViewerAppId = 'report-viewer-app';
+		const viewer = window.GrapeCity.WynReports.Viewer.create({
+			element:'report-viewer-app',
+			portalUrl: baseUrl,
+			referenceToken: token,
+			locale: "zh",
+		});
+		viewer.openReport("e0899bb7-827c-4a33-a9d9-12dd720ed220");
+	</script>
+</body>
+
+</html>
