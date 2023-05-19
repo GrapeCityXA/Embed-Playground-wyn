@@ -10,9 +10,12 @@
 1. 仪表板嵌入
 2. 图表嵌入
 3. 设计器嵌入
-4. 仪表板重新布局
-5. 切换主题
-6. 切换展示视图
+    - 标准设计器嵌入
+    - 自定义设计器嵌入
+4. 自定义门户
+5. 仪表板重新布局
+6. 切换主题
+7. 切换展示视图
 
 BI 嵌入式 方案体验
 1. iFrame集成
@@ -32,23 +35,19 @@ BI 嵌入式 方案体验
 部署步骤：
 1.	修改配置
 
-您需要修改此文件中的配置才可以在本地部署。
-
-
- ![图片(C:/Users/LenkaGuo/Desktop/Picture1.png)
- 需要将 WynHost 以及 WynToken 修改为您安装的Wyn 服务器生成的Token 以及Host地址
+您需要在 /config/env.js 文件中将 WYN_HOST(WYN_INTERFACE_HOST) 以及 WYN_TOKEN(WYN_INTERFACE_TOKEN) 修改为您安装的 Wyn 服务器生成的 Token 以及 Host 地址。
 
 示例配置（此配置为当前官网上部署的站点的配置）：
-```
-module.exports = {
-    WynHost: "http://wynwx.grapecity.com.cn/wyn",
-    WynToken: "为您Wyn 部署的服务器上生成的token",
 
-    WynInterfaceHost: "http://wynwx.grapecity.com.cn/wyn",
-    WynInterfaceToken: "为您Wyn 部署的服务器上生成的token",
+```jsx
+{
+    WYN_HOST: 'https://wynwx.grapecity.com.cn/wyn',
+    WYN_TOKEN: '为您Wyn 部署的服务器上生成的token',
+    WYN_INTERFACE_HOST: 'https://wynwx.grapecity.com.cn/wyn',
+    WYN_INTERFACE_TOKEN: '为您Wyn 部署的服务器上生成的token',
 }
-
 ```
+
 修改完成后，执行以下命令
 
 2.	按照如下的命令顺序执行
@@ -56,18 +55,17 @@ module.exports = {
 
 # 安装包
 
-Run `npm install`
+在项目根目录下执行 `npm install`  or  `yarn`
 
-在 `src` 路径下编辑源码. 
+**本地开发环境**
 
-Run `npm run build`
+在项目根目录下执行  `npm start` ，可在浏览器中打开 `localhost:3000` 查看具体效果。
 
-在 `dist` 目录下将生成站点
+**打包部署**
 
+在项目根目录下执行  `npm run build` ，生成的 build 文件夹即为打包好的资源，您可选择自己的服务器进行部署。
 
-Run `npm run start`
+<aside>
+💡 如果此项目需要部署的地址存在子路径，那么需要更改 package.json 文件中的 homepage 和 env.js 文件中的 WYN_HOME_PAGE 为您的子路径。
 
- `dist` 文件夹会作为静态文件为站点提供服务。
-
-查看和编译项目：
-Run  `npm run watch-build`
+</aside>
