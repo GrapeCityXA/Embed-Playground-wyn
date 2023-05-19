@@ -1,12 +1,19 @@
-# Wyn 嵌入式 BI 分析体验
+# **Wyn 嵌入式 BI 分析体验**
+
 嵌入式分析将为您的应用软件提供数据见解、可视化和所有分析BI工具所需提供的能力！在这里您将体验到 Wyn 商业智能的嵌入式分析的强大功能，探索适合您的嵌入式 BI 分析方案！
 
-## Wyn 嵌入式 BI 功能介绍
 使用 Wyn 商业智能嵌入式 BI 分析体验工具源码！
-功能在线地址：http://wyn.grapecity.com.cn/playground/index.html
 
-包含的功能：
-嵌入式 BI 场景体验
+功能在线地址：
+
+[http://wyn.grapecity.com.cn/playground/index.html](http://wyn.grapecity.com.cn/playground/index.html)
+
+## **Wyn 嵌入式 BI 功能介绍**
+
+---
+
+**嵌入式 BI 场景体验**
+
 1. 仪表板嵌入
 2. 图表嵌入
 3. 设计器嵌入
@@ -17,7 +24,8 @@
 6. 切换主题
 7. 切换展示视图
 
-BI 嵌入式 方案体验
+**BI 嵌入式 方案体验**
+
 1. iFrame集成
 2. Div 集成
 3. REST API 集成
@@ -25,15 +33,20 @@ BI 嵌入式 方案体验
 5. 移动端集成
 6. OEM 白标集成
 
-自定义系统扩展
+**自定义系统扩展**
+
 1. 国际化
 2. 插件开发
 
-## 下载该示例后，运行指南：
+## **运行指南：**
 
+---
 
-部署步骤：
-1.	修改配置
+下载该示例后，请按照如下步骤操作
+
+### 1. 修改配置
+
+---
 
 您需要在 /config/env.js 文件中将 WYN_HOST(WYN_INTERFACE_HOST) 以及 WYN_TOKEN(WYN_INTERFACE_TOKEN) 修改为您安装的 Wyn 服务器生成的 Token 以及 Host 地址。
 
@@ -48,12 +61,11 @@ BI 嵌入式 方案体验
 }
 ```
 
-修改完成后，执行以下命令
+### 2. 安装依赖包并执行
 
-2.	按照如下的命令顺序执行
+---
 
-
-# 安装包
+**安装依赖包**
 
 在项目根目录下执行 `npm install`  or  `yarn`
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Advanced Chart1</title>
+    <g id="Advanced-Chart1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3D1备份" transform="translate(16.000000, 16.499978) rotate(90.000000) translate(-16.000000, -16.499978) translate(2.000000, 3.000000)">
+            <polygon id="路径-5" fill="#999999" points="0 17.5769421 0 24.7109763 3.93823249 26.9999552 3.93823249 19.8890652"></polygon>
+            <polygon id="路径-5备份-2" fill="#7B74E1" points="9.97649299 2.61220256 9.97649299 24.7109763 13.9147255 26.9999552 13.9147255 4.92432569"></polygon>
+            <polygon id="路径-5备份-4" fill="#FFC85B" points="19.952986 10.0945723 19.952986 24.7109763 23.8912185 26.9999552 23.8912185 12.4066954"></polygon>
+            <polygon id="路径-5备份" fill="#777777" points="8.04701402 17.5673861 8.04701402 24.7014203 3.93823249 26.9999552 3.93823249 19.8890652"></polygon>
+            <polygon id="路径-5备份-3" fill="#2D23B3" points="18.023507 2.60264661 18.023507 24.7014203 13.9147255 26.9999552 13.9147255 4.92432569"></polygon>
+            <polygon id="路径-5备份-5" fill="#FFB522" points="28 10.0850164 28 24.7014203 23.8912185 26.9999552 23.8912185 12.4066954"></polygon>
+            <polygon id="路径-6" fill="#C0C0C0" points="0 17.5769421 3.93823249 19.8890652 8.04701402 17.5673861 3.93823249 14.9647395"></polygon>
+            <polygon id="路径-6备份" fill="#B6B1F8" points="9.97649299 2.61220256 13.9147255 4.92432569 18.023507 2.60264661 13.9147255 -5.46709976e-16"></polygon>
+            <polygon id="路径-6备份-2" fill="#FFDFA0" points="19.952986 10.0945723 23.8912185 12.4066954 28 10.0850164 23.8912185 7.48236974"></polygon>
+        </g>
+    </g>
+</svg>

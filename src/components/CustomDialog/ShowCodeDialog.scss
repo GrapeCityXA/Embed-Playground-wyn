@@ -1,0 +1,24 @@
+.showCodeDialog .ant-modal-content {
+  height: 70%;
+  .ant-modal-close {
+    color: #000;
+  }
+  .ant-modal-header {
+    background-color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 0;
+    .ant-modal-title {
+      color: #000;
+    }
+  }
+  .ant-modal-body {
+    padding: 0;
+    height: 300px;
+  }
+  .ant-modal-footer {
+    border-top: 1px solid #e5e5e5;
+    margin-top: 0;
+    padding-top: 10px;
+  }
+}
+

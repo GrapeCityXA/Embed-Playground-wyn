@@ -1,0 +1,20 @@
+.solution-interfaces-main .interface-content-option {
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 100%;
+    #connection-string {
+      height: 100px;
+      cursor: default;
+    }
+    label {
+      margin-bottom: 5px;
+    }
+    .form-control {
+      height: 30px;
+      box-sizing: border-box;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+  }
+}

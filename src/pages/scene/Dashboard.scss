@@ -1,0 +1,8 @@
+.scene-content {
+  height: 100%;
+  .scene-iframe {
+    width: -webkit-fill-available;
+    height: 100%;
+    border: none;
+  }
+}

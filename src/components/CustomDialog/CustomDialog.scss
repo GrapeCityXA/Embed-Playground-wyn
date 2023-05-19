@@ -1,0 +1,21 @@
+.ant-modal-content {
+  padding: 0 0 10px 0 !important;
+  .ant-modal-close {
+    top: 10px;
+    color: #fff;
+  }
+  .ant-modal-header {
+    background-color: #150c92;
+    padding: 10px;
+    .ant-modal-title {
+      color: #fff;
+      font-weight: normal;
+    }
+  }
+  .ant-modal-body {
+    padding: 10px 30px;
+  }
+  .ant-modal-footer {
+    margin: 0 20px 0 0;
+  }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Pie Chart</title>
+    <g id="Basci-Chart7" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="分组-9备份" transform="translate(3.000000, 3.000000)">
+            <path d="M14.3,11.7 L14.3,0 C20.7612521,0 26,5.23816752 26,11.7 L14.3,11.7 Z" id="Fill-24" fill="#150C92"></path>
+            <path d="M11.6993518,26 C5.2384577,26 0,20.7618325 0,14.3012963 C0,7.83816752 5.2384577,2.6 11.6993518,2.6 L11.6993518,14.3012963 L23.4,14.3012963 C23.4,20.7618325 18.1615423,26 11.6993518,26" id="Fill-26" fill="#FFB522"></path>
+        </g>
+    </g>
+</svg>
