@@ -1,0 +1,19 @@
+.statistics-panel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  flex: 0 0 70px;
+}
+@media (max-width: 1280px) {
+  .statistics-panel .statistics-panel-item {
+    
+    .statistics-panel-item-icon {
+      display: none;
+    }
+    .statistics-panel-item-content .statistics-panel-item-content-title,
+    .statistics-panel-item-content .statistics-panel-item-content-count {
+      text-align: center;
+      font-weight: 700;
+    }
+  }
+}

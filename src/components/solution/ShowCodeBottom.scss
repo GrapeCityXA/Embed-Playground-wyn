@@ -1,0 +1,19 @@
+.show-code-bottom {
+  flex: 0 0 50px;
+  height: 50px;
+  padding: 0px 25px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  margin-top: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px 1px rgb(193 193 193 / 50%);
+  .ant-btn {
+    background-color: #150c92;
+    color: #fff;
+  }
+}
+.ant-modal-body .ace_print-margin {
+  visibility: hidden !important;
+}

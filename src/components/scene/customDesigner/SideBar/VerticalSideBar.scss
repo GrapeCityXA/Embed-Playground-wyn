@@ -1,0 +1,27 @@
+.custom-designer-main-sidebar {
+  background-color: #fff;
+  box-shadow: -1px 2px 4px 1px rgb(25 25 26 / 20%);
+  z-index: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  .ant-collapse-item {
+    margin: 15px 0;
+    .ant-collapse-content-box {
+      padding: 15px 20px;
+    }
+  }
+  .header-title {
+    display: flex;
+    align-items: center;
+
+    .header-title-text {
+      margin-left: 10px;
+    }
+  }
+  .custom-designer-vertical-menu-item {
+    border-radius: 4px;
+    &:hover {
+      background-color: #f3f4f5;
+    }
+  }
+}

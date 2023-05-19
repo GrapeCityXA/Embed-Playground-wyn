@@ -1,0 +1,30 @@
+.portal-navbar-container {
+  width: 200px;
+  height: 100%;
+  box-shadow: 2px 0px 4px 0px rgba(182, 182, 182, 0.5);
+
+  .ant-menu-title-content {
+    font-size: 12px;
+  }
+  .portal-navbar {
+    width: 200px;
+  }
+  .ant-menu-item-selected {
+    background-color: rgba(26, 16, 149, 0.1) !important;
+  }
+  .ant-menu-item-active {
+    background-color: #f0f0f0 !important;
+  }
+  .ant-menu-submenu-active {
+    .ant-menu-submenu-title {
+      background-color: #f0f0f0 !important;
+    }
+  }
+  .ant-menu-item,
+  .ant-menu-submenu {
+    border-radius: 100px 0 0 100px;
+    .ant-menu-submenu-title {
+      border-radius: 100px 0 0 100px;
+    }
+  }
+}

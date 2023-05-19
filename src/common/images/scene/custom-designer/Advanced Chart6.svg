@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Advanced Chart6</title>
+    <g id="Advanced-Chart6" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组-2备份" transform="translate(3.000000, 2.000000)">
+            <polygon id="路径" fill="#999999" points="22.7897362 15.9956364 26.7601561 22.7186848 13.3460999 28 13.3460999 19.5714056"></polygon>
+            <polygon id="路径" fill="#7B74E1" points="13.3460999 0 19.5888271 10.5738182 13.3460999 12.9855612"></polygon>
+            <path d="M19.5900999,10.5750909 L22.7900999,15.9950909 L13.3460999,19.5714056 L13.3460999,12.9855612 L19.5900999,10.5750909 Z" id="形状结合" fill="#FFC85B"></path>
+            <polygon id="路径" fill="#FFB522" points="7.15909091 10.556 13.3460999 12.9855612 13.3460999 19.5714056 4.02436364 15.9065455"></polygon>
+            <polygon id="形状" fill="#777777" points="13.3460999 28 0 22.7726101 4.02309091 15.9065455 13.3460999 19.5714056"></polygon>
+            <polygon id="路径" fill="#2D23B3" points="13.3460999 0 13.3460999 12.9855612 7.16036364 10.5547273"></polygon>
+        </g>
+    </g>
+</svg>

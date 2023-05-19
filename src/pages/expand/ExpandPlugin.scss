@@ -1,0 +1,78 @@
+
+.expand-plugin {
+  height: 100%;
+  display: flex;
+    flex-direction: column;
+}
+
+.expansion-control {
+  flex: 0 0 50px;
+  background-color: #ffffff;
+  font-size: 14px;
+  padding: 4px 15px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 4px 1px rgba(193, 193, 193, 0.5);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.expansion-control .expansion-control-list {
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.expansion-control .expansion-control-list .expansion-control-button {
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #150c92;
+  border: none;
+  color: #ffffff;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.expansion-content {
+  flex: 1;
+  height: 100%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 4px 1px rgba(193, 193, 193, 0.5);
+  overflow: auto;
+}
+
+.expansion-content .expansion-iframe {
+  width: -webkit-fill-available;
+  height: 100%;
+  border: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  /**/
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}
+
+.video-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1;
+}

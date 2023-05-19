@@ -1,0 +1,18 @@
+.solution-report {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .report-content {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    flex: 1 1;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    .report-viewer-app {
+      width: 100%;
+      flex: 1 1;
+      overflow: hidden;
+    }
+  }
+}
