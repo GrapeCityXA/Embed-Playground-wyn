@@ -81,3 +81,8 @@
 💡 如果此项目需要部署的地址存在子路径，那么需要更改 package.json 文件中的 homepage 和 env.js 文件中的 WYN_HOME_PAGE 为您的子路径。
 
 </aside>
+
+<aside>
+💡 此项目部署时，请根据 src/common/utils/utils.ts 中的注释修改对应依赖包链接。
+
+</aside>

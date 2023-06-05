@@ -276,35 +276,35 @@ export enum PluginTypes {
 const dependentPackageObj = {
 	dashboard: {
 		css: [
-			'/dashboard.vendor.css',
-			'/dashboard.viewerLite.css',
-			'/dashboard.viewerLite.vendor.css',
-			'/dashboard.app.css',
-			'/dashboard.app.Playground设计器自定义默认主题.css',
-			'/dashboard.vendor.Playground设计器自定义默认主题.css',
-			// '/assets/dashboard/dashboard.app.自定义门户默认主题.css',
+			'/dashboard/dashboard.vendor.css',
+			'/dashboard/dashboard.viewerLite.css',
+			'/dashboard/dashboard.viewerLite.vendor.css',
+			'/dashboard/dashboard.app.css',
+			'/dashboard/dashboard.app.Playground设计器自定义默认主题.css',
+			'/dashboard/dashboard.vendor.Playground设计器自定义默认主题.css',
+			// '/dashboard/assets/dashboard/dashboard.app.自定义门户默认主题.css',
 		],
 		js: [
-			'/polyfills.js',
-			'/dashboard.libs.common.js',
-			'/dashboard.libs.sheet.js',
-			'/dashboard.libs.chart.js',
-			'/dashboard.libs.extension.js',
-			'/dashboard.app.js',
-			'/dashboard.viewerLite.js',
+			'/dashboard/polyfills.js',
+			'/dashboard/dashboard.libs.common.js',
+			'/dashboard/dashboard.libs.sheet.js',
+			'/dashboard/dashboard.libs.chart.js',
+			'/dashboard/dashboard.libs.extension.js',
+			'/dashboard/dashboard.app.js',
+			'/dashboard/dashboard.viewerLite.js',
 		],
 	},
 	report: {
 		css: [
-			'/viewer-app.chart.css',
-			'/viewer-app.css',
-			'/designer-app.css',
-			'/viewer-app.blue.css'
+			'/report/viewer-app.chart.css',
+			'/report/viewer-app.css',
+			'/report/designer-app.css',
+			'/report/viewer-app.blue.css'
 		],
 		js: [
-			'/viewer-app.js',
-			'/viewer-app.chart.js',
-			'/designer-app.js',
+			'/report/viewer-app.js',
+			'/report/viewer-app.chart.js',
+			'/report/designer-app.js',
 		],
 	},
 };
