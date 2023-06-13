@@ -54,7 +54,7 @@ export const SolutionFilter: FC = () => {
       paySet.add(e.target.value); \n\
       refreshDashboard(); \n\
     } else { \n\
-      paySet.remove(e.target.value); \n\
+      paySet.delete(e.target.value); \n\
       refreshDashboard(); \n\
     } \n\
   } \n\
@@ -92,7 +92,7 @@ export const SolutionFilter: FC = () => {
         paySet.add(e.target.value);
         refreshDashboard();
       } else {
-        paySet.remove(e.target.value);
+        paySet.delete(e.target.value);
         refreshDashboard();
       }
     }

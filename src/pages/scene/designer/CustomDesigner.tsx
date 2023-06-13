@@ -2,7 +2,7 @@ import { FC, useEffect, useState, useRef, MouseEventHandler, createContext, useM
 import { Layout, Row, FloatButton, Drawer, Form, Radio, Switch, Button, ConfigProvider, Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
 
-import { changeCssLink, dependentPackageLoad, PluginTypes, isLoaded } from '../../../common/utils/utils';
+import { changeCssLink, dependentPackageLoad, PluginTypes } from '../../../common/utils/utils';
 import { CustomDesignerHeader } from '../../../components/scene/customDesigner/Header';
 import { CustomDesignerVerticalSideBar, CustomDesignerHorizontalSideBar } from '../../../components/scene/customDesigner/SideBar';
 import { FloatDatasetSelector } from '../../../components/scene/customDesigner/FloatButton';
@@ -31,9 +31,6 @@ const documentThemeMap: any = {
   'Playground设计器自定义默认主题': '5b7f21386d502b0031deb385',
   'Playground设计器自定义浅色主题': 'b55f609e-2280-4129-8b24-d79ab4ea62df',
 }
-
-// const promiseFactory: PromiseFactory = new PromiseFactory();
-// const defer = promiseFactory.defer();
 
 export const CustomDesigner: FC = (props: CustomDesignerProps) => {
   const defaultLayoutFormValue: LayoutFormValue = {
@@ -94,8 +91,6 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
       });
     });
   }
-
-  const themeContainer: any = document.getElementById('theme-container');
 
   useEffect(() => {
     if (layoutFormValue.showInspector) {
