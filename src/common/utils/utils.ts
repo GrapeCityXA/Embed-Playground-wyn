@@ -270,8 +270,6 @@ const dependentPackageObj = {
 			'/dashboard.viewerLite.css',
 			'/dashboard.viewerLite.vendor.css',
 			'/dashboard.app.css',
-			'/dashboard.app.Playground设计器自定义默认主题.css',
-			'/dashboard.vendor.Playground设计器自定义默认主题.css',
 		],
 		js: [
 			'/dashboard.libs.common.js',
@@ -302,7 +300,6 @@ export const isLoaded = {
 	isReportLoaded: false,
 };
 
-
 // 此 CDN 地址仅用于 WYN playground 的 Demo 环境，部署时请勿引用。
 // 如需部署，请将此地址更改为: `${'您的 wyn 的地址'}/api/PluginAssets` 和 `${'您的 wyn 的地址'}/api/themefiles`
 const getBaseJsUrl = (pluginType?: PluginType) => `https://cdn.grapecity.com.cn/wyn/playground/assets/${pluginType}`;
@@ -322,7 +319,7 @@ const loadCss = (pluginType: PluginType) => {
 			resolve(true);
 		};
 		link.rel = 'stylesheet';
-		// 如需部署，请改为: link.href = `${getBaseCssUrl()}${dependentCss}?theme=default&version=${WYN_VERSION.dashboard}&plugin=dashboards`;
+		// 如需部署，请改为: link.href = `${getBaseCssUrl()}${dependentCss}?theme=default&version=${WYN_VERSION.dashboard}&plugin=${pluginType}s`;
 		link.href = getBaseCssUrl(pluginType) + dependentCss;
 		document.head.appendChild(link);
 	}));
@@ -352,7 +349,7 @@ export const dependentPackageLoad = (pluginType: PluginType) => {
 	};
 	const cssIsLoaded = loadCss(pluginType);
 	const jsIsLoaded = loadJs(pluginType);
-	return Promise.all([cssIsLoaded, jsIsLoaded]).then((value) => {
+	return Promise.all([cssIsLoaded, jsIsLoaded]).then(() => {
 		if (pluginType === PluginTypes.Dashboard) {
 			isLoaded.isDashboardLoaded = true;
 		}
@@ -366,7 +363,7 @@ export const changeCssLink = (theme: string) => {
 	document.getElementById('theme-container')?.remove();
 	const themeLink = document.createElement('link');
 	// 如需部署，请将此地址更改为: 
-	// themeLink.href = `${getBaseCssUrl()}dashboard.app.${theme}.css?theme=${theme}&version=${WYN_VERSION.dashboard}&plugin=dashboards`;
+	// themeLink.href = `${getBaseCssUrl()}/dashboard.app.css?theme=${theme}&version=${WYN_VERSION.dashboard}&plugin=dashboards`;
 	themeLink.href = `https://cdn.grapecity.com.cn/wyn/playground/assets/dashboard/dashboard.app.${theme}.css`;
 	themeLink.rel = 'stylesheet';
 	themeLink.id = 'theme-container';
