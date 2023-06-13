@@ -19,7 +19,6 @@ import {
   PortalSettingIcon,
 } from '../../../common/icons';
 import './index.scss';
-import { changeCssLink, dependentPackageLoad, PluginTypes } from '../../../common/utils/utils';
 
 interface PortalProps {
 }
@@ -70,11 +69,13 @@ const keyToKanbanMap: any = {
   '生产看板': 'f609549d-7ea6-463f-8062-c9d7979911cb',
 };
 
+const useCustomTheme = WYN.USE_CUSTOM_THEME;
+
 export const Portal: FC<PortalProps> = (props) => {
   const defaultPortalLayoutFormValue: PortalLayoutFormValue = {
     layout: 'vertical',
     dataCenter: 'custom',
-    systemTheme: '自定义门户默认主题',
+    systemTheme: useCustomTheme ? '自定义门户默认主题' : 'default',
   };
 
   const [isShowSettingDialog, setIsShowSettingDialog] = useState<boolean>(false);
@@ -171,9 +172,11 @@ export const Portal: FC<PortalProps> = (props) => {
               </Radio.Group>
             </Form.Item>
             <Form.Item label="系统主题" name="systemTheme">
-              <Radio.Group className='drawer-form-group-common-flex drawer-form-group-theme'>
-                <Radio value="自定义门户默认主题" className='flex-fix-32'> 炫蓝色 </Radio>
-                <Radio value="自定义门户-浅色主题" className='flex-fix-32'> 简约浅色 </Radio>
+              <Radio.Group className='drawer-form-group-common-flex drawer-form-group-theme' disabled={!useCustomTheme}>
+                {useCustomTheme ? <>
+                  <Radio value="自定义门户默认主题" className='flex-fix-32'> 炫蓝色 </Radio>
+                  <Radio value="自定义门户-浅色主题" className='flex-fix-32'> 简约浅色 </Radio>
+                </> : <Radio value="default" className='flex-fix-32'> 默认主题 </Radio>}
               </Radio.Group>
             </Form.Item>
           </Form>

@@ -104,6 +104,8 @@ function getClientEnvironment(publicUrl) {
         WYN_INTERFACE_TOKEN: '为您Wyn 部署的服务器上生成的token',
 
         WYN_HOME_PAGE: '',
+
+        USE_CUSTOM_THEME: true,
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin

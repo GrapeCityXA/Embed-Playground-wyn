@@ -4,9 +4,11 @@ import { SceneHeader } from '../../../components/scene/SceneHeader/SceneHeader';
 import { useSelectedKeys } from '../../index';
 import './Designer.scss';
 
+const useCustomTheme = WYN.USE_CUSTOM_THEME;
 let designer: any = undefined;
 
 export const Designer: FC = () => {
+  const designerTheme = useCustomTheme ? 'Playground设计器自定义默认主题' : 'default';
   const designerContainerRef: any = useRef(null);
   const { selectedKeys } = useSelectedKeys();
   const [isPackageLoaded, setIsPackageLoaded] = useState<boolean>(false);
@@ -21,7 +23,7 @@ export const Designer: FC = () => {
     designer.initialize({
       container: designerContainerRef.current,
       defaults: {
-        theme: 'Playground设计器自定义默认主题',
+        theme: designerTheme,
         lng: 'zh',
         dashboardId: '0bead052-d56a-4fac-897b-a2984c0208e3',
       },
@@ -29,7 +31,7 @@ export const Designer: FC = () => {
   };
 
   useEffect(() => {
-    changeCssLink('Playground设计器自定义默认主题');
+    changeCssLink(designerTheme);
     return () => {
       if (designer) {
         designer.destroy();

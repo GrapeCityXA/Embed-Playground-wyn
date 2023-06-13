@@ -23,6 +23,7 @@ interface LayoutFormValue {
   showDataBinding: boolean,
 }
 
+const useCustomTheme = WYN.USE_CUSTOM_THEME;
 let designer: any = undefined;
 
 const Context = createContext({ name: 'Default' });
@@ -35,7 +36,7 @@ const documentThemeMap: any = {
 export const CustomDesigner: FC = (props: CustomDesignerProps) => {
   const defaultLayoutFormValue: LayoutFormValue = {
     layout: 'horizontal',
-    theme: 'Playground设计器自定义默认主题',
+    theme: useCustomTheme ? 'Playground设计器自定义默认主题' : 'default',
     showInspector: true,
     showDataBinding: true,
   };
@@ -334,9 +335,11 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
                 </Radio.Group>
               </Form.Item>
               <Form.Item label="系统主题" name='theme'>
-                <Radio.Group className='drawer-form-group-common-flex drawer-form-group-theme'>
-                  <Radio value="Playground设计器自定义默认主题" className='flex-fix-32'> 炫蓝色 </Radio>
-                  <Radio value="Playground设计器自定义浅色主题" className='flex-fix-32'> 清晰绿色 </Radio>
+                <Radio.Group className='drawer-form-group-common-flex drawer-form-group-theme' disabled={!useCustomTheme}>
+                  {useCustomTheme ? <>
+                    <Radio value="Playground设计器自定义默认主题" className='flex-fix-32'> 炫蓝色 </Radio>
+                    <Radio value="Playground设计器自定义浅色主题" className='flex-fix-32'> 清晰绿色 </Radio>
+                  </> : <Radio value="default" className='flex-fix-32'> 默认主题 </Radio>}
                 </Radio.Group>
               </Form.Item>
               <Form.Item label="显示属性面板" name="showInspector" valuePropName="checked">
