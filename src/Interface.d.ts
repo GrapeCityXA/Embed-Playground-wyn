@@ -6,6 +6,7 @@ declare const WYN: {
   // DASHBOARD_PLUGIN_VERSION: string,
   // REPORTS_VERSION: string,
   WYN_HOME_PAGE: string,
+  USE_CUSTOM_THEME: boolean,
 };
 
 declare const WynBi: any;

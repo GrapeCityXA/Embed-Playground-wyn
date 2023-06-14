@@ -256,16 +256,6 @@ export const api: any = {
 	},
 }
 
-export const changeCssLink = (theme: string) => {
-	document.getElementById('theme-container')?.remove();
-	const themeLink = document.createElement('link');
-	// themeLink.href = `${WYN.WYN_HOME_PAGE.length ? `/${WYN.WYN_HOME_PAGE}` : ''}/assets/dashboard/dashboard.app.${theme}.css`;
-	themeLink.href = `https://cdn.grapecity.com.cn/wyn/playground/assets/dashboard/dashboard.app.${theme}.css`;
-	themeLink.rel = 'stylesheet';
-	themeLink.id = 'theme-container';
-	document.head.appendChild(themeLink);
-}
-
 type PluginType = 'dashboard' | 'report';
 
 export enum PluginTypes {
@@ -276,35 +266,31 @@ export enum PluginTypes {
 const dependentPackageObj = {
 	dashboard: {
 		css: [
-			'/dashboard/dashboard.vendor.css',
-			'/dashboard/dashboard.viewerLite.css',
-			'/dashboard/dashboard.viewerLite.vendor.css',
-			'/dashboard/dashboard.app.css',
-			'/dashboard/dashboard.app.Playground设计器自定义默认主题.css',
-			'/dashboard/dashboard.vendor.Playground设计器自定义默认主题.css',
-			// '/dashboard/assets/dashboard/dashboard.app.自定义门户默认主题.css',
+			'/dashboard.vendor.css',
+			'/dashboard.viewerLite.css',
+			'/dashboard.viewerLite.vendor.css',
+			'/dashboard.app.css',
 		],
 		js: [
-			'/dashboard/polyfills.js',
-			'/dashboard/dashboard.libs.common.js',
-			'/dashboard/dashboard.libs.sheet.js',
-			'/dashboard/dashboard.libs.chart.js',
-			'/dashboard/dashboard.libs.extension.js',
-			'/dashboard/dashboard.app.js',
-			'/dashboard/dashboard.viewerLite.js',
+			'/dashboard.libs.common.js',
+			'/dashboard.libs.sheet.js',
+			'/dashboard.libs.chart.js',
+			'/dashboard.libs.extension.js',
+			'/dashboard.app.js',
+			'/dashboard.viewerLite.js',
 		],
 	},
 	report: {
 		css: [
-			'/report/viewer-app.chart.css',
-			'/report/viewer-app.css',
-			'/report/designer-app.css',
-			'/report/viewer-app.blue.css'
+			'/viewer-app.chart.css',
+			'/viewer-app.css',
+			'/designer-app.css',
+			'/viewer-app.blue.css'
 		],
 		js: [
-			'/report/viewer-app.js',
-			'/report/viewer-app.chart.js',
-			'/report/designer-app.js',
+			'/viewer-app.js',
+			'/viewer-app.chart.js',
+			'/designer-app.js',
 		],
 	},
 };
@@ -315,8 +301,9 @@ export const isLoaded = {
 };
 
 // 此 CDN 地址仅用于 WYN playground 的 Demo 环境，部署时请勿引用。
-// 如需部署，请将此地址更改为: `${'您的 wyn 的地址'}/wyn/api/PluginAssets`
-const CDN_URL = 'https://cdn.grapecity.com.cn/wyn/playground/assets';
+// 如需部署，请将此地址更改为: `${'您的 wyn 的地址'}/api/PluginAssets` 和 `${'您的 wyn 的地址'}/api/themefiles`
+const getBaseJsUrl = (pluginType?: PluginType) => `https://cdn.grapecity.com.cn/wyn/playground/assets/${pluginType}`;
+const getBaseCssUrl = (pluginType?: PluginType) => `https://cdn.grapecity.com.cn/wyn/playground/assets/${pluginType}`;
 
 // 如需部署，请更改此变量
 const WYN_VERSION = {
@@ -332,8 +319,8 @@ const loadCss = (pluginType: PluginType) => {
 			resolve(true);
 		};
 		link.rel = 'stylesheet';
-		// 如需部署，请改为: link.href = `${CDN_URL}/${pluginType}s-${WYN_VERSION[pluginType]}${dependentCss}`;
-		link.href = CDN_URL + dependentCss;
+		// 如需部署，请改为: link.href = `${getBaseCssUrl()}${dependentCss}?theme=default&version=${WYN_VERSION.dashboard}&plugin=${pluginType}s`;
+		link.href = getBaseCssUrl(pluginType) + dependentCss;
 		document.head.appendChild(link);
 	}));
 	return Promise.all(linkList);
@@ -346,8 +333,8 @@ const loadJs = (pluginType: PluginType) => {
 		script.onload = () => {
 			resolve(true);
 		};
-		// 如需部署，请改为: script.src = `${CDN_URL}/${pluginType}s-${WYN_VERSION[pluginType]}${dependentJs}`;
-		script.src = CDN_URL + dependentJs;
+		// 如需部署，请改为: script.src = `${getBaseJsUrl()}/${pluginType}s-${WYN_VERSION[pluginType]}${dependentJs}`;
+		script.src = getBaseJsUrl(pluginType) + dependentJs;
 		document.head.appendChild(script);
 	}));
 	return Promise.all(scriptList);
@@ -362,7 +349,7 @@ export const dependentPackageLoad = (pluginType: PluginType) => {
 	};
 	const cssIsLoaded = loadCss(pluginType);
 	const jsIsLoaded = loadJs(pluginType);
-	return Promise.all([cssIsLoaded, jsIsLoaded]).then((value) => {
+	return Promise.all([cssIsLoaded, jsIsLoaded]).then(() => {
 		if (pluginType === PluginTypes.Dashboard) {
 			isLoaded.isDashboardLoaded = true;
 		}
@@ -371,3 +358,14 @@ export const dependentPackageLoad = (pluginType: PluginType) => {
 		}
 	});
 };
+
+export const changeCssLink = (theme: string) => {
+	document.getElementById('theme-container')?.remove();
+	const themeLink = document.createElement('link');
+	// 如需部署，请将此地址更改为: 
+	// themeLink.href = `${getBaseCssUrl()}/dashboard.app.css?theme=${theme}&version=${WYN_VERSION.dashboard}&plugin=dashboards`;
+	themeLink.href = `https://cdn.grapecity.com.cn/wyn/playground/assets/dashboard/dashboard.app.${theme}.css`;
+	themeLink.rel = 'stylesheet';
+	themeLink.id = 'theme-container';
+	document.head.appendChild(themeLink);
+}

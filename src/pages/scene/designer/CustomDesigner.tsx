@@ -2,7 +2,7 @@ import { FC, useEffect, useState, useRef, MouseEventHandler, createContext, useM
 import { Layout, Row, FloatButton, Drawer, Form, Radio, Switch, Button, ConfigProvider, Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
 
-import { changeCssLink, dependentPackageLoad, PluginTypes, isLoaded } from '../../../common/utils/utils';
+import { changeCssLink, dependentPackageLoad, PluginTypes } from '../../../common/utils/utils';
 import { CustomDesignerHeader } from '../../../components/scene/customDesigner/Header';
 import { CustomDesignerVerticalSideBar, CustomDesignerHorizontalSideBar } from '../../../components/scene/customDesigner/SideBar';
 import { FloatDatasetSelector } from '../../../components/scene/customDesigner/FloatButton';
@@ -23,6 +23,7 @@ interface LayoutFormValue {
   showDataBinding: boolean,
 }
 
+const useCustomTheme = WYN.USE_CUSTOM_THEME;
 let designer: any = undefined;
 
 const Context = createContext({ name: 'Default' });
@@ -32,13 +33,10 @@ const documentThemeMap: any = {
   'Playground设计器自定义浅色主题': 'b55f609e-2280-4129-8b24-d79ab4ea62df',
 }
 
-// const promiseFactory: PromiseFactory = new PromiseFactory();
-// const defer = promiseFactory.defer();
-
 export const CustomDesigner: FC = (props: CustomDesignerProps) => {
   const defaultLayoutFormValue: LayoutFormValue = {
     layout: 'horizontal',
-    theme: 'Playground设计器自定义默认主题',
+    theme: useCustomTheme ? 'Playground设计器自定义默认主题' : 'default',
     showInspector: true,
     showDataBinding: true,
   };
@@ -94,8 +92,6 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
       });
     });
   }
-
-  const themeContainer: any = document.getElementById('theme-container');
 
   useEffect(() => {
     if (layoutFormValue.showInspector) {
@@ -339,9 +335,11 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
                 </Radio.Group>
               </Form.Item>
               <Form.Item label="系统主题" name='theme'>
-                <Radio.Group className='drawer-form-group-common-flex drawer-form-group-theme'>
-                  <Radio value="Playground设计器自定义默认主题" className='flex-fix-32'> 炫蓝色 </Radio>
-                  <Radio value="Playground设计器自定义浅色主题" className='flex-fix-32'> 清晰绿色 </Radio>
+                <Radio.Group className='drawer-form-group-common-flex drawer-form-group-theme' disabled={!useCustomTheme}>
+                  {useCustomTheme ? <>
+                    <Radio value="Playground设计器自定义默认主题" className='flex-fix-32'> 炫蓝色 </Radio>
+                    <Radio value="Playground设计器自定义浅色主题" className='flex-fix-32'> 清晰绿色 </Radio>
+                  </> : <Radio value="default" className='flex-fix-32'> 默认主题 </Radio>}
                 </Radio.Group>
               </Form.Item>
               <Form.Item label="显示属性面板" name="showInspector" valuePropName="checked">

@@ -75,14 +75,14 @@
 
 **打包部署**
 
+<aside>
+
+💡 此项目部署时，需提前更改以下配置
+
+1. 如果此项目需要部署的地址存在子路径，那么需要更改 package.json 文件中的 homepage 和 env.js 文件中的 WYN_HOME_PAGE 为您的子路径。
+2. 根据 src/common/utils/utils.ts 中的注释修改对应代码。
+3. 将 env.js 文件中的 USE_CUSTOM_THEME 改为 false。
+
+</aside> 
+
 在项目根目录下执行  `npm run build` ，生成的 build 文件夹即为打包好的资源，您可选择自己的服务器进行部署。
-
-<aside>
-💡 如果此项目需要部署的地址存在子路径，那么需要更改 package.json 文件中的 homepage 和 env.js 文件中的 WYN_HOME_PAGE 为您的子路径。
-
-</aside>
-
-<aside>
-💡 此项目部署时，请根据 src/common/utils/utils.ts 中的注释修改对应依赖包链接。
-
-</aside>
