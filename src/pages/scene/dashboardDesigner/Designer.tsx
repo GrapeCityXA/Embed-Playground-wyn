@@ -47,7 +47,7 @@ export const Designer: FC = () => {
 
   useEffect(() => {
     if (!isPackageLoaded) return;
-    if (selectedKeys[0] !== '标准设计器嵌入') {
+    if (selectedKeys[0] !== '原生设计器嵌入') {
       return;
     }
     initDesigner();
@@ -58,4 +58,4 @@ export const Designer: FC = () => {
       <div id='scene-designer-dashboard' className="scene-designer-dashboard" ref={designerContainerRef}></div>
     </div>
   )
-}
+};

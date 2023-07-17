@@ -1,5 +1,4 @@
 import { FC } from 'react'
-// import {  } from 'react-router-dom';
 import { useKanban } from './index';
 
 import './PortalKanban.scss';
