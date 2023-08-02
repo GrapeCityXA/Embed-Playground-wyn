@@ -6,6 +6,7 @@ import { useSelectedKeys } from '../../index';
 import './CustomReportDesigner.scss';
 
 let viewer: any | undefined;
+const cacheReportToken: any = undefined;
 
 export const CustomReportDesigner: FC = () => {
   const [isPackageLoaded, setIsPackageLoaded] = useState<boolean>(false);
@@ -22,7 +23,10 @@ export const CustomReportDesigner: FC = () => {
     if (selectedKeys[0] !== '自定义报表设计器嵌入') {
       return;
     }
-    const designerOptions = (window as any).GrapeCity.WynReports.Designer.createDesignerOptions(WYN.WYN_HOST, '35344965356C27E95B174BA3A54D5F6688961E0AF250BA9AD1D416F89947AD70');
+    if (!cacheReportToken) {
+      throw "请修改缓存报表的 Token!"
+    }
+    const designerOptions = (window as any).GrapeCity.WynReports.Designer.createDesignerOptions(WYN.WYN_HOST, cacheReportToken);
 
     designerOptions.saveButton.visible = false;
     designerOptions.saveAsButton.visible = false;
