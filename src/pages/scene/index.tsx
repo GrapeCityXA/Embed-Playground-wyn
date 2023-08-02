@@ -5,6 +5,7 @@ export { PortalKanban } from './portal/PortalKanban';
 export { Designer } from './dashboardDesigner/Designer';
 export { CustomDesigner } from './dashboardDesigner/CustomDesigner'
 export { ReportDesigner } from './reportDesigner/ReportDesigner';
+export { CustomReportDesigner } from './reportDesigner/CustomReportDesigner';
 export { SceneLayout } from './SceneLayout';
 export { SceneTheme } from './SceneTheme';
 export { SceneView } from './SceneView';

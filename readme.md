@@ -20,6 +20,8 @@
     - 自定义设计器嵌入
     - 原生设计器嵌入
 4. 报表设计器嵌入
+    - 自定义设计器嵌入
+    - 原生设计器嵌入
 5. 自定义门户
 6. 仪表板重新布局
 7. 切换主题
@@ -81,8 +83,8 @@
 💡 此项目部署时，需提前更改以下配置
 
 1. 如果此项目需要部署的地址存在子路径，那么需要更改 package.json 文件中的 homepage 和 env.js 文件中的 WYN_HOME_PAGE 为您的子路径。
-2. 根据 src/common/utils/utils.ts 中的注释修改对应代码。
-3. 将 env.js 文件中的 USE_CUSTOM_THEME 改为 false。
+2. 将 env.js 文件中的 USE_CUSTOM_THEME 改为 false。
+3. 将 env.js 文件中的 IS_DEPLOY_SITE 改为 true
 
 </aside> 
 

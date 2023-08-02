@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { SceneHeader } from '../../components/scene/SceneHeader/SceneHeader';
-import { scenesDesigner, dependentPackageLoad, PluginTypes, isLoaded } from '../../common/utils/utils';
+import { scenesDesigner, dependentPackageLoad, PluginTypes } from '../../common/utils/utils';
 import { useSelectedKeys } from '../index';
 import './SceneView.scss';
 
@@ -44,7 +44,7 @@ const SceneViewPC: FC = () => {
         view.destroy();
       }
     };
-  }, []);
+  });
 
   useEffect(() => {
     dependentPackageLoad(PluginTypes.Dashboard).then((value) => {

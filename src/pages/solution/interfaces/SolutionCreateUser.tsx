@@ -11,7 +11,7 @@ export const SolutionCreateUser: FC = () => {
   const title = '创建用户';
   const description = '通过调用API，组织管理员可在当前组织下创建用户';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/api/RESTful%20API/User';
-  const codeText = 'url: {baseUrl}/admin/api/accountmanagement/api/v1/users?token={token}\n\
+  const codeText = `url: {baseUrl}/admin/api/accountmanagement/api/v1/users?token={token}\n\
 method: POST\n\
 headers: {\n\
   "Content-Type": "application/json",\n\
@@ -19,19 +19,19 @@ headers: {\n\
 }\n\
 mode: "cors"\n\
 body: {\n\
-  username: ${username},\n\
-  email: ${email},\n\
+  username: \${username},\n\
+  email: \${email},\n\
   mobile: "",\n\
   firstName: "",\n\
   lastName: "",\n\
   fullName: "",\n\
-  password: ${password},\n\
-  confirmPassword: ${password},\n\
-  roles: ${roles},\n\
+  password: \${password},\n\
+  confirmPassword: \${password},\n\
+  roles: \${roles},\n\
   customizePropertyInfo: {},\n\
-  tenantId: ${tenantId},\n\
+  tenantId: \${tenantId},\n\
   enabled: true,\n\
-}';
+}`;
   const contentRef: any = useRef(null);
 
   const getAllUsers = async () => {

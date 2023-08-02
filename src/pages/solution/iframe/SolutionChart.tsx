@@ -18,7 +18,7 @@ export const SolutionChart: FC = () => {
   const title = 'iframe集成-图表';
   const description = '用户可以在其 Web 应用程序的 iFrame 中指定图表对应的URL来实现嵌入图表，同时嵌入的图表可与其他图表联动分析，嵌入结果如下。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/url-integration/single-component';
-  const codeText = '<iframe src="{baseUrl}/dashboards/view/{dashboardId}?token=${token}&scenario=line&size=fittoscreen&actions=clearselection%2Cfocus%2Cannotation%2Cexport%2Cfilter%2Cclearruntimefilter%2Csort%2Crank%2Cmodelparameters%2Cconvertvisual%2Coptions.property.conditionalformat%2Coptions.property.referenceline%2Coptions.property.trendlines%2Coptions.property.expand%2Cshowdata%2Canalysispath&openfulldashboardmode=newwindow"></iframe>';
+  const codeText = `<iframe src="{baseUrl}/dashboards/view/{dashboardId}?token=\${token}&scenario=line&size=fittoscreen&actions=clearselection%2Cfocus%2Cannotation%2Cexport%2Cfilter%2Cclearruntimefilter%2Csort%2Crank%2Cmodelparameters%2Cconvertvisual%2Coptions.property.conditionalformat%2Coptions.property.referenceline%2Coptions.property.trendlines%2Coptions.property.expand%2Cshowdata%2Canalysispath&openfulldashboardmode=newwindow"></iframe>`;
 
   useEffect(() => {
 

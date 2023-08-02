@@ -1,5 +1,5 @@
 import { FC, useRef, useEffect, useState } from 'react';
-import { changeCssLink, dependentPackageLoad, PluginTypes, isLoaded } from '../../../common/utils/utils';
+import { changeCssLink, dependentPackageLoad, PluginTypes, removeCssLink } from '../../../common/utils/utils';
 import { SceneHeader } from '../../../components/scene/SceneHeader/SceneHeader';
 import { useSelectedKeys } from '../../index';
 import './Designer.scss';
@@ -36,6 +36,7 @@ export const Designer: FC = () => {
       if (designer) {
         designer.destroy();
       }
+      removeCssLink();
     };
   }, []);
 
@@ -47,7 +48,7 @@ export const Designer: FC = () => {
 
   useEffect(() => {
     if (!isPackageLoaded) return;
-    if (selectedKeys[0] !== '原生设计器嵌入') {
+    if (selectedKeys[0] !== '原生仪表板设计器嵌入') {
       return;
     }
     initDesigner();

@@ -1,15 +1,17 @@
 import { FC, useEffect, useState } from 'react'
 import { SolutionHeader, ShowCodeBottom, SolutionToggleHeader } from '../../../components/solution';
 import solutionDivSvg from '../../../common/images/sidebar/div.svg';
-import { dependentPackageLoad, PluginTypes, isLoaded } from '../../../common/utils/utils';
+import { dependentPackageLoad, PluginTypes } from '../../../common/utils/utils';
 import { useSelectedKeys } from '../../index';
 import './SolutionFilter.scss';
+
+let dashboardInstance: any;
 
 export const SolutionFilter: FC = () => {
   const title = 'DIV集成-仪表板过滤';
   const description = '用户可以使用DIV的原生方式，将仪表板的DIV元素写入业务系统的网页代码中，实现在业务系统中嵌入仪表板，同时通过外部筛选实现动态过滤仪表板内容。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/dashboard';
-  const codeText = '<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.default.css"> \n\
+  const codeText = `<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.default.css"> \n\
 <link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.vendor.css"> \n\
 <script src="../../../js/dashboard/polyfills.js"></script> \n\
 <script src="../../../js/dashboard/dashboard.libs.common.js"></script> \n\
@@ -34,7 +36,7 @@ export const SolutionFilter: FC = () => {
     container.innerHTML = ""; \n\
     let bi = { ...defaultWynBi }; \n\
     if (paySet.size) { \n\
-      bi.dp = `{"paymenttype":[${Array.from(paySet).map(name => `"${name}"`).join(",")}]}` \n\
+      bi.dp = "{paymenttype:[{Array.from(paySet).map(name => name).join(',')}]}" \n\
     } \n\
     const ins = WynBi.createViewerLite(bi); \n\
     ins.initialize({ \n\
@@ -66,10 +68,7 @@ export const SolutionFilter: FC = () => {
   } \n\
   \n\
   refreshDashboard(); \n\
-<script />';
-
-  const { selectedKeys } = useSelectedKeys();
-  const [isPackageLoaded, setIsPackageLoaded] = useState<boolean>(false);
+<script />`;
 
   const paySet: any = new Set();
   const defaultWynBi = {
@@ -79,45 +78,22 @@ export const SolutionFilter: FC = () => {
     dashboardId: 'f2a3f074-dbaa-47f4-8bb6-d1d0591f67ec',
   }
 
-  useEffect(() => {
-    const refreshDashboard = () => {
+  const { selectedKeys } = useSelectedKeys();
+  const [isPackageLoaded, setIsPackageLoaded] = useState<boolean>(false);
 
-      dependentPackageLoad(PluginTypes.Dashboard).then((value) => {
-        setIsPackageLoaded(true);
-      });
+  const refreshDashboard = () => {
+    if (dashboardInstance) {
+      destroyIns();
     }
 
-    const selectPay = (e: any) => {
-      if (e.target.checked) {
-        paySet.add(e.target.value);
-        refreshDashboard();
-      } else {
-        paySet.delete(e.target.value);
-        refreshDashboard();
-      }
-    }
-
-    const elements = document.getElementsByName("pay");
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].addEventListener("click", selectPay);
-    }
-
-    refreshDashboard();
-  });
-
-  useEffect(() => {
-    if (!isPackageLoaded) return;
-    if (selectedKeys[0] !== '仪表板过滤') {
-      return;
-    }
     const container: any = document.getElementById("page-1");
     container.innerHTML = "";
     let bi: any = { ...defaultWynBi };
     if (paySet.size) {
       bi.dp = `{"paymenttype":[${Array.from(paySet).map(name => `"${name}"`).join(",")}]}`
     }
-    const ins = WynBi.createViewerLite(bi);
-    ins.initialize({
+    dashboardInstance = WynBi.createViewerLite(bi);
+    dashboardInstance.initialize({
       container: container,
     }).then((uiDashboard: any) => {
       const page = uiDashboard.pages[0]; // UIPage
@@ -127,7 +103,45 @@ export const SolutionFilter: FC = () => {
       page.connect(dom);
       page.refresh();
     });
+  };
+
+  const initDashboard = () => { refreshDashboard(); };
+
+  const destroyIns = () => {
+    dashboardInstance.destroy();
+    dashboardInstance = undefined;
+  };
+
+  useEffect(() => {
+    dependentPackageLoad(PluginTypes.Dashboard).then((value) => {
+      setIsPackageLoaded(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!isPackageLoaded) return;
+    if (selectedKeys[0] !== '仪表板过滤') {
+      return;
+    }
+
+    initDashboard();
+
+    return () => {
+      if (dashboardInstance) {
+        destroyIns();
+      }
+    }
   }, [isPackageLoaded, selectedKeys])
+
+  const selectHandler = (e: any) => {
+    if (e.target.checked) {
+      paySet.add(e.target.value);
+    } else {
+      paySet.delete(e.target.value);
+    }
+
+    refreshDashboard();
+  }
 
   return (
     <div className='solution-filter'>
@@ -138,19 +152,19 @@ export const SolutionFilter: FC = () => {
             请选择缴费方式：
             <div className="solution-control-list">
               <div className="solution-control-item">
-                <input id="alipay" type="checkbox" value="支付宝" name="pay" /> <label htmlFor="alipay">支付宝</label>
+                <input id="alipay" type="checkbox" value="支付宝" name="pay" onChange={selectHandler} /> <label htmlFor="alipay">支付宝</label>
               </div>
               <div className="solution-control-item">
-                <input id="wechat" type="checkbox" value="微信" name="pay" /> <label htmlFor="wechat">微信</label>
+                <input id="wechat" type="checkbox" value="微信" name="pay" onChange={selectHandler} /> <label htmlFor="wechat">微信</label>
               </div>
               <div className="solution-control-item">
-                <input id="card" type="checkbox" value="银行卡" name="pay" /> <label htmlFor="card">银行卡</label>
+                <input id="card" type="checkbox" value="银行卡" name="pay" onChange={selectHandler} /> <label htmlFor="card">银行卡</label>
               </div>
               <div className="solution-control-item">
-                <input id="cash" type="checkbox" value="现金" name="pay" /> <label htmlFor="cash">现金</label>
+                <input id="cash" type="checkbox" value="现金" name="pay" onChange={selectHandler} /> <label htmlFor="cash">现金</label>
               </div>
               <div className="solution-control-item">
-                <input id="other" type="checkbox" value="其他" name="pay" /> <label htmlFor="other">其他</label>
+                <input id="other" type="checkbox" value="其他" name="pay" onChange={selectHandler} /> <label htmlFor="other">其他</label>
               </div>
             </div>
           </div>
@@ -162,4 +176,4 @@ export const SolutionFilter: FC = () => {
       </div>
     </div>
   )
-}
+};

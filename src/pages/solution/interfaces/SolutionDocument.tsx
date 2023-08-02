@@ -11,7 +11,7 @@ export const SolutionDocument: FC = () => {
   const title = '查看我的文档';
   const description = '通过调用API，获取当前用户可见的全部文档列表。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/api/RESTful%20API/Documents';
-  const codeText = 'url: {baseUrl}/api/graphql?token={token}\n\
+  const codeText = `url: {baseUrl}/api/graphql?token={token}\n\
 method: POST\n\
 headers: {\n\
   "Content-Type": "application/json",\n\
@@ -36,7 +36,7 @@ body: {\n\
       effective_ops\n\
     }\n\
   }\n\
-}';
+}`;
   const map: any = {
     "rdl": "报表",
     "rdlx": "报表",

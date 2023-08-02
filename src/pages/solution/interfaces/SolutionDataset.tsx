@@ -11,7 +11,7 @@ export const SolutionDataset: FC = () => {
   const title = '创建数据集';
   const description = '通过调用API，用户可连接到指定数据源，加工和形成可用于数据分析的数据集。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/api/RESTful%20API/Dataset';
-  const codeText = 'url: {baseUrl}/api/datasetmanagement/adddataset?token={token}\n\
+  const codeText = `url: {baseUrl}/api/datasetmanagement/adddataset?token={token}\n\
 method: POST\n\
 headers: {\n\
   "Content-Type": "application/json",\n\
@@ -77,7 +77,7 @@ const getDefaultFormat = (dataType) => {\n\
     default:\n\
       return "";\n\
   }\n\
-}';
+}`;
 
   const contentRef: any = useRef(null);
 

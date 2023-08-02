@@ -2,7 +2,7 @@ import { FC, useEffect, useState, useRef, MouseEventHandler, createContext, useM
 import { Layout, Row, FloatButton, Drawer, Form, Radio, Switch, Button, ConfigProvider, Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
 
-import { changeCssLink, dependentPackageLoad, PluginTypes } from '../../../common/utils/utils';
+import { changeCssLink, dependentPackageLoad, PluginTypes, removeCssLink } from '../../../common/utils/utils';
 import { CustomDesignerHeader } from '../../../components/scene/customDesigner/Header';
 import { CustomDesignerVerticalSideBar, CustomDesignerHorizontalSideBar } from '../../../components/scene/customDesigner/SideBar';
 import { FloatDatasetSelector } from '../../../components/scene/customDesigner/FloatButton';
@@ -113,6 +113,7 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
         })
         designer.destroy();
       }
+      removeCssLink();
     }
   }, [layoutFormValue]);
 
@@ -124,7 +125,7 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
 
   useEffect(() => {
     if (!isPackageLoaded) return;
-    if (selectedKeys[0] !== '自定义设计器嵌入') {
+    if (selectedKeys[0] !== '自定义仪表板设计器嵌入') {
       return;
     }
     createDesigner();

@@ -285,7 +285,6 @@ const dependentPackageObj = {
 			'/viewer-app.chart.css',
 			'/viewer-app.css',
 			'/designer-app.css',
-			'/viewer-app.blue.css'
 		],
 		js: [
 			'/viewer-app.js',
@@ -295,23 +294,25 @@ const dependentPackageObj = {
 	},
 };
 
-export const isLoaded = {
+// 下述 CDN 地址仅用于 WYN playground 的 Demo 环境，部署时请勿引用。
+// 部署时请在 env.js 中将 IS_DEPLOY_SITE 改为 true
+const isDeploySite = WYN.IS_DEPLOY_SITE;
+
+const isLoaded = {
 	isDashboardLoaded: false,
 	isReportLoaded: false,
 };
 
-// 此 CDN 地址仅用于 WYN playground 的 Demo 环境，部署时请勿引用。
-// 如需部署，请将此地址更改为: `${'您的 wyn 的地址'}/api/PluginAssets` 和 `${'您的 wyn 的地址'}/api/themefiles`
-const getBaseJsUrl = (pluginType?: PluginType) => `https://cdn.grapecity.com.cn/wyn/playground/assets/${pluginType}`;
-const getBaseCssUrl = (pluginType?: PluginType) => `https://cdn.grapecity.com.cn/wyn/playground/assets/${pluginType}`;
+const getBaseJsUrl = isDeploySite
+	? () => `${WYN.WYN_HOST}/api/PluginAssets`
+	: (pluginType?: PluginType, productVersion?: string) => `https://cdn.grapecity.com.cn/wyn/playground/assets/${productVersion}/${pluginType}`;;
+const getBaseCssUrl = isDeploySite
+	? () => `${WYN.WYN_HOST}/api/themefiles`
+	: (pluginType?: PluginType, productVersion?: string) => `https://cdn.grapecity.com.cn/wyn/playground/assets/${productVersion}/${pluginType}`;
 
-// 如需部署，请更改此变量
-const WYN_VERSION = {
-	dashboard: '您的 wyn 中 dashboard 插件的版本号',
-	report: '您的 wyn 中 report 插件的版本号',
-};
 
-const loadCss = (pluginType: PluginType) => {
+
+const loadCss = (pluginType: PluginType, version: string) => {
 	const dependentCssList = dependentPackageObj[pluginType].css;
 	const linkList = dependentCssList.map(dependentCss => new Promise((resolve, reject) => {
 		const link = document.createElement('link');
@@ -319,36 +320,61 @@ const loadCss = (pluginType: PluginType) => {
 			resolve(true);
 		};
 		link.rel = 'stylesheet';
-		// 如需部署，请改为: link.href = `${getBaseCssUrl()}${dependentCss}?theme=default&version=${WYN_VERSION.dashboard}&plugin=${pluginType}s`;
-		link.href = getBaseCssUrl(pluginType) + dependentCss;
+		link.href = isDeploySite
+			? `${getBaseCssUrl()}${dependentCss}?theme=default&version=${version}&plugin=${pluginType}s`
+			: getBaseCssUrl(pluginType, version) + dependentCss;
 		document.head.appendChild(link);
 	}));
 	return Promise.all(linkList);
 };
 
-const loadJs = (pluginType: PluginType) => {
+const loadJs = (pluginType: PluginType, version: string) => {
 	const dependentJsList = dependentPackageObj[pluginType].js;
 	const scriptList = dependentJsList.map(dependentJs => new Promise((resolve, reject) => {
 		const script = document.createElement('script');
 		script.onload = () => {
 			resolve(true);
 		};
-		// 如需部署，请改为: script.src = `${getBaseJsUrl()}/${pluginType}s-${WYN_VERSION[pluginType]}${dependentJs}`;
-		script.src = getBaseJsUrl(pluginType) + dependentJs;
+		script.src = isDeploySite
+			? `${getBaseJsUrl()}/${pluginType}s-${version}${dependentJs}`
+			: getBaseJsUrl(pluginType, version) + dependentJs;
 		document.head.appendChild(script);
 	}));
 	return Promise.all(scriptList);
 };
 
-export const dependentPackageLoad = (pluginType: PluginType) => {
+const getWynVersions = async () => {
+	const configUrl = `${WYN.WYN_HOST}/admin/api/settings/versions`;
+	return fetch(configUrl + `?token=${WYN.WYN_INTERFACE_TOKEN}`)
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (res) {
+			return {
+				productVersion: res.productVersion,
+				dashboardPluginVersion: res.pluginVersions['GCES Dashboards'],
+				reportPluginVersion: res.pluginVersions['GCES Reporting']
+			};
+		}).catch((res) => {
+			console.error('Error: 依赖包错误，请检查当前依赖包版本是否有误.');
+		});
+};
+
+export const dependentPackageLoad = async (pluginType: PluginType) => {
 	if (pluginType === PluginTypes.Dashboard && isLoaded.isDashboardLoaded) {
 		return Promise.resolve();
 	};
 	if (pluginType === PluginTypes.Report && isLoaded.isReportLoaded) {
 		return Promise.resolve();
 	};
-	const cssIsLoaded = loadCss(pluginType);
-	const jsIsLoaded = loadJs(pluginType);
+	const versions = await getWynVersions();
+	if (!versions) {
+		return;
+	}
+	const { productVersion, dashboardPluginVersion, reportPluginVersion } = versions;
+	const realVersion = isDeploySite ? (pluginType === PluginTypes.Dashboard ? dashboardPluginVersion : reportPluginVersion) : productVersion;
+	const cssIsLoaded = loadCss(pluginType, realVersion);
+	const jsIsLoaded = loadJs(pluginType, realVersion);
 	return Promise.all([cssIsLoaded, jsIsLoaded]).then(() => {
 		if (pluginType === PluginTypes.Dashboard) {
 			isLoaded.isDashboardLoaded = true;
@@ -359,13 +385,47 @@ export const dependentPackageLoad = (pluginType: PluginType) => {
 	});
 };
 
-export const changeCssLink = (theme: string) => {
+export const changeCssLink = async (theme: string, type: PluginType = PluginTypes.Dashboard) => {
+	const versions = await getWynVersions();
+	if (!versions) {
+		return;
+	}
+	const { productVersion, dashboardPluginVersion, reportPluginVersion } = versions;
+
 	document.getElementById('theme-container')?.remove();
-	const themeLink = document.createElement('link');
-	// 如需部署，请将此地址更改为: 
-	// themeLink.href = `${getBaseCssUrl()}/dashboard.app.css?theme=${theme}&version=${WYN_VERSION.dashboard}&plugin=dashboards`;
-	themeLink.href = `https://cdn.grapecity.com.cn/wyn/playground/assets/dashboard/dashboard.app.${theme}.css`;
-	themeLink.rel = 'stylesheet';
-	themeLink.id = 'theme-container';
-	document.head.appendChild(themeLink);
+	if (type === PluginTypes.Dashboard) {
+		const dashboardThemePackages = ['app', 'vendor'];
+		for (const themePackage of dashboardThemePackages) {
+			const themeLink = document.createElement('link');
+			themeLink.href = isDeploySite
+				? `${getBaseCssUrl()}/dashboard.${themePackage}.css?theme=${theme}&version=${dashboardPluginVersion}&plugin=dashboards`
+				: `https://cdn.grapecity.com.cn/wyn/playground/assets/${productVersion}/dashboard/dashboard.${themePackage}.${theme}.css`;
+			themeLink.rel = 'stylesheet';
+			themeLink.id = 'theme-container-dashboard';
+			document.head.appendChild(themeLink);
+		}
+		return;
+	}
+	const reportThemePackages = ['viewer-app', 'designer-app'];
+	for (const themePackage of reportThemePackages) {
+		const themeLink = document.createElement('link');
+		themeLink.href = isDeploySite
+			? `${getBaseCssUrl()}/${themePackage}.css?theme=${theme}&version=${reportPluginVersion}&plugin=${type}s`
+			: `https://cdn.grapecity.com.cn/wyn/playground/assets/${productVersion}/report/${themePackage}.${theme}.css`;
+		themeLink.rel = 'stylesheet';
+		themeLink.id = 'theme-container-report';
+		document.head.appendChild(themeLink);
+	}
+};
+
+export const removeCssLink = (type: PluginType = PluginTypes.Dashboard) => {
+	const customCssLinks = document.querySelectorAll(`#theme-container-${type}`);
+	[].forEach.call(customCssLinks, cssLink => {
+		document.head.removeChild(cssLink);
+	});
 }
+
+export const cacheReportInfo = {
+	reportId: 'c7db29de-39c1-49c1-b3a2-fc8cec623333',
+	datasetName: 'Demo_销售明细_报表',
+};

@@ -9,7 +9,8 @@ import { ReactComponent as HeaderTryOutSvg } from '../images/layout/try.svg';
 import { ReactComponent as ApiSvg } from '../images/sidebar/api.svg';
 import { ReactComponent as ChartSvg } from '../images/sidebar/chart.svg';
 import { ReactComponent as DashboardSvg } from '../images/sidebar/dashboard.svg';
-import { ReactComponent as DesignerSvg } from '../images/sidebar/designer.svg';
+import { ReactComponent as DashboardDesignerSvg } from '../images/sidebar/dashboardDesigner.svg';
+import { ReactComponent as ReportDesignerSvg } from '../images/sidebar/reportDesigner.svg';
 import { ReactComponent as DivSvg } from '../images/sidebar/div.svg';
 import { ReactComponent as HomeSvg } from '../images/sidebar/home.svg';
 import { ReactComponent as IframeSvg } from '../images/sidebar/iframe.svg';
@@ -94,7 +95,8 @@ const HeaderTryOutIcon: FC = () => <Icon component={HeaderTryOutSvg} width={16} 
 const HomeIcon: FC = () => <Icon component={HomeSvg} width={16} style={{ fontSize: 16 }} />;
 const DashboardIcon: FC = () => <Icon component={DashboardSvg} width={16} style={{ fontSize: 16 }} />;
 const ChartIcon: FC = () => <Icon component={ChartSvg} width={16} style={{ fontSize: 16 }} />;
-const DesignerIcon: FC = () => <Icon component={DesignerSvg} width={16} style={{ fontSize: 16 }} />;
+const DashboardDesignerIcon: FC = () => <Icon component={DashboardDesignerSvg} width={16} style={{ fontSize: 16 }} />;
+const ReportDesignerIcon: FC = () => <Icon component={ReportDesignerSvg} width={16} style={{ fontSize: 16 }} />;
 const PortalIcon: FC = () => <Icon component={PortalSvg} width={16} style={{ fontSize: 16 }} />;
 const LayoutIcon: FC = () => <Icon component={LayoutSvg} width={16} style={{ fontSize: 16 }} />;
 const ThemeIcon: FC = () => <Icon component={ThemeSvg} width={16} style={{ fontSize: 16 }} />;
@@ -184,7 +186,8 @@ export {
   HomeIcon,
   DashboardIcon,
   ChartIcon,
-  DesignerIcon,
+  DashboardDesignerIcon,
+  ReportDesignerIcon,
   PortalIcon,
   LayoutIcon,
   ThemeIcon,

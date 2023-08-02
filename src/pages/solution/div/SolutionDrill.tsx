@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { solutionDivDrillDesigner, dependentPackageLoad, PluginTypes, isLoaded } from '../../../common/utils/utils';
+import { solutionDivDrillDesigner, dependentPackageLoad, PluginTypes } from '../../../common/utils/utils';
 import { SolutionHeader, ShowCodeBottom, SolutionToggleHeader } from '../../../components/solution';
 import { useSelectedKeys } from '../../index';
 import solutionDivSvg from '../../../common/images/sidebar/div.svg';
@@ -10,7 +10,7 @@ export const SolutionDrill: FC = () => {
   const title = 'DIV集成-仪表板钻取';
   const description = '用户可以使用DIV的原生方式，将仪表板的DIV元素写入业务系统的网页代码中，实现在业务系统中嵌入仪表板，同时通过外部切换钻取路径实现动态查看仪表板内容。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/dashboard';
-  const codeText = '<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.default.css"> \
+  const codeText = `<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.default.css"> \
 \n<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.vendor.css"> \
 \n<script src="../../../js/dashboard/polyfills.js"></script> \
 \n<script src="../../../js/dashboard/dashboard.libs.common.js"></script> \
@@ -93,7 +93,7 @@ export const SolutionDrill: FC = () => {
 \n	document.getElementById("drillUp1").addEventListener("click", drillUp1); \
 \n	document.getElementById("drillDown1").addEventListener("click", drillDown1); \
 \n	document.getElementById("drillReset1").addEventListener("click", drillReset1); \
-\n<script />';
+\n<script />`;
 
   const map: any = {
     "客户地区": "",

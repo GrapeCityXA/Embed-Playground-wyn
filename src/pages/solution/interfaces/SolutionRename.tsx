@@ -10,7 +10,7 @@ export const SolutionRename: FC = () => {
   const title = '文档重命名';
   const description = '通过调用API，实现对当前用户的文档重命名';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/api/RESTful%20API/Documents';
-  const codeText = 'url: {baseUrl}/api/graphql?token={token},\n\
+  const codeText = `url: {baseUrl}/api/graphql?token={token},\n\
 method: POST,\n\
 headers: {\n\
 	"Content-Type": "application/json",\n\
@@ -23,7 +23,7 @@ body: {\n\
       renamed_id\n\
     }\n\
   }\n\
-}';
+}`;
 
   const contentRef = useRef(null);
 

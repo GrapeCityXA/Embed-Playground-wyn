@@ -3,7 +3,7 @@ import { createHashRouter, useOutletContext } from 'react-router-dom';
 import App from '../App';
 import ErrorPage from '../components/ErrorPage/ErrorPage';
 import { Home } from './home/Home';
-import { Dashboard, CustomDesigner, Designer, SceneLayout, SceneTheme, SceneView, SceneChart, Portal, PortalDataCenter, PortalKanban, ReportDesigner } from './scene';
+import { Dashboard, CustomDesigner, Designer, SceneLayout, SceneTheme, SceneView, SceneChart, Portal, PortalDataCenter, PortalKanban, ReportDesigner, CustomReportDesigner } from './scene';
 import {
   SolutionUser,
   SolutionControl,
@@ -57,8 +57,12 @@ const router = createHashRouter([
             element: <CustomDesigner />,
           },
           {
-            path: 'scene/designer-report',
+            path: 'scene/designer-report/standard',
             element: <ReportDesigner />,
+          },
+          {
+            path: 'scene/designer-report/custom',
+            element: <CustomReportDesigner />,
           },
           {
             path: 'scene/portal',
@@ -198,9 +202,10 @@ export const routerPathMap: any = {
   '/': '主页',
   '/scene/dashboard': '仪表板嵌入',
   '/scene/chart': '图表嵌入',
-  '/scene/designer-dashboard/standard': '原生设计器嵌入',
-  '/scene/designer-dashboard/custom': '自定义设计器嵌入',
-  '/scene/designer-report': '报表设计器嵌入',
+  '/scene/designer-dashboard/standard': '原生仪表板设计器嵌入',
+  '/scene/designer-dashboard/custom': '自定义仪表板设计器嵌入',
+  '/scene/designer-report/standard': '原生报表设计器嵌入',
+  '/scene/designer-report/custom': '自定义报表设计器嵌入',
   '/scene/portal': '自定义门户嵌入',
   '/scene/portal/data-center': '自定义门户嵌入',
   '/scene/portal/kanban-logistics': '自定义门户嵌入',
@@ -248,7 +253,8 @@ export const routerPathSubmenuMap: any = {
   '/scene/chart': [],
   '/scene/designer-dashboard/standard': ['仪表板设计器嵌入'],
   '/scene/designer-dashboard/custom': ['仪表板设计器嵌入'],
-  '/scene/designer-report': [],
+  '/scene/designer-report/standard': ['报表设计器嵌入'],
+  '/scene/designer-report/custom': ['报表设计器嵌入'],
   '/scene/portal': [],
   '/scene/portal/data-center': [],
   '/scene/portal/kanban-logistics': [],

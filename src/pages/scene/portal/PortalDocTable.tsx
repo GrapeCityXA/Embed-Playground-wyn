@@ -6,7 +6,7 @@ import zhCN from 'antd/locale/zh_CN';
 import { api } from '../../../common/utils/utils';
 import { formatTime } from '../../../common/utils/api-service';
 import {
-  PortalInfoIcon,
+  // PortalInfoIcon,
   PortalTypeDashboardIcon,
   PortalTypeReportIcon,
   PortalTypeDataModelIcon,
