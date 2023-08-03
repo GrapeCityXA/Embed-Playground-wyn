@@ -31,7 +31,6 @@ export const ReportDesigner: FC = () => {
         element: options.element,
         portalUrl: WYN.WYN_HOST,
         referenceToken: WYN.WYN_TOKEN,
-        reportId: options.reportInfo.id,
       });
       (viewer as any).openReport(options.reportInfo.id);
     };
