@@ -6,6 +6,7 @@ import { useSelectedKeys } from '../../index';
 import './CustomReportDesigner.scss';
 
 let viewer: any | undefined;
+// 缓存报表 Token
 const cacheReportToken: any = undefined;
 
 export const CustomReportDesigner: FC = () => {
@@ -37,13 +38,11 @@ export const CustomReportDesigner: FC = () => {
     designerOptions.dataTab.dataSources.canModify = false;
     designerOptions.dataTab.dataSets.canModify = false;
 
-
     designerOptions.openViewer = (options: any) => {
       viewer = (window as any).GrapeCity.WynReports.Viewer.create({
         element: options.element,
         portalUrl: WYN.WYN_HOST,
-        referenceToken: WYN.WYN_TOKEN,
-        reportId: options.reportInfo.id,
+        referenceToken: cacheReportToken,
         isFullscreen: true,
         paramPanelPosition: 'Top',
       });
@@ -73,7 +72,6 @@ export const CustomReportDesigner: FC = () => {
           });
         });
       });
-
     });
   }, [isPackageLoaded, selectedKeys])
 
