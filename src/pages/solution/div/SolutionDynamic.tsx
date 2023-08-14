@@ -73,7 +73,7 @@ export const SolutionDynamic: FC = () => {
   const title = 'DIV集成-动态报表';
   const description = '用户可以动态选择想要分析和展现的图表，快速生成最终的分析报告。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/dashboard';
-  const codeText = '<iframe\n\
+  const codeText = `<iframe\n\
   id="solution-dynamic-iframe"\n\
   className="solution-iframe"\n\
   onload="onIframeLoaded()"\n\
@@ -199,13 +199,14 @@ export const SolutionDynamic: FC = () => {
         //refreshPage\n\
         iframe.src = iframe.src;\n\
     }\n\
-<script />';
+<script />`;
   let pageLoading = false;
   let testTimer: any = undefined;
-  
+
   const onIframeLoaded = () => {
     pageLoading = false;
   }
+
   const updateReport = () => {
 
     const checkedDoms = document.getElementsByClassName("solution-control-checkbox");
@@ -247,7 +248,7 @@ export const SolutionDynamic: FC = () => {
   const loadIframe = () => {
     const iframe: any = document.getElementById('solution-dynamic-iframe');
     console.log("loading" + Date.now() + " pageloading" + pageLoading);
-    //refreshPage
+    //refresh page
     iframe.src = iframe.src;
   }
 

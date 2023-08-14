@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Select, Badge } from 'antd';
+import { Select } from 'antd';
 
 import {
   SceneHeaderAppIcon,

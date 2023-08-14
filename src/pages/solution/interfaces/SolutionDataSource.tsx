@@ -11,7 +11,7 @@ export const SolutionDataSource: FC = () => {
   const title = '创建数据源';
   const description = '通过调用API，用户可创建数据源连接到指定数据库开始数据分析。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/api/RESTful%20API/Datasource';
-  const codeText = 'url: {baseUrl}/api/graphql?token={token}\n\
+  const codeText = `url: {baseUrl}/api/graphql?token={token}\n\
 method: POST\n\
 headers: {\n\
   "Content-Type": "application/json",\n\
@@ -21,11 +21,11 @@ mode: "cors"\n\
 body: {\n\
   mutation {\n\
     addDatasource(\n\
-      name: "${name}",\n\
-      provider: "${provider}",\n\
-      connectionString: "${connectionString}",\n\
+      name: "\${name}",\n\
+      provider: "\${provider}",\n\
+      connectionString: "\${connectionString}",\n\
       useAdvancedConfig: true,\n\
-      extractInDatabase: ${extractInDatabase},\n\
+      extractInDatabase: \${extractInDatabase},\n\
       mappingConfig: ""\n\
     ) {\n\
       id,\n\
@@ -34,7 +34,7 @@ body: {\n\
       connectionString,\n\
     }\n\
   }\n\
-}';
+}`;
 
   const contentRef: any = useRef(null);
 

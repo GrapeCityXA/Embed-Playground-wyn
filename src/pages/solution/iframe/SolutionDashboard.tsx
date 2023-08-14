@@ -7,7 +7,7 @@ export const SolutionDashboard: FC = () => {
   const title = 'iframe集成-仪表板';
   const description = '用户可以在其 Web 应用程序的 iFrame 中指定仪表板对应的URL来实现嵌入仪表板，同时可以通过外部参数传入来控制其交互行为，嵌入结果如下。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/url-integration/dashboard-report-designer';
-  const codeText = '<iframe src="{basic_src}/dashboards/view/{dashboardId}?token={token}&toolbar=${toolbar}&size=${size}"></iframe>';
+  const codeText = `<iframe src="{basic_src}/dashboards/view/{dashboardId}?token={token}&toolbar=\${toolbar}&size=\${size}"></iframe>`;
 
   useEffect(() => {
     const iframe: any = document.getElementById("solution-dashboard-iframe");

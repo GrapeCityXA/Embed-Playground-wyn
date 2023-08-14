@@ -4,8 +4,8 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import {
-  ApiIcon, ChartIcon, DashboardIcon, DesignerIcon, DivIcon, HomeIcon, IframeIcon, LanguageIcon, LayoutIcon, MobileIcon,
-  OemIcon, PluginIcon, PortalIcon, ThemeIcon, UserIcon, ViewIcon
+  ApiIcon, ChartIcon, DashboardIcon, DashboardDesignerIcon, ReportDesignerIcon, DivIcon, HomeIcon, IframeIcon, LanguageIcon, LayoutIcon,
+  MobileIcon, OemIcon, PluginIcon, PortalIcon, ThemeIcon, UserIcon, ViewIcon,
 } from '../../common/icons/index';
 
 import './PlaygroundSideBar.scss';
@@ -34,9 +34,13 @@ const menuList: MenuProps['items'] = [
   getItem(<Divider orientation="left" orientationMargin="0">嵌入式场景体验</Divider>, '嵌入式场景体验', null, [], 'group'),
   getItem(<NavLink to="/scene/dashboard">仪表板嵌入</NavLink>, '仪表板嵌入', <DashboardIcon />),
   getItem(<NavLink to="/scene/chart">图表嵌入</NavLink>, '图表嵌入', <ChartIcon />),
-  getItem('设计器嵌入', '设计器嵌入', <DesignerIcon />, [
-    getItem(<NavLink to="/scene/designer/custom">自定义设计器嵌入</NavLink>, '自定义设计器嵌入'),
-    getItem(<NavLink to="/scene/designer/standard">标准设计器嵌入</NavLink>, '标准设计器嵌入'),
+  getItem('仪表板设计器嵌入', '仪表板设计器嵌入', <DashboardDesignerIcon />, [
+    getItem(<NavLink to="/scene/designer-dashboard/custom">自定义设计器嵌入</NavLink>, '自定义仪表板设计器嵌入'),
+    getItem(<NavLink to="/scene/designer-dashboard/standard">原生设计器嵌入</NavLink>, '原生仪表板设计器嵌入'),
+  ]),
+  getItem('报表设计器嵌入', '报表设计器嵌入', <ReportDesignerIcon />, [
+    getItem(<NavLink to="/scene/designer-report/custom">自定义设计器嵌入</NavLink>, '自定义报表设计器嵌入'),
+    getItem(<NavLink to="/scene/designer-report/standard">原生设计器嵌入</NavLink>, '原生报表设计器嵌入'),
   ]),
   getItem(<NavLink to="/scene/portal">自定义门户嵌入</NavLink>, '自定义门户嵌入', <PortalIcon />),
   getItem(<NavLink to="/scene/layout">仪表板重新布局</NavLink>, '仪表板重新布局', <LayoutIcon />),

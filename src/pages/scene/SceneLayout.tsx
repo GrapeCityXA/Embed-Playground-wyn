@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { SceneHeader } from '../../components/scene/SceneHeader/SceneHeader';
-import { scenesDesigner, dependentPackageLoad, PluginTypes, isLoaded } from '../../common/utils/utils';
+import { scenesDesigner, dependentPackageLoad, PluginTypes } from '../../common/utils/utils';
 import { useSelectedKeys } from '../index';
 
 import './SceneLayout.scss';
@@ -23,7 +23,7 @@ const menu = [
 const FirstLayoutDom = () => {
   const domRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   let ins: any = undefined;
-  
+
   const [isPackageLoaded, setIsPackageLoaded] = useState<boolean>(false);
   const { selectedKeys } = useSelectedKeys();
 
@@ -49,6 +49,7 @@ const FirstLayoutDom = () => {
     return () => {
       if (ins) {
         ins.destroy();
+        ins = undefined;
       }
     };
   }, [])

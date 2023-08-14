@@ -136,7 +136,6 @@ export const DatasetSelectorDialog: FC<DatasetSelectorDialogProps> = (props) => 
             expandedKeys={expandedKeys}
             autoExpandParent={autoExpandParent}
             treeData={datasetTreeData}
-            // showLine={true}
             checkable
             checkStrictly
             selectable={false}

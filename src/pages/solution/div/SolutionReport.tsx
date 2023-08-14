@@ -6,11 +6,13 @@ import { useSelectedKeys } from '../../index';
 import solutionDivSvg from '../../../common/images/sidebar/div.svg';
 import './SolutionReport.scss';
 
+let viewer: any | undefined;
+
 export const SolutionReport: FC = () => {
   const title = 'DIV集成-报表集成';
   const description = '用户可以使用DIV的原生方式，将报表的DIV元素写入业务系统的网页代码中，实现在业务系统中嵌入报表。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/dashboard';
-  const codeText = '<link href="../../../plugin/report/viewer-app.blue.css" rel="stylesheet"> \
+  const codeText = `<link href="../../../plugin/report/viewer-app.blue.css" rel="stylesheet"> \
 \n<link href="../../../plugin/report/viewer-app.chart.css" rel="stylesheet"> \
 \n<script type="text/javascript" src="../../../plugin/report/viewer-app.js"></script> \
 \n<script type="text/javascript" src="../../../plugin/report/viewer-app.chart.js"></script> \
@@ -25,7 +27,7 @@ export const SolutionReport: FC = () => {
 \n    locale: "en", \
 \n  }); \
 \n  viewer.openReport({reportId}); \
-\n<script />'
+\n<script />`;
 
   const { selectedKeys } = useSelectedKeys();
   const [isPackageLoaded, setIsPackageLoaded] = useState<boolean>(false);
@@ -41,13 +43,19 @@ export const SolutionReport: FC = () => {
     if (selectedKeys[0] !== '报表集成') {
       return;
     }
-    const viewer = (window as any).GrapeCity.WynReports.Viewer.create({
+    viewer = (window as any).GrapeCity.WynReports.Viewer.create({
       element: 'report-viewer-app-1',
       portalUrl: WYN.WYN_HOST,
       referenceToken: WYN.WYN_TOKEN,
-      locale: "en",
     });
     viewer.openReport('e0899bb7-827c-4a33-a9d9-12dd720ed220');
+
+    return () => {
+      if (viewer) {
+        viewer.destroy();
+        viewer = undefined;
+      }
+    };
   }, [isPackageLoaded, selectedKeys])
 
   return (

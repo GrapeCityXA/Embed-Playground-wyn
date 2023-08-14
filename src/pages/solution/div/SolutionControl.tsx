@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react'
-import { solutionDivInitDesigner, dependentPackageLoad, PluginTypes, isLoaded } from '../../../common/utils/utils';
+import { solutionDivInitDesigner, dependentPackageLoad, PluginTypes } from '../../../common/utils/utils';
 import { SolutionHeader, ShowCodeBottom } from '../../../components/solution';
 import solutionDivSvg from '../../../common/images/sidebar/div.svg';
 import { useSelectedKeys } from '../../index';
@@ -11,7 +11,7 @@ export const SolutionControl: FC = () => {
   const title = 'DIV集成-设计器初始化控制';
   const description = '用户可以通过DIV的原生方式，将仪表板设计器直接嵌入业务系统，并初始化部分设计器元素，实现快速创建仪表板。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/dashboard-designer';
-  const codeText = '<link rel="stylesheet" href="../../../styles/dashboard/standard/dashboard.vendor.css"> \
+  const codeText = `<link rel="stylesheet" href="../../../styles/dashboard/standard/dashboard.vendor.css"> \
 \n<link rel="stylesheet" href="../../../styles/dashboard/standard/dashboard.app.css"> \
 \n<script src="../../../js/dashboard/polyfills.js"></script> \
 \n<script src="../../../js/dashboard/dashboard.libs.common.js"></script> \
@@ -30,7 +30,7 @@ export const SolutionControl: FC = () => {
 \n  designer.initialize({ \
 \n    container: document.querySelector("#dashboard"), \
 \n  }); \
-\n<script />';
+\n<script />`;
 
   const controlRef = useRef(null);
   const { selectedKeys } = useSelectedKeys();

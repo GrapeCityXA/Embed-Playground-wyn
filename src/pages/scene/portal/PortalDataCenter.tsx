@@ -109,7 +109,7 @@ export const PortalDataCenter: FC = () => {
             <CaretDownOutlined />
           </Space>
         </Dropdown>
-        <Button className='create-new-dashboard-button' onClick={handleJumpCustomDesigner}><NavLink to={'/scene/designer/custom'}>新建仪表板</NavLink></Button>
+        <Button className='create-new-dashboard-button' onClick={handleJumpCustomDesigner}><NavLink to={'/scene/designer-dashboard/custom'}>新建仪表板</NavLink></Button>
       </div>
       <div className='document-list'>
         {/* <PortalDocTable documentType={type} getDocInfo={getDocInfo} /> */}

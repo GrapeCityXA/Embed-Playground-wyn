@@ -10,7 +10,7 @@ export const SolutionOrganization: FC = () => {
   const title = '创建子组织';
   const description = '通过调用API，组织管理员可在当前组织下创建子组织';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/api/RESTful%20API/Organization';
-  const codeText = 'url: {baseUrl}/admin/api/accountmanagement/api/v1/organizations?token={token}\n\
+  const codeText = `url: {baseUrl}/admin/api/accountmanagement/api/v1/organizations?token={token}\n\
 method: POST\n\
 headers: {\n\
   "Content-Type": "application/json",\n\
@@ -22,7 +22,7 @@ body: {\n\
   name: {name} ,\n\
   parentTenantId: {parentTenantId},\n\
   props: [],\n\
-}';
+}`;
 
   const contentRef: any = useRef(null);
 
