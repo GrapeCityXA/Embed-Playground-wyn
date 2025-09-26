@@ -1,6 +1,6 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { SolutionHeader, ShowCodeBottom, SolutionToggleHeader, } from '../../../components/solution';
-import { sceneCharts } from '../../../common/utils/utils';
+import { PluginTypes, dependentPackageLoad, sceneCharts, solutionDivChart1, solutionDivChart2 } from '../../../common/utils/utils';
 import solutionChartSvg from '../../../common/images/sidebar/iframe.svg';
 import 人力资源60_svg from '../../../common/images/scene/chart/人力资源60.svg';
 import 内部流程60_svg from '../../../common/images/scene/chart/内部流程60.svg';
@@ -15,65 +15,85 @@ import 销售系统60_svg from '../../../common/images/scene/chart/销售系统6
 import './SolutionChart.scss';
 
 export const SolutionChart: FC = () => {
-  const title = 'iframe集成-图表';
+  const title = 'DIV嵌入-图表';
   const description = '用户可以在其 Web 应用程序的 iFrame 中指定图表对应的URL来实现嵌入图表，同时嵌入的图表可与其他图表联动分析，嵌入结果如下。';
-  const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/url-integration/single-component';
-  const codeText = `<iframe src="{baseUrl}/dashboards/view/{dashboardId}?token=\${token}&scenario=line&size=fittoscreen&actions=clearselection%2Cfocus%2Cannotation%2Cexport%2Cfilter%2Cclearruntimefilter%2Csort%2Crank%2Cmodelparameters%2Cconvertvisual%2Coptions.property.conditionalformat%2Coptions.property.referenceline%2Coptions.property.trendlines%2Coptions.property.expand%2Cshowdata%2Canalysispath&openfulldashboardmode=newwindow"></iframe>`;
-
+  const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/single-component';
+  const codeText = `<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.default.css"> \
+\n<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.vendor.css"> \
+\n<script src="../../../js/dashboard/polyfills.js"></script> \
+\n<script src="../../../js/dashboard/dashboard.libs.common.js"></script> \
+\n<script src="../../../js/dashboard/dashboard.libs.sheet.js"></script> \
+\n<script src="../../../js/dashboard/dashboard.libs.chart.js"></script> \
+\n<script src="../../../js/dashboard/lite/dashboard.viewerLite.js"></script> \
+\n<div id="root"> \
+\n</div> \
+\n<script> \
+\n	const ins = WynBi.createViewerLite({ \
+\n	  lng: 'zh', \
+\n	  baseUrl: WYN.WYN_INTERFACE_HOST, \
+\n	  token: WYN.WYN_INTERFACE_TOKEN, \
+\n	  dashboardId: "51fea2f5-3607-4c66-83ca-cd621c572811", \
+\n	  scenario: "column" \
+\n	}); \
+\n	ins.initialize({ \
+\n		container: document.querySelector("#root"), \
+\n	}).then((uiDashboard) => { \
+\n	  uiDashboard.connect(document.querySelector("#root")); \
+\n	}); \
+\n<script />`;
+  const chart1Ref = useRef<HTMLDivElement>(null);
+  const chart2Ref = useRef<HTMLDivElement>(null);
+  const chart1Ins = useRef<any>();
+  const chart2Ins = useRef<any>();
+  const [leftValue, setLeftValue] = useState<string>(sceneCharts.left[0].scenario);
+  const [rightValue, setRightValue] = useState<string>(sceneCharts.right[0].scenario);
   useEffect(() => {
-
-    const leftContainer: any = document.getElementById("solution-control-list-left");
-    const rightContainer: any = document.getElementById("solution-control-list-right");
-    const chart1: any = document.getElementById("solution-chart1");
-    const chart2: any = document.getElementById("solution-chart2");
-
-    let selectedLeft = 0;
-    let selectedRight = 0;
-    let srcLeft = sceneCharts.left[selectedLeft].url;
-    let srcRight = sceneCharts.right[selectedRight].url;
-
-    chart1.src = srcLeft;
-    chart2.src = srcRight;
-
-    const select = document.createElement("select");
-    select.className = "solution-control-dropdown";
-    sceneCharts.left.forEach((chart, index) => {
-      const option = document.createElement("option");
-      option.value = chart.url;
-      option.text = chart.name;
-      select.appendChild(option);
+    chart1Ins.current?.destroy();
+    dependentPackageLoad(PluginTypes.Dashboard).then((value) => {
+      if (chart1Ref && chart1Ref.current) {
+        chart1Ins.current = WynBi.createViewerLite({
+          ...solutionDivChart1,
+          scenario: leftValue
+        });
+        chart1Ins.current.initialize({
+          container: chart1Ref.current,
+        }).then((uiDashboard: any) => {
+          if (!chart1Ref?.current) {
+            return
+          }
+          uiDashboard.connect(chart1Ref.current);
+          uiDashboard.refresh();
+        })
+      }
     });
-
-    leftContainer.appendChild(select);
-
-    select.addEventListener("change", (e: any) => {
-      const current = e.target.selectedIndex;
-      if (current === selectedLeft) return;
-      selectedLeft = current;
-      srcLeft = sceneCharts.left[selectedLeft].url;
-      chart1.src = srcLeft;
+  }, [leftValue]);
+  useEffect(() => {
+    chart2Ins.current?.destroy();
+    dependentPackageLoad(PluginTypes.Dashboard).then((value) => {
+      if (chart2Ref && chart2Ref.current) {
+        chart2Ins.current = WynBi.createViewerLite({
+          ...solutionDivChart2,
+          scenario: rightValue
+        });
+        chart2Ins.current.initialize({
+          container: chart2Ref.current,
+        }).then((uiDashboard: any) => {
+          if (!chart2Ref?.current) {
+            return
+          }
+          uiDashboard.connect(chart2Ref.current);
+          uiDashboard.refresh();
+        })
+      }
     });
+  }, [rightValue]);
 
-    const select2 = document.createElement("select");
-    select2.className = "solution-control-dropdown";
-    sceneCharts.right.forEach((chart, index) => {
-      const option = document.createElement("option");
-      option.value = chart.url;
-      option.text = chart.name;
-      select2.appendChild(option);
-    });
-
-    rightContainer.appendChild(select2);
-
-    select2.addEventListener("change", (e: any) => {
-      const current = e.target.selectedIndex;
-      if (current === selectedRight) return;
-      selectedRight = current;
-      srcRight = sceneCharts.right[selectedRight].url;
-      chart2.src = srcRight;
-    });
-  });
-
+  const onLeftChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setLeftValue(e.target.value);
+  }
+  const onRightChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setRightValue(e.target.value);
+  }
   return (
     <div className='solution-chart'>
       <SolutionHeader img={solutionChartSvg} title={title} description={description} helpDocUrl={helpDocUrl} />
@@ -85,9 +105,15 @@ export const SolutionChart: FC = () => {
               <div className="solution-control-list solution-chart-control-list">
                 <div id="solution-control-list-left" className="solution-control-list-left solution-control-item">
                   <div className="control-item-title">（左侧图表）</div>
+                  <select name="" id="" className='solution-control-dropdown' onChange={onLeftChange}>
+                    {sceneCharts.left.map(item=><option value={item.scenario} key={item.scenario}>{item.name}</option>)}
+                  </select>
                 </div>
                 <div id="solution-control-list-right" className="solution-control-list-right solution-control-item">
                   <div className="control-item-title">（右侧图表）</div>
+                  <select name="" id="" className='solution-control-dropdown' onChange={onRightChange}>
+                    {sceneCharts.right.map(item=><option value={item.scenario} key={item.scenario}>{item.name}</option>)}
+                  </select>
                 </div>
               </div>
             </div>
@@ -118,7 +144,8 @@ export const SolutionChart: FC = () => {
               </div>
             </div>
             <div className="solution-chart reality-chart-div reality-chart-div1">
-              <iframe id="solution-chart2" className=" solution-iframe reality-chart" title='solution-chart2'></iframe>
+              {/* <iframe id="solution-chart2" className=" solution-iframe reality-chart" title='solution-chart2'></iframe> */}
+              <div id="solution-chart2" ref={chart2Ref} className="solution-iframe reality-chart" />
             </div>
           </div>
           <div className="solution-chart-row">
@@ -137,7 +164,8 @@ export const SolutionChart: FC = () => {
               </div>
             </div>
             <div className="solution-chart reality-chart-div reality-chart-div2">
-              <iframe id="solution-chart1" className=" solution-iframe reality-chart" title='solution-chart1'></iframe>
+              {/* <iframe id="solution-chart1" className=" solution-iframe reality-chart" title='solution-chart1'></iframe> */}
+              <div id="solution-chart1" className=" solution-iframe reality-chart" ref={chart1Ref}/>
             </div>
             <div className="solution-chart virtual-chart3">
               <div className="solution-chart-header">

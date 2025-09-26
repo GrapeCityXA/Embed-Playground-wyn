@@ -54,6 +54,10 @@ const portalMenuItems: MenuItem[] = [
   getItem(<NavLink to="/scene/portal/kanban-market">营销看板</NavLink>, '营销看板', <PortalKanbanIcon />),
   getItem(<NavLink to="/scene/portal/kanban-product">生产看板</NavLink>, '生产看板', <PortalKanbanIcon />),
   getItem(<NavLink to="/scene/portal/kanban-logistics">物流看板</NavLink>, '物流看板', <PortalKanbanIcon />),
+  // getItem(<NavLink to="/scene/portal/integration">文档门户</NavLink>, '文档门户', <PortalKanbanIcon />),
+  // getItem(<NavLink to="/scene/portal/admin">系统管理</NavLink>, '系统管理', <PortalKanbanIcon />),
+  // getItem(<NavLink to="/scene/portal/hidePrimaryNav">我的分析</NavLink>, '我的分析', <PortalKanbanIcon />),
+  // getItem(<NavLink to="/scene/portal/hideNav">文档列表</NavLink>, '文档列表', <PortalKanbanIcon />),
   // getItem(<NavLink to="/scene/portal/kanban-multiple">综合看板</NavLink>, '综合看板', <PortalKanbanIcon />),
   getItem(<NavLink to="/scene/portal/data-center">数据中心</NavLink>, '数据中心', <PortalDataCenterIcon />),
   getItem('客户管理', '客户管理', <PortalCustomerIcon />, undefined, undefined, true),
@@ -63,10 +67,14 @@ const portalMenuItems: MenuItem[] = [
 ];
 
 const keyToKanbanMap: any = {
-  '物流看板': '370c3205-ad56-4d35-9f1b-a071911cd58d',
-  '综合看板': '370c3205-ad56-4d35-9f1b-a071911cd58d',
-  '营销看板': '7409756f-2f7e-4849-9701-27193f8a0b46',
-  '生产看板': 'f609549d-7ea6-463f-8062-c9d7979911cb',
+  '物流看板': '69ab3b91-ba4c-4353-91b2-799946cf25e3',
+  '综合看板': '0f452a45-b9ee-4abe-9b0f-72b1de8a6e01',
+  '营销看板': '0f452a45-b9ee-4abe-9b0f-72b1de8a6e01',
+  '生产看板': '71ff1ecd-b222-43c0-9a3b-54289fef455f',
+  // '文档门户': 'integration',
+  // '系统管理': 'admin',
+  // '我的分析': 'hidePrimaryNav',
+  // '文档列表': 'hideNav',
 };
 
 const useCustomTheme = WYN.USE_CUSTOM_THEME;

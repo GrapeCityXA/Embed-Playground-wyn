@@ -7,21 +7,21 @@ import './Dashboard.scss';
 
 const menu = [
   {
-    value: '01130402-b444-4373-9098-a2a351422417',
-    label: '省电力公司电网资产监管中心',
+    value: '0f452a45-b9ee-4abe-9b0f-72b1de8a6e01',
+    label: '营销管理智慧中心',
   },
   {
-    value: '5f2de284-68ba-4753-bc95-6d2b65a54443',
-    label: '制造业综合管理',
+    value: '36216337-ba1b-44b5-a219-0f93a54119ed',
+    label: '新零售看板',
   },
   {
-    value: 'a847e7c2-9c15-416e-a01f-5f0b429faa4c',
-    label: '生产设备监控中心',
+    value: '31fd1d3a-597a-4c72-a0f5-1ccfa9972a95',
+    label: '供应链管理指挥中心',
   },
 ]
 
 export const Dashboard: FC = () => {
-  const [dashboardId, setDashboardId] = useState<string>('01130402-b444-4373-9098-a2a351422417');
+  const [dashboardId, setDashboardId] = useState<string>('0f452a45-b9ee-4abe-9b0f-72b1de8a6e01');
 
   const onSelectChange = (newDashboardId: string) => {
     setDashboardId(newDashboardId);

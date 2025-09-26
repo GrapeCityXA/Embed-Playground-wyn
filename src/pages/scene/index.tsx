@@ -10,3 +10,4 @@ export { SceneLayout } from './SceneLayout';
 export { SceneTheme } from './SceneTheme';
 export { SceneView } from './SceneView';
 export { SceneChart } from './SceneChart';
+export { SceneAi } from './SceneAi';

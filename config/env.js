@@ -1,3 +1,4 @@
+
 'use strict';
 
 const fs = require('fs');
@@ -90,7 +91,7 @@ function getClientEnvironment(publicUrl) {
         FAST_REFRESH: process.env.FAST_REFRESH !== 'false',
       }
     );
-    const wynVar = Object.keys(process.env)
+  const wynVar = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
     .reduce(
       (env, key) => {
@@ -98,14 +99,14 @@ function getClientEnvironment(publicUrl) {
         return env;
       },
       {
-        WYN_HOST: 'https://wynwx.grapecity.com.cn/wyn',
-        WYN_TOKEN: '为您Wyn 部署的服务器上生成的token',
-        WYN_INTERFACE_HOST: 'https://wynwx.grapecity.com.cn/wyn',
-        WYN_INTERFACE_TOKEN: '为您Wyn 部署的服务器上生成的token',
+        WYN_HOST: 'http://xa-dd2-lucas:51980',
+        WYN_TOKEN: 'BB15020AB248CED1B8D4785F04EF9C5FF03DC7378971559B8AEE7F3C1E8656C1', // 替换为本地的token
+        WYN_INTERFACE_HOST: 'http://xa-dd2-lucas:51980',
+        WYN_INTERFACE_TOKEN: 'BB15020AB248CED1B8D4785F04EF9C5FF03DC7378971559B8AEE7F3C1E8656C1',  // 替换为本地的token
 
-        WYN_HOME_PAGE: '',
-        USE_CUSTOM_THEME: true,
-        IS_DEPLOY_SITE: false,
+        WYN_HOME_PAGE: 'playground',
+        USE_CUSTOM_THEME: false,
+        IS_DEPLOY_SITE: true,
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin

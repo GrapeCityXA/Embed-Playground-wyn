@@ -5,7 +5,7 @@ import './SolutionDesigner.scss';
 import solutionDesignerSvg from '../../../common/images/sidebar/iframe.svg';
 
 export const SolutionDesigner: FC = () => {
-  const title = 'iframe集成-设计器';
+  const title = 'iframe嵌入-设计器';
   const description = '用户可以在其 Web 应用程序的 iFrame 中指定仪表板设计器对应的URL来实现嵌入仪表板设计器，用户可以在门户中直接设计并预览仪表板，嵌入结果如下。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/url-integration/dashboard-report-designer';
   const codeText = '<iframe src="{basic_src}/dashboards/edit/{dashboardId}?token={token}"></iframe>';

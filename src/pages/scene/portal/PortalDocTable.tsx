@@ -256,7 +256,7 @@ export const PortalDocTable: FC<PortalDocTableProps> = (props) => {
         destroyOnClose={true}
       >
         <iframe id="portal-preview-ifame" className="portal-preview-ifame" title='portal-preview-ifame'
-          src={`${WYN.WYN_HOST}/${previewDocInfo.type === 'dbd' ? 'dashboards' : 'reports'}/view/${previewDocInfo.id}?&theme=default&token=${WYN.WYN_TOKEN}&lng=zh-CN${previewDocInfo.type === 'dbd' ? '&toolbar=false' : '&toolbar=hide'}`}></iframe>
+          src={`${WYN.WYN_HOST}/${previewDocInfo.type === 'dbd' ? 'dashboards' : 'reports'}/view/${previewDocInfo.id}?&theme=default&token=${WYN.WYN_TOKEN}&lng=zh-CN${previewDocInfo.type === 'dbd' ? '&toolbar=hide' : '&toolbar=hide'}`}></iframe>
       </Modal>
     </ConfigProvider>
   )

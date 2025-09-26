@@ -59,6 +59,8 @@
 			border-radius: 10px;
 			padding: 10px;
 			justify-content: space-evenly;
+			text-align: center;
+			cursor: pointer;
 
 			&:hover {
 				transition: all 0.5s;
@@ -73,19 +75,18 @@
 			.home-guide-item-title {
 				color: #000100;
 				font-size: 18px;
-				cursor: default;
-				margin-top: 30px;
+				margin-top: 20px;
 			}
 
 			.home-guide-item-description {
 				color: #676666;
 				font-size: 13px;
 				line-height: 24px;
-				cursor: default;
 			}
 
 			.home-guide-item-button-container {
 				opacity: 0;
+				margin-top: 10px;
 
 				.home-guide-item-button {
 					background-color: #5059d6;

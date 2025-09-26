@@ -70,7 +70,7 @@ const subReportElement = {
 };
 
 export const SolutionDynamic: FC = () => {
-  const title = 'DIV集成-动态报表';
+  const title = 'DIV嵌入-动态报表';
   const description = '用户可以动态选择想要分析和展现的图表，快速生成最终的分析报告。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/dashboard';
   const codeText = `<iframe\n\

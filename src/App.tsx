@@ -15,6 +15,10 @@ const App: FC = () => {
 
   useEffect(() => {
     // setSelectedKeys([routerPathMap[location.pathname]]);
+    if (location.pathname) {
+      setSelectedKeys([routerPathMap[location.pathname]]);
+      return;
+    }
     if (selectedKeys.length === 0) {
       const storageSelectedKeys = localStorage.getItem('selectedKeys');
       if (storageSelectedKeys !== null && routerPathMap[location.pathname] !== '主页') {

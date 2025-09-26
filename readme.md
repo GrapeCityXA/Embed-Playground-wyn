@@ -29,12 +29,12 @@
 
 **BI 嵌入式 方案体验**
 
-1. iFrame集成
-2. Div 集成
-3. REST API 集成
-4. 用户身份集成
-5. 移动端集成
-6. OEM 白标集成
+1. iFrame嵌入
+2. Div 嵌入
+3. REST API
+4. 用户身份嵌入
+5. 移动端嵌入
+6. OEM 白标嵌入
 
 **自定义系统扩展**
 
@@ -57,9 +57,9 @@
 
 ```jsx
 {
-    WYN_HOST: 'https://wynwx.grapecity.com.cn/wyn',
+    WYN_HOST: 'https://wyn.grapecity.com.cn',
     WYN_TOKEN: '为您Wyn 部署的服务器上生成的token',
-    WYN_INTERFACE_HOST: 'https://wynwx.grapecity.com.cn/wyn',
+    WYN_INTERFACE_HOST: 'https://wyn.grapecity.com.cn',
     WYN_INTERFACE_TOKEN: '为您Wyn 部署的服务器上生成的token',
 }
 ```

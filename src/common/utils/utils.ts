@@ -19,27 +19,62 @@ export const solutionDivDrillDesigner = {
 	dashboardId: "b95eaa5a-e759-4e50-af4e-a078cc0984cf",
 };
 
+export const solutionDivChart1 = {
+	lng: 'zh',
+	baseUrl: WYN.WYN_INTERFACE_HOST,
+	token: WYN.WYN_INTERFACE_TOKEN,
+	dashboardId: "b6fffeb8-db5b-41ae-a62e-29f9ea2a53e0",
+	scenario: "column"
+};
+
+export const solutionDivChart2 = {
+	lng: 'zh',
+	baseUrl: WYN.WYN_INTERFACE_HOST,
+	token: WYN.WYN_INTERFACE_TOKEN,
+	dashboardId: "51fea2f5-3607-4c66-83ca-cd621c572811",
+	scenario: "area"
+};
+
 export const sceneCharts = {
 	left: [{
+		scenario: "column",
 		name: "公司资金计划",
 		url: `${WYN.WYN_INTERFACE_HOST}/dashboards/view/b6fffeb8-db5b-41ae-a62e-29f9ea2a53e0?token=${WYN.WYN_INTERFACE_TOKEN}&scenario=column&size=fittoscreen`,
 	}, {
+		scenario: "column-1",
 		name: "超收超付率",
 		url: `${WYN.WYN_INTERFACE_HOST}/dashboards/view/b6fffeb8-db5b-41ae-a62e-29f9ea2a53e0?token=${WYN.WYN_INTERFACE_TOKEN}&scenario=column-1&size=fittoscreen`,
 	}, {
+		scenario: "combined",
 		name: "公司费用管理",
 		url: `${WYN.WYN_INTERFACE_HOST}/dashboards/view/b6fffeb8-db5b-41ae-a62e-29f9ea2a53e0?token=${WYN.WYN_INTERFACE_TOKEN}&scenario=combined&size=fittoscreen`,
 	},],
 	right: [{
+		scenario: "area",
 		name: "公司销售利润",
 		url: `${WYN.WYN_INTERFACE_HOST}/dashboards/view/51fea2f5-3607-4c66-83ca-cd621c572811?token=${WYN.WYN_INTERFACE_TOKEN}&scenario=area&size=fittoscreen`,
 	}, {
+		scenario: "radialStackedBar",
 		name: "业绩同比增长",
 		url: `${WYN.WYN_INTERFACE_HOST}/dashboards/view/51fea2f5-3607-4c66-83ca-cd621c572811?token=${WYN.WYN_INTERFACE_TOKEN}&scenario=radialStackedBar&size=fittoscreen`,
 	},],
 };
 
 export const api: any = {
+	getV2AllDocuments: {
+		displayName: '获取所有文档',
+		url: "api/v2/common/documents",
+		method: 'POST',
+		getBody: (type: string, orderby?: string) => {
+			const body: any = {
+				types: type,
+			};
+			if(orderby) {
+				body.orderby = orderby
+			}
+			return body;
+		}
+	},
 	getAllDocuments: {
 		displayName: '获取所有文档',
 		// rdl,rdlx,dbd
@@ -57,7 +92,8 @@ export const api: any = {
 			name,
 			email
 		},
-		effective_ops
+		effective_ops,
+		thumbnail,
 	}
 }`,
 	},
@@ -273,6 +309,7 @@ const dependentPackageObj = {
 		],
 		js: [
 			'/dashboard.libs.common.js',
+			'/wyn.dashboard.common.js',
 			'/dashboard.libs.sheet.js',
 			'/dashboard.libs.chart.js',
 			'/dashboard.libs.extension.js',
@@ -327,20 +364,49 @@ const loadCss = (pluginType: PluginType, version: string) => {
 	}));
 	return Promise.all(linkList);
 };
-
-const loadJs = (pluginType: PluginType, version: string) => {
-	const dependentJsList = dependentPackageObj[pluginType].js;
-	const scriptList = dependentJsList.map(dependentJs => new Promise((resolve, reject) => {
+function dynamicLoadScript(pluginType: PluginType, version: string, src: string) {
+	return new Promise((resolve, reject) => {
 		const script = document.createElement('script');
-		script.onload = () => {
-			resolve(true);
-		};
 		script.src = isDeploySite
-			? `${getBaseJsUrl()}/${pluginType}s-${version}${dependentJs}`
-			: getBaseJsUrl(pluginType, version) + dependentJs;
+			? `${getBaseJsUrl()}/${pluginType}s-${version}${src}`
+			: getBaseJsUrl(pluginType, version) + src;
+
+		script.onload = function () {
+				resolve(src);
+		};
+		script.onerror = function () {
+				reject(new Error('Failed to load ' + src));
+		};
 		document.head.appendChild(script);
-	}));
-	return Promise.all(scriptList);
+	});
+}
+
+const loadJs = async (pluginType: PluginType, version: string) => {	
+	const dependentJsList = dependentPackageObj[pluginType].js;
+	let commonJS = "", otherRes = [];
+	for(let i = 0; i < dependentJsList.length; i++) {
+		if (dependentJsList[i].indexOf("dashboard.libs.common.js") > 0){
+			commonJS = dependentJsList[i];
+		}else{
+			otherRes.push(dependentJsList[i]);
+		}
+	}
+	if(commonJS) {
+		await dynamicLoadScript(pluginType, version, commonJS)
+	}
+	return Promise.all(otherRes.map((url) => dynamicLoadScript(pluginType, version, url)));
+	
+	// const scriptList = dependentJsList.map(dependentJs => new Promise((resolve) => {
+	// 	const script = document.createElement('script');
+	// 	script.onload = () => {
+	// 		resolve(true);
+	// 	};
+	// 	script.src = isDeploySite
+	// 		? `${getBaseJsUrl()}/${pluginType}s-${version}${dependentJs}`
+	// 		: getBaseJsUrl(pluginType, version) + dependentJs;
+	// 	document.head.appendChild(script);
+	// }));
+	// return Promise.all(scriptList);
 };
 
 const getWynVersions = async () => {
@@ -351,9 +417,9 @@ const getWynVersions = async () => {
 		})
 		.then(function (res) {
 			return {
-				productVersion: res.productVersion,
-				dashboardPluginVersion: res.pluginVersions['GCES Dashboards'],
-				reportPluginVersion: res.pluginVersions['GCES Reporting']
+				productVersion: res.productVersion.split('+')[0]+'.0',
+				dashboardPluginVersion: res.pluginVersions['GCES Dashboards'].split('+')[0]+'.0',
+				reportPluginVersion: res.pluginVersions['GCES Reporting'].split('+')[0]+'.0'
 			};
 		}).catch((res) => {
 			console.error('Error: 依赖包错误，请检查当前依赖包版本是否有误.');

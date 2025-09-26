@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Advanced Chart5</title>
+    <g id="Advanced-Chart5" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="funnel备份" transform="translate(3.000000, 3.000000)" fill-rule="nonzero">
+            <rect id="Rectangle-path" fill="#999999" x="7.22222222" y="17.3339784" width="11.5555556" height="8.66666667"></rect>
+            <polygon id="Shape" fill="#7B74E1" points="22.3888889 8.6673117 3.61111111 8.6673117 7.22222222 17.3339784 18.7777778 17.3339784"></polygon>
+            <polygon id="Shape" fill="#FFC85B" points="0 0.000645036485 3.61111111 8.6673117 22.3888889 8.6673117 26 0.000645036485"></polygon>
+            <polygon id="路径" fill="#777777" points="18.7777778 17.3339784 18.7777778 26.000645 15.8888889 26.000645 15.8888889 17.3339784"></polygon>
+            <polygon id="路径" fill="#2D23B3" points="22.3888889 8.6673117 18.7777778 17.3339784 15.8888889 17.3339784 17.7269541 8.6673117"></polygon>
+            <polygon id="路径" fill="#FFB522" points="26 0.000645036485 22.3888889 8.6673117 17.7269541 8.6673117 21.1401764 0"></polygon>
+        </g>
+    </g>
+</svg>

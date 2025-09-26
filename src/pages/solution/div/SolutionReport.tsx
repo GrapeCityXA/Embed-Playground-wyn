@@ -9,7 +9,7 @@ import './SolutionReport.scss';
 let viewer: any | undefined;
 
 export const SolutionReport: FC = () => {
-  const title = 'DIV集成-报表集成';
+  const title = 'DIV嵌入-报表嵌入';
   const description = '用户可以使用DIV的原生方式，将报表的DIV元素写入业务系统的网页代码中，实现在业务系统中嵌入报表。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/dashboard';
   const codeText = `<link href="../../../plugin/report/viewer-app.blue.css" rel="stylesheet"> \
@@ -40,9 +40,9 @@ export const SolutionReport: FC = () => {
 
   useEffect(() => {
     if (!isPackageLoaded) return;
-    if (selectedKeys[0] !== '报表集成') {
-      return;
-    }
+    // if (selectedKeys[0] !== '报表集成') {
+    //   return;
+    // }
     viewer = (window as any).GrapeCity.WynReports.Viewer.create({
       element: 'report-viewer-app-1',
       portalUrl: WYN.WYN_HOST,
@@ -60,10 +60,10 @@ export const SolutionReport: FC = () => {
 
   return (
     <div className='solution-report'>
-      <SolutionHeader img={solutionDivSvg} title={title} description={description} helpDocUrl={helpDocUrl} />
+      {/* <SolutionHeader img={solutionDivSvg} title={title} description={description} helpDocUrl={helpDocUrl} /> */}
       <div className="report-content">
         <div id='report-viewer-app-1' className="report-viewer-app"></div>
-        <ShowCodeBottom codeText={codeText} title='报表集成' />
+        {/* <ShowCodeBottom codeText={codeText} title='报表集成' /> */}
       </div>
     </div>
   )

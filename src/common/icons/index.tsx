@@ -8,7 +8,9 @@ import { ReactComponent as HeaderTryOutSvg } from '../images/layout/try.svg';
 
 import { ReactComponent as ApiSvg } from '../images/sidebar/api.svg';
 import { ReactComponent as ChartSvg } from '../images/sidebar/chart.svg';
+import { ReactComponent as AiSvg } from '../images/sidebar/ai.svg';
 import { ReactComponent as DashboardSvg } from '../images/sidebar/dashboard.svg';
+import { ReactComponent as ReportSvg } from '../images/sidebar/reportEmbedded.svg';
 import { ReactComponent as DashboardDesignerSvg } from '../images/sidebar/dashboardDesigner.svg';
 import { ReactComponent as ReportDesignerSvg } from '../images/sidebar/reportDesigner.svg';
 import { ReactComponent as DivSvg } from '../images/sidebar/div.svg';
@@ -35,6 +37,7 @@ import { ReactComponent as AdvancedChartSvg } from '../images/scene/custom-desig
 import { ReactComponent as BasicChartSvg } from '../images/scene/custom-designer/Basci Chart.svg';
 import { ReactComponent as FilterChartSvg } from '../images/scene/custom-designer/Filter Chart.svg';
 import { ReactComponent as ContainerChartSvg } from '../images/scene/custom-designer/Container Chart.svg';
+import { ReactComponent as VizTemplateSvg } from '../images/scene/custom-designer/Component Template.svg';
 import { ReactComponent as ColumnChartSvg } from '../images/scene/custom-designer/Basci Chart1.svg';
 import { ReactComponent as LineChartSvg } from '../images/scene/custom-designer/Basci Chart2.svg';
 import { ReactComponent as StackedAreaChartSvg } from '../images/scene/custom-designer/Basci Chart3.svg';
@@ -94,7 +97,9 @@ const HeaderTryOutIcon: FC = () => <Icon component={HeaderTryOutSvg} width={16} 
 
 const HomeIcon: FC = () => <Icon component={HomeSvg} width={16} style={{ fontSize: 16 }} />;
 const DashboardIcon: FC = () => <Icon component={DashboardSvg} width={16} style={{ fontSize: 16 }} />;
+const ReportIcon: FC = () => <Icon component={ReportSvg} width={16} style={{ fontSize: 16 }} />;
 const ChartIcon: FC = () => <Icon component={ChartSvg} width={16} style={{ fontSize: 16 }} />;
+const AiIcon: FC = () => <Icon component={AiSvg} width={16} style={{ fontSize: 16 }} />;
 const DashboardDesignerIcon: FC = () => <Icon component={DashboardDesignerSvg} width={16} style={{ fontSize: 16 }} />;
 const ReportDesignerIcon: FC = () => <Icon component={ReportDesignerSvg} width={16} style={{ fontSize: 16 }} />;
 const PortalIcon: FC = () => <Icon component={PortalSvg} width={16} style={{ fontSize: 16 }} />;
@@ -121,6 +126,7 @@ const AdvancedChartIcon: FC = () => <Icon component={AdvancedChartSvg} width={18
 const BasicChartIcon: FC = () => <Icon component={BasicChartSvg} width={18} style={{ fontSize: 24 }} />;
 const FilterChartIcon: FC = () => <Icon component={FilterChartSvg} width={18} style={{ fontSize: 24 }} />;
 const ContainerChartIcon: FC = () => <Icon component={ContainerChartSvg} width={18} style={{ fontSize: 24 }} />;
+const VizTemplateIcon: FC = () => <Icon component={VizTemplateSvg} width={18} style={{ fontSize: 24 }} />;
 const ColumnChartIcon: FC = () => <Icon component={ColumnChartSvg} width={30} style={{ fontSize: 30 }} />;
 const LineChartIcon: FC = () => <Icon component={LineChartSvg} width={30} style={{ fontSize: 30 }} />;
 const StackedAreaChartIcon: FC = () => <Icon component={StackedAreaChartSvg} width={30} style={{ fontSize: 30 }} />;
@@ -185,7 +191,9 @@ export {
 
   HomeIcon,
   DashboardIcon,
+  ReportIcon,
   ChartIcon,
+  AiIcon,
   DashboardDesignerIcon,
   ReportDesignerIcon,
   PortalIcon,
@@ -267,5 +275,5 @@ export {
   PortalTypeDataModelIcon,
   PortalTypeDatasetIcon,
   PortalTypeDataSourceIcon,
+  VizTemplateIcon,
 };
-

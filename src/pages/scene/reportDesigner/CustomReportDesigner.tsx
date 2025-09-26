@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { SceneHeader } from '../../../components/scene/SceneHeader/SceneHeader';
 import { changeCssLink, dependentPackageLoad, PluginTypes, removeCssLink, cacheReportInfo } from '../../../common/utils/utils';
 import { useSelectedKeys } from '../../index';
@@ -7,7 +7,7 @@ import './CustomReportDesigner.scss';
 
 let viewer: any | undefined;
 // 缓存报表 Token
-const cacheReportToken: any = undefined;
+const cacheReportToken: any = "13A8B99E63B8F16F9433626980D96DF1E0EFD12733D7CACD677A8747E3A5DE44";
 
 export const CustomReportDesigner: FC = () => {
   const [isPackageLoaded, setIsPackageLoaded] = useState<boolean>(false);
@@ -73,6 +73,10 @@ export const CustomReportDesigner: FC = () => {
         });
       });
     });
+    return () => {
+      viewer && viewer.destroy();
+      viewer = undefined;
+    }
   }, [isPackageLoaded, selectedKeys])
 
   useEffect(() => {
@@ -85,7 +89,10 @@ export const CustomReportDesigner: FC = () => {
         if ((window as any).__isReactDndBackendSetUp) {
           (window as any).__isReactDndBackendSetUp = false;
         }
-        (window as any).GrapeCity.WynReports.Designer.destroy();
+        if (viewer) {
+          viewer.destroy();
+          viewer = undefined;
+        }
       }
       removeCssLink(PluginTypes.Report);
     };
@@ -94,7 +101,16 @@ export const CustomReportDesigner: FC = () => {
   return (
     <div className='scene-custom-report-designer'>
       <SceneHeader />
-      <div id='report-designer-app' className="scene-custom-designer-report"></div>
+      <ReportCore />
     </div>
   );
 };
+
+class ReportCore extends React.Component {
+  componentWillUnmount(): void {
+    (window as any).GrapeCity.WynReports.Designer.destroy();
+  }
+  render(): React.ReactNode {
+    return <div id='report-designer-app' className="scene-custom-designer-report"></div>
+  }
+}

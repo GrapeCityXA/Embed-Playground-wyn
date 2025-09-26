@@ -59,13 +59,14 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
 
   const createDesigner = () => {
     const customDesignerContainer = document.getElementById('customer-designer-viewer');
-
-    if (!designer) {
-      designer = WynBi.create('DashboardDesigner', {
-        baseUrl: WYN.WYN_HOST,
-        token: WYN.WYN_TOKEN,
-      });
+    if (designer) {
+      designer.destroy();
+      designer = null;
     }
+    designer = WynBi.create('DashboardDesigner', {
+      baseUrl: WYN.WYN_HOST,
+      token: WYN.WYN_TOKEN,
+    });
     designer.initialize({
       container: customDesignerContainer,
       defaults: {
@@ -112,6 +113,7 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
         designer.off('databindingPanelHidden', () => {
         })
         designer.destroy();
+        designer = null;
       }
       removeCssLink();
     }
@@ -129,7 +131,7 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
       return;
     }
     createDesigner();
-  }, [isPackageLoaded, selectedKeys, layoutFormValue])
+  }, [isPackageLoaded, selectedKeys[0], layoutFormValue])
 
 
   const isVerticalLayout = layoutFormValue.layout === 'vertical';
@@ -181,7 +183,12 @@ export const CustomDesigner: FC = (props: CustomDesignerProps) => {
       placement,
     });
   };
-  const addVisual = (visualName: string) => {
+  const addVisual = (visualName?: string, templateId?: string) => {
+    if (templateId) {
+      designer.addVisualByTemplateId(templateId);
+      return;
+    }
+
     designer.addVisual(visualName).then(() => {
       designer.showInspector();
       if (!layoutFormValue.showInspector) {

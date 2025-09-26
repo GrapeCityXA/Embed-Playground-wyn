@@ -8,7 +8,7 @@ import './SolutionFilter.scss';
 let dashboardInstance: any;
 
 export const SolutionFilter: FC = () => {
-  const title = 'DIV集成-仪表板过滤';
+  const title = 'DIV嵌入-仪表板过滤';
   const description = '用户可以使用DIV的原生方式，将仪表板的DIV元素写入业务系统的网页代码中，实现在业务系统中嵌入仪表板，同时通过外部筛选实现动态过滤仪表板内容。';
   const helpDocUrl = 'https://www.grapecity.com.cn/solutions/wyn/help/docs/embedded-integration/div-integration/dashboard';
   const codeText = `<link rel="stylesheet" href="../../../styles/dashboard/lite/dashboard.viewerLite.default.css"> \n\
